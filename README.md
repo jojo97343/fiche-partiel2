@@ -1,1 +1,82 @@
 # fiche-partiel2
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon Hub de Révisions</title>
+    <style>
+        :root {
+            --sidebar-width: 280px;
+            --bg-sidebar: #1e1e26;
+            --bg-active: #2d2d3a;
+            --accent: #4d96ff;
+            --text-color: #a7a3b8;
+        }
+
+        body { margin: 0; display: flex; height: 100vh; font-family: 'Segoe UI', sans-serif; background: #000; overflow: hidden; }
+
+        /* Menu de gauche */
+        nav {
+            width: var(--sidebar-width);
+            background: var(--bg-sidebar);
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #333;
+        }
+
+        .nav-header { padding: 30px 20px; border-bottom: 1px solid #333; }
+        .nav-header h2 { margin: 0; color: #ffd93d; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        .menu-list { list-style: none; padding: 15px 0; margin: 0; flex-grow: 1; overflow-y: auto; }
+        .menu-item {
+            padding: 15px 25px;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: 0.2s;
+            border-left: 4px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .menu-item:hover { background: var(--bg-active); color: white; }
+        .menu-item.active { background: var(--bg-active); color: var(--accent); border-left-color: var(--accent); font-weight: bold; }
+
+        /* Zone d'affichage (Droite) */
+        main { flex-grow: 1; background: #fff; position: relative; }
+        iframe { width: 100%; height: 100%; border: none; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-header">
+            <h2>📚 Mes Fiches</h2>
+        </div>
+        <ul class="menu-list">
+            <li class="menu-item active" onclick="loadPage('CG.html', this)">📊 Contrôle de Gestion</li>
+            <li class="menu-item" onclick="loadPage('FI.html', this)">💰 Finance</li>
+            <li class="menu-item" onclick="loadPage('mana.html', this)">👔 Management</li>
+            <li class="menu-item" onclick="loadPage('SO.html', this)">⚖️ Droit des Sociétés</li>
+            <li class="menu-item" onclick="loadPage('DT.html', this)">👷 Droit du Travail</li>
+            <li class="menu-item" onclick="loadPage('fisca.html', this)">🧾 Droit Fiscal</li>
+            <li class="menu-item" onclick="loadPage('compta.html', this)">📑 Comptabilité</li>
+        </ul>
+    </nav>
+
+    <main>
+        <iframe id="content-frame" src="gestion.html"></iframe>
+    </main>
+
+    <script>
+        function loadPage(fileName, element) {
+            // 1. Changer la source de l'iframe
+            document.getElementById('content-frame').src = fileName;
+
+            // 2. Mettre à jour le style du menu
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
