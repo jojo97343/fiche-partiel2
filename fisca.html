@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UE 446 — Droit Fiscal Approfondi</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;600&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161d;
+    --surface2: #1a1e27;
+    --border: #252a35;
+    --accent: #e8b84b;
+    --accent2: #5b8cff;
+    --accent3: #ff6b6b;
+    --accent4: #4ecdc4;
+    --accent5: #a78bfa;
+    --text: #e8eaf0;
+    --text-muted: #7a8099;
+    --text-dim: #4a5068;
+    --formula-bg: #0a1628;
+    --formula-border: #5b8cff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, #0d0f14 0%, #13161d 50%, #0d1520 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 3rem 2rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(232,184,75,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+  header h1 span { color: var(--accent); }
+  .header-sub {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 1.2rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  nav a:hover { color: var(--text); border-bottom-color: var(--accent); }
+  nav a .dot { width: 6px; height: 6px; border-radius: 50%; }
+
+  /* LAYOUT */
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* SECTIONS */
+  section {
+    margin-bottom: 3rem;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-number {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .section-accent {
+    width: 24px; height: 3px; border-radius: 2px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  /* CARDS GRID */
+  .grid { display: grid; gap: 1rem; }
+  .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .grid-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+
+  /* CARD */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem 1.4rem;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--text-dim); }
+  .card-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .card-title::before {
+    content: '';
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .card p { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+  .card p:last-child { margin-bottom: 0; }
+
+  /* LIST */
+  ul.items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  ul.items li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  ul.items li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--text-dim);
+  }
+  ul.items li strong { color: var(--text); font-weight: 600; }
+  ul.items li .tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    padding: 0.05rem 0.35rem;
+    border-radius: 3px;
+    margin-left: 0.3rem;
+    vertical-align: middle;
+  }
+
+  /* FORMULA BOX */
+  .formula {
+    background: var(--formula-bg);
+    border: 1px solid var(--formula-border);
+    border-left: 3px solid var(--formula-border);
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    margin: 0.75rem 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.88rem;
+    color: var(--accent2);
+    line-height: 1.6;
+  }
+  .formula .f-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.4rem;
+  }
+  .formula .f-main {
+    color: var(--accent2);
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+  .formula .f-note {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-top: 0.3rem;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+
+  /* ALERT / WARNING */
+  .alert {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    background: rgba(255,107,107,0.06);
+    border: 1px solid rgba(255,107,107,0.25);
+    border-radius: 6px;
+    padding: 0.85rem 1.1rem;
+    margin: 0.75rem 0;
+    font-size: 0.88rem;
+    color: #f0a0a0;
+  }
+  .alert-icon { flex-shrink: 0; font-size: 0.9rem; margin-top: 0.05rem; }
+  .alert.info {
+    background: rgba(91,140,255,0.06);
+    border-color: rgba(91,140,255,0.25);
+    color: #9ab8ff;
+  }
+  .alert.ok {
+    background: rgba(78,205,196,0.06);
+    border-color: rgba(78,205,196,0.25);
+    color: #7be5de;
+  }
+
+  /* BAREMES */
+  .bareme {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    margin: 0.75rem 0;
+  }
+  .bareme th {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .bareme td {
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.75rem;
+    color: var(--text-muted);
+  }
+  .bareme tr:hover td { background: var(--surface2); }
+  .bareme .hl { color: var(--accent); font-weight: 600; }
+
+  /* TIMELINE/STEPS */
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step {
+    display: flex;
+    gap: 1rem;
+    position: relative;
+  }
+  .step-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 28px;
+  }
+  .step-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    background: var(--bg);
+    flex-shrink: 0;
+    margin-top: 0.35rem;
+  }
+  .step-bar {
+    width: 1px;
+    background: var(--border);
+    flex: 1;
+    min-height: 20px;
+  }
+  .step-content {
+    padding-bottom: 1rem;
+    flex: 1;
+  }
+  .step-content p { font-size: 0.9rem; color: var(--text-muted); }
+  .step-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+
+  /* TAG COLORS */
+  .c1 { color: var(--accent); }
+  .c2 { color: var(--accent2); }
+  .c3 { color: var(--accent3); }
+  .c4 { color: var(--accent4); }
+  .c5 { color: var(--accent5); }
+  .tag-a { background: rgba(232,184,75,0.12); color: var(--accent); }
+  .tag-b { background: rgba(91,140,255,0.12); color: var(--accent2); }
+  .tag-c { background: rgba(255,107,107,0.12); color: var(--accent3); }
+  .tag-d { background: rgba(78,205,196,0.12); color: var(--accent4); }
+  .tag-e { background: rgba(167,139,250,0.12); color: var(--accent5); }
+
+  .card.border-a { border-left: 3px solid var(--accent); }
+  .card.border-b { border-left: 3px solid var(--accent2); }
+  .card.border-c { border-left: 3px solid var(--accent3); }
+  .card.border-d { border-left: 3px solid var(--accent4); }
+  .card.border-e { border-left: 3px solid var(--accent5); }
+  .card-title.c1::before { background: var(--accent); }
+  .card-title.c2::before { background: var(--accent2); }
+  .card-title.c3::before { background: var(--accent3); }
+  .card-title.c4::before { background: var(--accent4); }
+  .card-title.c5::before { background: var(--accent5); }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--border); margin: 1.5rem 0; }
+
+  /* SUBSECTION */
+  .subsection { margin-bottom: 1.5rem; }
+  .subsection-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    padding-left: 0.75rem;
+    border-left: 2px solid var(--border);
+  }
+
+  /* FULL WIDTH CARD */
+  .card-full {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    nav a { padding: 0.8rem 0.9rem; font-size: 0.65rem; }
+    .section-title { font-size: 1.3rem; }
+  }
+
+  /* PRINT */
+  @media print {
+    body { background: white; color: black; }
+    nav { display: none; }
+    header { border-bottom: 2px solid #333; }
+  }
+
+  /* SEARCH */
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.6rem 1rem;
+    margin-bottom: 2rem;
+    gap: 0.75rem;
+  }
+  .search-bar input {
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    flex: 1;
+  }
+  .search-bar input::placeholder { color: var(--text-dim); }
+  .search-icon { color: var(--text-dim); font-size: 0.9rem; }
+
+  .highlight { background: rgba(232,184,75,0.25); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-label">Cnam Intec · Révisions</div>
+  <h1>UE <span>446</span> — Droit Fiscal Approfondi</h1>
+  <p class="header-sub">Fiche de révision complète · Sessions 2023–2025</p>
+</header>
+
+<nav>
+  <a href="#tva"><span class="dot" style="background:var(--accent)"></span>TVA</a>
+  <a href="#enreg"><span class="dot" style="background:var(--accent2)"></span>Enregistrement</a>
+  <a href="#ifi"><span class="dot" style="background:var(--accent4)"></span>IFI</a>
+  <a href="#local"><span class="dot" style="background:var(--accent5)"></span>CFE / CVAE</a>
+  <a href="#controle"><span class="dot" style="background:var(--accent3)"></span>Contrôle</a>
+  <a href="#contentieux"><span class="dot" style="background:#f97316)"></span>Contentieux</a>
+</nav>
+
+<main>
+
+  <div class="search-bar">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Rechercher une notion, un taux, un délai…" oninput="doSearch(this.value)">
+  </div>
+
+  <!-- ═══════════════════════════════════════ TVA ═══════════════════════════════════════ -->
+  <section id="tva">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2 class="section-title">Taxe sur la Valeur Ajoutée</h2>
+      <div class="section-accent" style="background:var(--accent)"></div>
+    </div>
+
+    <!-- Champ d'application -->
+    <div class="subsection">
+      <div class="subsection-title">Champ d'application</div>
+      <div class="grid grid-2">
+        <div class="card border-a">
+          <div class="card-title c1">2 critères cumulatifs d'assujettissement</div>
+          <ul class="items">
+            <li><strong>Livraison de biens</strong> ou <strong>prestation de services</strong> à titre onéreux</li>
+            <li><strong>Assujetti agissant en tant que tel</strong> dans le cadre d'une activité économique indépendante et habituelle</li>
+          </ul>
+        </div>
+        <div class="card border-a">
+          <div class="card-title c1">Lien direct (notion clé)</div>
+          <ul class="items">
+            <li>Le bien ou service est rendu à un <strong>bénéficiaire individualisé</strong></li>
+            <li>Il existe une <strong>relation nécessaire</strong> entre le niveau d'avantage et la contrepartie versée</li>
+            <li>Sans lien direct → <strong>hors champ</strong></li>
+          </ul>
+        </div>
+        <div class="card border-a">
+          <div class="card-title c1">Opérations hors champ</div>
+          <ul class="items">
+            <li><strong>Indemnités d'assurance</strong> (réparation d'un préjudice)</li>
+            <li><strong>Dividendes</strong> perçus (pas de contrepartie économique)</li>
+            <li><strong>Dommages et intérêts</strong> purs (pas de service rendu)</li>
+            <li><strong>Subventions d'équipement</strong> (financement d'un actif, pas prix d'un service)</li>
+          </ul>
+        </div>
+        <div class="card border-a">
+          <div class="card-title c1">Subventions — 3 étapes d'analyse</div>
+          <div class="steps">
+            <div class="step">
+              <div class="step-line"><div class="step-dot"></div><div class="step-bar"></div></div>
+              <div class="step-content"><div class="step-label">Étape 1</div><p>Contrepartie directe d'une opération au profit du versant ? → Dans le champ, <strong>taxable</strong> (sauf exonération)</p></div>
+            </div>
+            <div class="step">
+              <div class="step-line"><div class="step-dot"></div><div class="step-bar"></div></div>
+              <div class="step-content"><div class="step-label">Étape 2</div><p>Complément de prix d'une opération imposable ? → Dans le champ, à inclure dans la <strong>base d'imposition</strong></p></div>
+            </div>
+            <div class="step">
+              <div class="step-line"><div class="step-dot"></div></div>
+              <div class="step-content"><div class="step-label">Étape 3</div><p>Ni l'un ni l'autre → <strong>Hors champ</strong>, pas de TVA</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Franchise en base -->
+    <div class="subsection">
+      <div class="subsection-title">Franchise en base</div>
+      <div class="grid grid-2">
+        <div class="card border-a">
+          <div class="card-title c1">Seuils (art. 293 B CGI)</div>
+          <table class="bareme">
+            <tr><th>Activité</th><th>Seuil N-1</th></tr>
+            <tr><td>Ventes de marchandises / logement</td><td class="hl">91 900 €</td></tr>
+            <tr><td>Prestations de services</td><td class="hl">36 800 €</td></tr>
+          </table>
+          <div class="alert">
+            <span class="alert-icon">⚠</span>
+            <span>La franchise dispense de collecter la TVA <strong>ET supprime le droit à déduction</strong> sur les achats. Il n'est pas possible d'opter.</span>
+          </div>
+        </div>
+        <div class="card border-a">
+          <div class="card-title c1">Taux de TVA (France métropolitaine)</div>
+          <table class="bareme">
+            <tr><th>Taux</th><th>Application</th></tr>
+            <tr><td class="hl">20 %</td><td>Taux normal (droit commun)</td></tr>
+            <tr><td class="hl">10 %</td><td>Restauration, travaux rénovation, transport…</td></tr>
+            <tr><td class="hl">5,5 %</td><td>Produits alimentaires, livres, abonnements énergie…</td></tr>
+            <tr><td class="hl">2,1 %</td><td>Médicaments remboursables, presse…</td></tr>
+          </table>
+          <div class="alert info">
+            <span class="alert-icon">ℹ</span>
+            <span>Monaco relève de la TVA française. La Suisse est hors UE → exportation (pas LIC).</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Territorialité -->
+    <div class="subsection">
+      <div class="subsection-title">Territorialité</div>
+      <div class="grid grid-2">
+        <div class="card border-a">
+          <div class="card-title c1">Livraisons Intracommunautaires (LIC)</div>
+          <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.6rem"><strong>Définition :</strong> Livraison de France vers un autre État membre de l'UE.</p>
+          <ul class="items">
+            <li>Dans le champ de la TVA française mais <strong>exonérées</strong> si :</li>
+            <li>Livraison <strong>à titre onéreux</strong></li>
+            <li>Vendeur = <strong>assujetti français</strong></li>
+            <li>Acquéreur = <strong>assujetti identifié à la TVA</strong> dans un autre EM et a communiqué son n° de TVA</li>
+            <li>Bien <strong>expédié hors de France</strong> vers un autre EM</li>
+            <li>Vendeur respecte l'obligation de <strong>dépôt de l'état récapitulatif clients (DEB)</strong></li>
+          </ul>
+          <div class="alert ok">
+            <span class="alert-icon">✓</span>
+            <span>Facture sans TVA + n° TVA vendeur + n° TVA acheteur + mention art. 262 ter I CGI</span>
+          </div>
+        </div>
+        <div class="card border-a">
+          <div class="card-title c1">Acquisitions Intracommunautaires (AIC)</div>
+          <ul class="items">
+            <li>Achat entre assujettis UE, bien expédié en France → <strong>taxable en France</strong></li>
+            <li>Mécanisme : <strong>autoliquidation</strong> par l'acquéreur français</li>
+            <li>Fait générateur : <strong>date de livraison</strong></li>
+            <li>Exigibilité : <strong>15 du mois suivant le FG</strong>, ou date de facture si antérieure (hors facture d'acompte)</li>
+            <li>TVA déductible <strong>dans les mêmes conditions</strong> (droit commun)</li>
+            <li>Obligation de dépôt de la <strong>DEB</strong></li>
+          </ul>
+        </div>
+        <div class="card border-a">
+          <div class="card-title c1">Exportations</div>
+          <ul class="items">
+            <li>Ventes hors UE → <strong>exonérées</strong></li>
+            <li>Ventes vers les <strong>DOM</strong> (Guadeloupe, Martinique, Guyane, Réunion, Mayotte) : considérés comme <strong>territoires d'exportation</strong> → exonérées</li>
+            <li>Ventes vers la <strong>Corse</strong> : territoire français, TVA applicable</li>
+          </ul>
+        </div>
+        <div class="card border-a">
+          <div class="card-title c1">Importations</div>
+          <ul class="items">
+            <li>Achat hors UE → TVA exigible lors du <strong>passage en douane</strong></li>
+            <li>Autoliquidation par l'importateur sur sa déclaration de TVA</li>
+            <li>TVA = collectée ET déductible simultanément (si conditions remplies)</li>
+          </ul>
+        </div>
+
+        <!-- Prestations de services -->
+        <div class="card border-a">
+          <div class="card-title c1">Prestations de services — Règles B2B</div>
+          <ul class="items">
+            <li>Règle générale : lieu d'<strong>établissement du preneur assujetti</strong></li>
+            <li>Conseil, publicité, gestion, informatique → <strong>lieu du preneur</strong></li>
+            <li>Transport intracommunautaire B2B → lieu du <strong>preneur</strong></li>
+            <li>Si preneur français : il <strong>autoliquide</strong> la TVA</li>
+          </ul>
+        </div>
+        <div class="card border-a">
+          <div class="card-title c1">Prestations de services — Règles B2C</div>
+          <ul class="items">
+            <li>Règle générale : lieu d'<strong>établissement du prestataire</strong></li>
+            <li>Transport intracommunautaire B2C : lieu de <strong>départ du transport</strong></li>
+            <li>Locations de moyens de transport courte durée (≤ 30 j, ≤ 90 j maritime) : lieu de <strong>mise à disposition effective</strong> du moyen de transport</li>
+          </ul>
+        </div>
+
+        <!-- Moyens de transport neufs -->
+        <div class="card border-a">
+          <div class="card-title c1">Acquisition d'un moyen de transport neuf (particulier)</div>
+          <ul class="items">
+            <li>Achat dans un autre EM par un particulier → <strong>AIC taxable en France</strong></li>
+            <li>Redevable : <strong>l'acquéreur</strong></li>
+            <li>Base : <strong>prix facturé</strong></li>
+            <li>Paiement : <strong>dans les 15 jours</strong> suivant la livraison</li>
+            <li>Certificat à faire viser par l'administration fiscale</li>
+            <li><strong>TVA non déductible</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fait générateur et exigibilité -->
+    <div class="subsection">
+      <div class="subsection-title">Fait générateur & Exigibilité</div>
+      <div class="grid grid-2">
+        <div class="card border-a">
+          <div class="card-title c1">Livraisons de biens</div>
+          <ul class="items">
+            <li>Fait générateur = <strong>livraison du bien</strong></li>
+            <li>Exigibilité = <strong>livraison</strong> (= fait générateur)</li>
+            <li>Indépendant des modalités de paiement</li>
+          </ul>
+        </div>
+        <div class="card border-a">
+          <div class="card-title c1">Prestations de services</div>
+          <ul class="items">
+            <li>Fait générateur = <strong>achèvement de la prestation</strong></li>
+            <li>Exigibilité = <strong>encaissement</strong> (principe)</li>
+            <li><strong>Option pour les débits</strong> : exigibilité à la facturation</li>
+            <li>⚠ L'option débits <strong>ne peut pas retarder</strong> l'exigibilité après un <strong>acompte encaissé</strong></li>
+            <li>Acomptes : <strong>toujours exigibles à l'encaissement</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Droit à déduction -->
+    <div class="subsection">
+      <div class="subsection-title">Droit à déduction</div>
+      <div class="card-full">
+        <div class="card-title c1" style="margin-bottom:1rem">Coefficient de déduction</div>
+        <div class="formula">
+          <div class="f-label">Formule principale</div>
+          <div class="f-main">Coeff. déduction = Coeff. assujettissement × Coeff. taxation × Coeff. admission</div>
+          <div class="f-note">Chaque coefficient arrondi à la 2e décimale par excès avant le produit. Le produit final également arrondi à la 2e décimale par excès. Si l'un des trois = 0 → aucun droit à déduction.</div>
+        </div>
+      </div>
+      <div class="grid grid-3">
+        <div class="card border-a">
+          <div class="card-title c1">Coeff. d'assujettissement</div>
+          <p>Proportion d'utilisation du bien/service pour des <strong>opérations dans le champ de la TVA</strong></p>
+          <ul class="items">
+            <li>= <strong>0</strong> : utilisé exclusivement hors champ</li>
+            <li>= <strong>1</strong> : utilisé exclusivement dans le champ</li>
+            <li>Entre 0 et 1 : usage mixte</li>
+          </ul>
+        </div>
+        <div class="card border-a">
+          <div class="card-title c1">Coeff. de taxation</div>
+          <p>Proportion d'utilisation pour des opérations <strong>ouvrant droit à déduction</strong></p>
+          <ul class="items">
+            <li>= <strong>1</strong> : toutes les opérations ouvrent droit à déduction</li>
+            <li>= <strong>0</strong> : aucune opération n'ouvre droit à déduction</li>
+            <li>Calcul : <span style="font-family:'IBM Plex Mono',monospace;color:var(--accent2);font-size:0.85rem">CA ouvrant droit / (CA ouvrant droit + CA n'ouvrant pas droit)</span></li>
+            <li>Exclure les sommes <strong>hors champ</strong> du calcul (ex : subventions d'équipement)</li>
+          </ul>
+        </div>
+        <div class="card border-a">
+          <div class="card-title c1">Coeff. d'admission</div>
+          <p>État de la <strong>législation</strong> : le bien/service fait-il l'objet d'une exclusion légale ?</p>
+          <ul class="items">
+            <li>= <strong>1</strong> : aucune exclusion légale</li>
+            <li>= <strong>0</strong> : exclusion totale</li>
+            <li>Entre 0 et 1 : exclusion partielle</li>
+          </ul>
+        </div>
+      </div>
+      <div class="subsection-title" style="margin-top:1rem">Exclusions légales (coeff. admission = 0)</div>
+      <div class="grid grid-2">
+        <div class="card border-a">
+          <div class="card-title c1">Non déductible</div>
+          <ul class="items">
+            <li><strong>Véhicules de tourisme</strong> (transport de personnes)</li>
+            <li>Carburant des véhicules de tourisme</li>
+            <li><strong>Frais d'hébergement</strong> et de logement</li>
+            <li><strong>Frais de mission</strong> (déplacement, restauration du personnel)</li>
+          </ul>
+        </div>
+        <div class="card border-a">
+          <div class="card-title c1">Exceptions — Déductible à 100 %</div>
+          <ul class="items">
+            <li><strong>Véhicule utilitaire</strong> (camionnette, fourgonnette…)</li>
+            <li>Carburant des véhicules utilitaires</li>
+            <li>Transport inclus dans le prix d'achat d'un bien → dans la base</li>
+            <li>Minicar / bus pour <strong>transport du personnel vers le lieu de travail</strong></li>
+            <li>Logement fourni <strong>à titre gratuit</strong> à des tiers si dans l'intérêt de l'entreprise</li>
+          </ul>
+        </div>
+      </div>
+      <div class="subsection-title" style="margin-top:1rem">3 Conditions cumulatives pour déduire</div>
+      <div class="grid grid-3">
+        <div class="card border-a">
+          <div class="card-title c1">Condition de fond</div>
+          <p>Le bien/service est utilisé pour des opérations ouvrant droit à déduction</p>
+        </div>
+        <div class="card border-a">
+          <div class="card-title c1">Condition de forme</div>
+          <p>Possession d'une <strong>facture régulière</strong> mentionnant la TVA</p>
+        </div>
+        <div class="card border-a">
+          <div class="card-title c1">Condition de temps</div>
+          <p>La TVA est <strong>exigible chez le fournisseur</strong> au moment de la déduction</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Opérations spéciales -->
+    <div class="subsection">
+      <div class="subsection-title">Opérations spécifiques</div>
+      <div class="grid grid-2">
+        <div class="card border-a">
+          <div class="card-title c1">Livraisons à soi-même — Besoins privés</div>
+          <ul class="items">
+            <li>Prélèvement d'un bien de l'entreprise pour <strong>besoins privés ou transmission à titre gratuit</strong></li>
+            <li>Taxable si la TVA avait été <strong>totalement ou partiellement déductible</strong> à l'origine</li>
+            <li>Base = <strong>valeur vénale</strong></li>
+            <li>TVA exigible = <strong>non déductible</strong></li>
+          </ul>
+        </div>
+        <div class="card border-a">
+          <div class="card-title c1">Livraisons à soi-même — Besoins entreprise</div>
+          <ul class="items">
+            <li>Taxable uniquement si l'acquisition du même bien auprès d'un tiers <strong>n'ouvrait pas droit à déduction complète</strong></li>
+            <li>Affectation à un secteur exonéré → LASM si TVA initiale déduite</li>
+            <li>Exception : <strong>immeuble</strong> → régularisation (pas de LASM)</li>
+          </ul>
+        </div>
+        <div class="card border-a">
+          <div class="card-title c1">Cession de biens mobiliers sans déduction initiale</div>
+          <ul class="items">
+            <li>Principe : cession <strong>non taxable</strong></li>
+            <li>Cession à un <strong>négociant en biens d'occasion</strong> : option pour la taxation possible</li>
+            <li>Intérêt : récupérer une fraction de la TVA non déduite à l'origine</li>
+            <li>Déduction complémentaire = <strong>TVA initiale × (durée restante / durée totale)</strong></li>
+          </ul>
+          <div class="formula">
+            <div class="f-label">Déduction complémentaire (biens meubles)</div>
+            <div class="f-main">TVA initiale × (années restantes / 5)</div>
+          </div>
+        </div>
+        <div class="card border-a">
+          <div class="card-title c1">Cession d'immeuble &gt; 5 ans</div>
+          <ul class="items">
+            <li>Exonérée de TVA <strong>de plein droit</strong></li>
+            <li>Option pour la taxation possible (si non exercée → reversement de TVA)</li>
+            <li>Reversement = <strong>TVA initiale × années restantes / 20</strong></li>
+          </ul>
+          <div class="formula">
+            <div class="f-label">Reversement global (immeuble)</div>
+            <div class="f-main">TVA initiale × (20 − années écoulées) / 20</div>
+          </div>
+        </div>
+        <div class="card border-a">
+          <div class="card-title c1">Créances irrécouvrables</div>
+          <ul class="items">
+            <li>Client insolvable → le fournisseur peut <strong>récupérer la TVA collectée</strong> jamais encaissée</li>
+            <li>Émettre une <strong>facture rectificative</strong> mentionnant l'impayé</li>
+            <li>Récupération sur la déclaration de TVA suivante</li>
+          </ul>
+        </div>
+        <div class="card border-a">
+          <div class="card-title c1">Locations immobilières</div>
+          <ul class="items">
+            <li><strong>Locaux nus commerciaux</strong> : exonérés + <strong>option possible</strong></li>
+            <li><strong>Locaux nus habitation</strong> : exonérés, <strong>pas d'option</strong></li>
+            <li>Locations meublées para-hôtelières : taxables si ≥ 3 services sur 4 (accueil, petit-déj., linge, ménage)</li>
+          </ul>
+        </div>
+        <div class="card border-a">
+          <div class="card-title c1">Intérêts — Inclusion dans la base TVA</div>
+          <ul class="items">
+            <li><strong>Intérêts moratoires</strong> (client défaillant) : <strong>hors champ</strong></li>
+            <li><strong>Intérêts de sursis</strong> accordés après le FG, facturés séparément : <strong>exonérés</strong></li>
+            <li>Non facturés séparément : tout le prix est soumis à TVA</li>
+            <li>Autres intérêts : <strong>dans la base d'imposition</strong></li>
+          </ul>
+        </div>
+        <div class="card border-a">
+          <div class="card-title c1">Taxe sur les salaires</div>
+          <ul class="items">
+            <li>Due par les employeurs <strong>non assujettis à la TVA</strong> ou assujettis sur <strong>moins de 90 %</strong> de leur CA de l'année précédente</li>
+            <li>Barème progressif applicable aux rémunérations</li>
+          </ul>
+          <div class="alert">
+            <span class="alert-icon">⚠</span>
+            <span>Le seuil est de <strong>90 %</strong> (et non 80 %). Erreur fréquente à l'examen.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Régularisations -->
+    <div class="subsection">
+      <div class="subsection-title">Régularisations de TVA sur immobilisations</div>
+      <div class="grid grid-2">
+        <div class="card border-a">
+          <div class="card-title c1">Régularisations annuelles</div>
+          <ul class="items">
+            <li>Déclenchée si variation du produit (assujettissement × taxation) <strong>&gt; 0,1</strong> (1/10e)</li>
+            <li>À réaliser avant le <strong>25 avril N+1</strong></li>
+          </ul>
+          <div class="formula">
+            <div class="f-label">Biens meubles (période 5 ans)</div>
+            <div class="f-main">TVA initiale × (Coeff. année − Coeff. référence) × 1/5</div>
+          </div>
+          <div class="formula">
+            <div class="f-label">Immeubles (période 20 ans)</div>
+            <div class="f-main">TVA initiale × (Coeff. année − Coeff. référence) × 1/20</div>
+          </div>
+          <ul class="items" style="margin-top:0.5rem">
+            <li>Résultat positif → <strong>déduction complémentaire</strong></li>
+            <li>Résultat négatif → <strong>reversement de TVA</strong></li>
+          </ul>
+        </div>
+        <div class="card border-a">
+          <div class="card-title c1">Régularisations globales</div>
+          <p style="font-size:0.89rem;color:var(--text-muted);margin-bottom:0.75rem">Effectuées en <strong>une seule fois</strong> dès la survenance de l'événement déclencheur. Calcul sur la base de la <strong>TVA initiale</strong>.</p>
+          <ul class="items">
+            <li>Cession ou apport <strong>non soumis à TVA</strong></li>
+            <li>Cession ou apport <strong>soumis à TVA</strong></li>
+            <li><strong>Transfert entre secteurs</strong> d'activités</li>
+            <li>Modification législative des règles d'exclusion</li>
+            <li>Bien <strong>devenant utilisé</strong> pour opérations ouvrant droit à déduction</li>
+            <li>Bien <strong>cessant d'être utilisé</strong> pour opérations ouvrant droit à déduction</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ ENREGISTREMENT ═══════════════════════════════════════ -->
+  <section id="enreg">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2 class="section-title">Droits d'Enregistrement</h2>
+      <div class="section-accent" style="background:var(--accent2)"></div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Cessions de droits sociaux</div>
+      <div class="grid grid-2">
+        <div class="card border-b">
+          <div class="card-title c2">Parts sociales (capital non divisé en actions)</div>
+          <div class="formula" style="border-color:var(--accent2)">
+            <div class="f-label">Taux</div>
+            <div class="f-main" style="color:var(--accent2)">3 % avec abattement</div>
+          </div>
+          <div class="formula" style="border-color:var(--accent2)">
+            <div class="f-label">Abattement par part cédée</div>
+            <div class="f-main" style="color:var(--accent2)">23 000 € × (nb parts cédées / nb total parts)</div>
+            <div class="f-note">Appliqué sur l'assiette au prorata des parts cédées</div>
+          </div>
+          <ul class="items" style="margin-top:0.5rem">
+            <li>Exigible même <strong>sans acte</strong></li>
+            <li>Redevable : <strong>l'acquéreur</strong></li>
+          </ul>
+        </div>
+        <div class="card border-b">
+          <div class="card-title c2">Actions et autres titres</div>
+          <table class="bareme">
+            <tr><th>Type de société</th><th>Taux</th><th>Condition</th></tr>
+            <tr><td>Sociétés par actions <strong>non cotées</strong></td><td class="hl">0,1 %</td><td>Même sans acte</td></tr>
+            <tr><td>Sociétés par actions <strong>cotées</strong></td><td class="hl">0,1 %</td><td>Seulement si acte</td></tr>
+            <tr><td>Sociétés à <strong>prépondérance immobilière</strong> non cotées</td><td class="hl">5 %</td><td>Actions ou parts</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Cessions de fonds de commerce</div>
+      <div class="grid grid-2">
+        <div class="card border-b">
+          <div class="card-title c2">Barème progressif</div>
+          <table class="bareme">
+            <tr><th>Tranche</th><th>Taux</th></tr>
+            <tr><td>Jusqu'à 23 000 €</td><td class="hl">0 %</td></tr>
+            <tr><td>De 23 000 € à 200 000 €</td><td class="hl">3 %</td></tr>
+            <tr><td>Au-delà de 200 000 €</td><td class="hl">5 %</td></tr>
+          </table>
+          <div class="alert info">
+            <span class="alert-icon">ℹ</span>
+            <span>Cessions ≤ 23 000 € : minimum de perception (<strong>25 €</strong>). Les marchandises neuves soumises à TVA sont <strong>exclues</strong> de la base.</span>
+          </div>
+        </div>
+        <div class="card border-b">
+          <div class="card-title c2">Éléments composant le fonds</div>
+          <ul class="items">
+            <li><strong>Éléments incorporels :</strong> clientèle, droit au bail, brevets, marques de fabrique, licences, autorisations administratives</li>
+            <li><strong>Éléments corporels :</strong> matériel, mobilier, approvisionnements, marchandises neuves</li>
+            <li>Les <strong>créances</strong> ne font <strong>pas</strong> partie du fonds</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Apports en société</div>
+      <div class="grid grid-3">
+        <div class="card border-b">
+          <div class="card-title c2">Apport pur et simple</div>
+          <p><strong>Définition :</strong> apport rémunéré par des <strong>droits sociaux</strong> (parts/actions) exposés aux risques de l'entreprise.</p>
+          <div class="divider"></div>
+          <ul class="items">
+            <li>En général : <strong>enregistrement gratuit</strong></li>
+            <li>Exception : apport de certains biens par personne non IS à société IS → droit de mutation</li>
+          </ul>
+        </div>
+        <div class="card border-b">
+          <div class="card-title c2">Apport à titre onéreux</div>
+          <p><strong>Définition :</strong> rémunéré par un équivalent ferme et actuel (espèces, prise en charge d'un passif). Régime de la <strong>vente</strong>.</p>
+          <div class="divider"></div>
+          <table class="bareme">
+            <tr><th>Bien</th><th>Taux</th></tr>
+            <tr><td>Immeuble / droits immobiliers</td><td class="hl">5 %</td></tr>
+            <tr><td>Fonds de commerce / clientèle</td><td class="hl">3 % / 5 %</td></tr>
+          </table>
+        </div>
+        <div class="card border-b">
+          <div class="card-title c2">Apport mixte</div>
+          <p>Partiellement rémunéré par des titres (pur et simple) + partiellement par une contrepartie ferme (à titre onéreux).</p>
+          <div class="divider"></div>
+          <ul class="items">
+            <li><strong>Liberté d'imputation</strong> du passif sur les biens apportés → optimiser la fiscalité</li>
+            <li>À défaut de désignation : imputation <strong>proportionnelle</strong> par l'administration</li>
+          </ul>
+        </div>
+      </div>
+      <div class="alert ok" style="margin-top:0.75rem">
+        <span class="alert-icon">✓</span>
+        <span><strong>Exonération possible :</strong> apport pur et simple d'immeuble, fonds de commerce, droit au bail à une société IS → gratuit si engagement de <strong>conservation des titres 3 ans</strong>. Non-respect → droit de mutation immédiatement exigible.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ IFI ═══════════════════════════════════════ -->
+  <section id="ifi">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2 class="section-title">Impôt sur la Fortune Immobilière</h2>
+      <div class="section-accent" style="background:var(--accent4)"></div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card border-d">
+        <div class="card-title c4">Seuils fondamentaux</div>
+        <div class="formula" style="border-color:var(--accent4)">
+          <div class="f-label">Seuil d'imposition</div>
+          <div class="f-main" style="color:var(--accent4)">1 300 000 €</div>
+          <div class="f-note">Patrimoine net taxable doit dépasser ce seuil pour être redevable de l'IFI</div>
+        </div>
+        <div class="formula" style="border-color:var(--accent4)">
+          <div class="f-label">Seuil de taxation (1re tranche à 0 %)</div>
+          <div class="f-main" style="color:var(--accent4)">800 000 €</div>
+          <div class="f-note">Si patrimoine &gt; 1 300 000 € → on calcule l'impôt à partir de 800 000 €. La fraction entre 800 000 € et 1 300 000 € est au taux de 0 %.</div>
+        </div>
+      </div>
+      <div class="card border-d">
+        <div class="card-title c4">Plafonnement</div>
+        <div class="formula" style="border-color:var(--accent4)">
+          <div class="f-label">Règle du plafonnement</div>
+          <div class="f-main" style="color:var(--accent4)">IFI + IR ≤ 75 % des revenus N-1</div>
+          <div class="f-note">Si l'ensemble excède 75 %, l'excédent est déduit de l'IFI à payer</div>
+        </div>
+        <div class="alert info">
+          <span class="alert-icon">ℹ</span>
+          <span>L'IFI lui-même est déductible de sa propre base : calculer d'abord l'IFI sans tenir compte de l'IFI, puis l'ajouter au passif et recalculer.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection" style="margin-top:1rem">
+      <div class="subsection-title">Foyer fiscal IFI</div>
+      <div class="grid grid-2">
+        <div class="card border-d">
+          <div class="card-title c4">Imposition commune (principe)</div>
+          <ul class="items">
+            <li>Couples <strong>mariés</strong> (régime commun)</li>
+            <li>Partenaires <strong>PACS</strong></li>
+            <li><strong>Concubins notoires</strong></li>
+            <li><strong>Enfants mineurs</strong> dont les parents ont l'administration légale</li>
+          </ul>
+        </div>
+        <div class="card border-d">
+          <div class="card-title c4">Imposition séparée (exception)</div>
+          <ul class="items">
+            <li>Couples mariés <strong>séparés de biens</strong> <em>ET</em> ne résidant <strong>pas sous le même toit</strong></li>
+            <li>En instance de divorce avec domiciles séparés autorisés</li>
+          </ul>
+          <div class="alert">
+            <span class="alert-icon">⚠</span>
+            <span>Les deux conditions doivent être <strong>cumulativement</strong> réunies (séparation de biens + toits différents).</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Actif imposable</div>
+      <div class="grid grid-2">
+        <div class="card border-d">
+          <div class="card-title c4">Biens imposables</div>
+          <ul class="items">
+            <li>Tous <strong>immeubles bâtis</strong> (affectation privée ou professionnelle)</li>
+            <li>Immeubles <strong>non bâtis</strong> (terrains, terres agricoles, bois…)</li>
+            <li>Immeubles en cours de <strong>construction</strong></li>
+            <li><strong>Droits réels immobiliers</strong> (usufruit, droit d'usage…)</li>
+            <li>Parts/actions de sociétés : fraction représentative de l'immobilier</li>
+          </ul>
+          <div class="formula" style="border-color:var(--accent4)">
+            <div class="f-label">Coefficient d'imposition des parts/actions</div>
+            <div class="f-main" style="color:var(--accent4)">Valeur immobilier imposable / Valeur totale actifs société</div>
+          </div>
+        </div>
+        <div class="card border-d">
+          <div class="card-title c4">Exonérations et exclusions</div>
+          <ul class="items">
+            <li><strong>Abattement 30 %</strong> sur la résidence principale</li>
+            <li>Immobilier affecté à l'<strong>activité opérationnelle</strong> de la société (industrie, commerce, artisanat, agriculture, libéral)</li>
+            <li>Participations minoritaires <strong>&lt; 10 %</strong> dans sociétés opérationnelles</li>
+            <li><strong>Clause de sauvegarde</strong> : bonne foi + absence d'informations disponibles (< 10 % du capital)</li>
+            <li><strong>Placements financiers</strong> : hors champ</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Passif déductible</div>
+      <div class="card-full">
+        <div class="card-title c4">Conditions de déductibilité des dettes</div>
+        <div class="grid grid-3">
+          <div class="card border-d">
+            <div class="card-title c4">Condition 1</div>
+            <p>Exister au <strong>1er janvier</strong> de l'année d'imposition</p>
+          </div>
+          <div class="card border-d">
+            <div class="card-title c4">Condition 2</div>
+            <p>Incomber <strong>personnellement</strong> au redevable</p>
+          </div>
+          <div class="card border-d">
+            <div class="card-title c4">Condition 3</div>
+            <p>Être afférente à un <strong>actif imposable</strong></p>
+          </div>
+        </div>
+        <div class="alert" style="margin-top:0.75rem">
+          <span class="alert-icon">⚠</span>
+          <span>Les <strong>prêts familiaux</strong> directs ou indirects sont interdits de déduction, sauf à justifier du caractère normal des conditions du prêt.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Territorialité IFI</div>
+      <div class="grid grid-2">
+        <div class="card border-d">
+          <div class="card-title c4">Résidents fiscaux français</div>
+          <p>Imposables sur <strong>l'ensemble de leur patrimoine immobilier</strong> (France + étranger), sous réserve des conventions internationales</p>
+        </div>
+        <div class="card border-d">
+          <div class="card-title c4">Non-résidents</div>
+          <p>Imposables uniquement sur leurs biens et droits immobiliers <strong>situés en France</strong> et la fraction immobilière de leurs parts/actions de sociétés</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ CFE / CVAE ═══════════════════════════════════════ -->
+  <section id="local">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2 class="section-title">Fiscalité Locale — CFE & CVAE</h2>
+      <div class="section-accent" style="background:var(--accent5)"></div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card border-e">
+        <div class="card-title c5">Cotisation Foncière des Entreprises (CFE)</div>
+        <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:0.75rem">4 conditions <strong>cumulatives</strong> pour être redevable :</p>
+        <ul class="items">
+          <li>Activité <strong>habituelle</strong></li>
+          <li>Exercée à <strong>titre professionnel</strong></li>
+          <li>Activité <strong>non salariée</strong></li>
+          <li>Exercée <strong>en France</strong></li>
+        </ul>
+        <div class="divider"></div>
+        <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:0.4rem"><strong>Base d'imposition :</strong></p>
+        <ul class="items">
+          <li>Valeur locative cadastrale brute des biens passibles de taxe foncière</li>
+          <li>Abattement de <strong>30 %</strong> pour établissements industriels (méthode comptable)</li>
+        </ul>
+        <div class="divider"></div>
+        <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:0.4rem"><strong>Cas particuliers :</strong></p>
+        <ul class="items">
+          <li>Locations meublées → <strong>dans le champ</strong> de la CFE</li>
+          <li>Locations nues commerciales → dans le champ uniquement si <strong>CA ≥ 100 000 €</strong></li>
+          <li>Locations nues en dessous de 100 000 € → <strong>hors champ</strong> CFE</li>
+        </ul>
+      </div>
+      <div class="card border-e">
+        <div class="card-title c5">Cotisation sur la Valeur Ajoutée (CVAE)</div>
+        <table class="bareme">
+          <tr><th>Situation</th><th>CA HT</th></tr>
+          <tr><td>Hors champ (non assujetti)</td><td class="hl">≤ 152 500 €</td></tr>
+          <tr><td>Assujetti sans paiement</td><td class="hl">152 500 € à 500 000 €</td></tr>
+          <tr><td>Assujetti avec paiement</td><td class="hl">&gt; 500 000 €</td></tr>
+        </table>
+        <div class="alert info" style="margin-top:0.75rem">
+          <span class="alert-icon">ℹ</span>
+          <span>La CVAE s'applique aux entreprises réalisant un CA annuel HT <strong>supérieur à 500 000 €</strong>.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ CONTRÔLE FISCAL ═══════════════════════════════════════ -->
+  <section id="controle">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <h2 class="section-title">Contrôle Fiscal</h2>
+      <div class="section-accent" style="background:var(--accent3)"></div>
+    </div>
+
+    <!-- Délais de reprise -->
+    <div class="subsection">
+      <div class="subsection-title">Délais de reprise (prescription)</div>
+      <div class="grid grid-2">
+        <div class="card border-c">
+          <div class="card-title c3">IS, IR et TVA — Droit commun</div>
+          <div class="formula" style="border-color:var(--accent3)">
+            <div class="f-label">Délai normal</div>
+            <div class="f-main" style="color:var(--accent3)">3 ans</div>
+            <div class="f-note">IS/IR : fin de la 3e année suivant celle au titre de laquelle l'imposition est due.<br>TVA : fin de la 3e année suivant celle de l'exigibilité.</div>
+          </div>
+          <div class="formula" style="border-color:var(--accent3)">
+            <div class="f-label">Délai exceptionnel</div>
+            <div class="f-main" style="color:var(--accent3)">10 ans</div>
+            <div class="f-note">Activité occulte · Flagrance fiscale · Structures pays régime fiscal privilégié · Comptes à l'étranger · Trusts · Contrats assurance-vie à l'étranger</div>
+          </div>
+        </div>
+        <div class="card border-c">
+          <div class="card-title c3">Droits d'enregistrement & IFI</div>
+          <div class="formula" style="border-color:var(--accent3)">
+            <div class="f-label">Acte ou déclaration révélant l'imposition</div>
+            <div class="f-main" style="color:var(--accent3)">3 ans (31 déc. de la 3e année)</div>
+          </div>
+          <div class="formula" style="border-color:var(--accent3)">
+            <div class="f-label">Absence d'acte / recherches nécessaires</div>
+            <div class="f-main" style="color:var(--accent3)">6 ans (31 déc. de la 6e année)</div>
+          </div>
+          <div class="alert">
+            <span class="alert-icon">⚠</span>
+            <span>L'expiration du délai <strong>n'interdit pas</strong> la vérification des périodes prescrites si elles ont une <strong>incidence sur la période non prescrite</strong> (ex : déficit reporté).</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Avis de vérification -->
+    <div class="subsection">
+      <div class="subsection-title">Avis de vérification / d'examen</div>
+      <div class="grid grid-2">
+        <div class="card border-c">
+          <div class="card-title c3">Forme et envoi</div>
+          <ul class="items">
+            <li>Envoi par <strong>pli recommandé avec AR</strong> au contribuable ou au dirigeant légal</li>
+            <li>Obligatoire pour : vérification de comptabilité, examen de comptabilité, ESFP</li>
+          </ul>
+        </div>
+        <div class="card border-c">
+          <div class="card-title c3">Mentions obligatoires (nullité si absentes)</div>
+          <ul class="items">
+            <li><strong>Années vérifiées</strong></li>
+            <li>Droit du contribuable à se faire <strong>assister d'un conseil de son choix</strong></li>
+          </ul>
+          <div class="divider"></div>
+          <p style="font-size:0.88rem;color:var(--text-muted)"><strong>Mentions facultatives</strong> (omission sans conséquence) :</p>
+          <ul class="items">
+            <li>Impôts vérifiés</li>
+            <li>Voies de recours</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Durées de contrôle -->
+    <div class="subsection">
+      <div class="subsection-title">Durées de la vérification de comptabilité</div>
+      <div class="grid grid-2">
+        <div class="card border-c">
+          <div class="card-title c3">Durée limitée à 3 mois</div>
+          <ul class="items">
+            <li>Applicable si le CA ou les recettes brutes <strong>n'excèdent pas les seuils du régime simplifié</strong> pour chaque année vérifiée</li>
+            <li>Ventes/hébergement : <strong>840 000 €</strong></li>
+            <li>Autres : <strong>254 000 €</strong></li>
+          </ul>
+        </div>
+        <div class="card border-c">
+          <div class="card-title c3">Exceptions au délai de 3 mois</div>
+          <ul class="items">
+            <li>Instruction des <strong>observations et réclamations</strong> du contribuable</li>
+            <li>Comptes mixtes (ESFP)</li>
+            <li>Graves <strong>irrégularités comptables</strong> → prolongé à <strong>6 mois max</strong></li>
+            <li><strong>Flagrance fiscale</strong> constatée</li>
+            <li>Enquête judiciaire en cours</li>
+            <li>Activité <strong>occulte</strong></li>
+            <li>Vérification informatisée (prorogation de la durée de préparation)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contrôle inopiné -->
+    <div class="subsection">
+      <div class="subsection-title">Contrôle inopiné</div>
+      <div class="card border-c">
+        <div class="card-title c3">Procédure</div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-line"><div class="step-dot" style="border-color:var(--accent3)"></div><div class="step-bar"></div></div>
+            <div class="step-content"><div class="step-label">Phase 1 — Constatations matérielles uniquement</div><p>Inventaire du stock, des valeurs en caisse, relevé des prix, existence des documents comptables, copies de fichiers informatiques. Remise de l'avis de vérification et de la charte.</p></div>
+          </div>
+          <div class="step">
+            <div class="step-line"><div class="step-dot" style="border-color:var(--accent3)"></div></div>
+            <div class="step-content"><div class="step-label">Phase 2 — Après délai de 2 jours francs minimum</div><p>L'examen au fond des documents comptables peut commencer. Le contribuable a eu le temps de se faire assister.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Proposition de rectification -->
+    <div class="subsection">
+      <div class="subsection-title">Proposition de rectification & Suite de la procédure</div>
+      <div class="grid grid-2">
+        <div class="card border-c">
+          <div class="card-title c3">Délais de réponse</div>
+          <table class="bareme">
+            <tr><th>Qui</th><th>Délai</th></tr>
+            <tr><td>Contribuable (observations)</td><td class="hl">30 jours</td></tr>
+            <tr><td>Contribuable (délai prolongé sur demande)</td><td class="hl">60 jours</td></tr>
+            <tr><td>Administration (réponse aux observations)</td><td class="hl">Sans délai (principe)</td></tr>
+            <tr><td>Administration (CA ≤ 1 526 000 € ventes/logement)</td><td class="hl">60 jours</td></tr>
+          </table>
+          <div class="alert">
+            <span class="alert-icon">⚠</span>
+            <span>Défaut de réponse du contribuable dans le délai = <strong>acceptation tacite</strong> des rehaussements → perte de la possibilité de saisir les commissions.</span>
+          </div>
+        </div>
+        <div class="card border-c">
+          <div class="card-title c3">Recours avant contentieux</div>
+          <div class="steps">
+            <div class="step">
+              <div class="step-line"><div class="step-dot" style="border-color:var(--accent3)"></div><div class="step-bar"></div></div>
+              <div class="step-content"><div class="step-label">Supérieur hiérarchique</div><p>Inspecteur divisionnaire ou principal des finances publiques</p></div>
+            </div>
+            <div class="step">
+              <div class="step-line"><div class="step-dot" style="border-color:var(--accent3)"></div><div class="step-bar"></div></div>
+              <div class="step-content"><div class="step-label">Interlocuteur de direction</div><p>Si désaccord persistant après le supérieur hiérarchique</p></div>
+            </div>
+            <div class="step">
+              <div class="step-line"><div class="step-dot" style="border-color:var(--accent3)"></div></div>
+              <div class="step-content"><div class="step-label">Commission des impôts directs et taxes CA</div><p>Pour les litiges portant sur une <strong>question de fait</strong></p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Régularisation en cours de contrôle -->
+    <div class="subsection">
+      <div class="subsection-title">Régularisations favorables au contribuable</div>
+      <div class="grid grid-2">
+        <div class="card border-c">
+          <div class="card-title c3">Régularisation spontanée en cours de contrôle</div>
+          <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:0.75rem">S'applique à <strong>toutes les entreprises</strong> sans limite de CA. Conditions :</p>
+          <ul class="items">
+            <li>Demande du contribuable <strong>avant toute proposition de rectification</strong></li>
+            <li>Infraction <strong>non exclusive de bonne foi</strong> (pas de manquement délibéré)</li>
+            <li>Dépôt d'une déclaration complémentaire dans <strong>30 jours</strong></li>
+            <li>Paiement immédiat des suppléments + intérêts</li>
+          </ul>
+          <div class="formula" style="border-color:var(--accent3)">
+            <div class="f-label">Intérêt de retard réduit</div>
+            <div class="f-main" style="color:var(--accent3)">70 % × 0,20 % = 0,14 % par mois</div>
+          </div>
+        </div>
+        <div class="card border-c">
+          <div class="card-title c3">Contrôle sur demande PME</div>
+          <ul class="items">
+            <li>Seuils : CA ≤ <strong>1 500 000 €</strong> (ventes) / <strong>450 000 €</strong> (services)</li>
+            <li>Sauf demande portant sur le <strong>CIR</strong> : aucune condition de CA</li>
+            <li>Peut porter sur un exercice clos <em>ou</em> l'<strong>exercice en cours</strong></li>
+            <li>Administration doit informer par écrit des résultats</li>
+            <li>Ce contrôle <strong>n'est pas</strong> une vérification de comptabilité</li>
+            <li>Une vérification ultérieure reste possible même sur les points contrôlés</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sanctions -->
+    <div class="subsection">
+      <div class="subsection-title">Intérêts de retard & Sanctions</div>
+      <div class="grid grid-2">
+        <div class="card border-c">
+          <div class="card-title c3">Intérêt de retard</div>
+          <div class="formula" style="border-color:var(--accent3)">
+            <div class="f-label">Taux</div>
+            <div class="f-main" style="color:var(--accent3)">0,20 % par mois</div>
+          </div>
+          <table class="bareme" style="margin-top:0.75rem">
+            <tr><th>Impôt</th><th>Point de départ</th><th>Point d'arrêt</th></tr>
+            <tr><td>IR</td><td>1er juillet N+1</td><td rowspan="4">Dernier jour du mois de la proposition de rectification</td></tr>
+            <tr><td>IFI</td><td>1er juillet N</td></tr>
+            <tr><td>TVA</td><td>1er jour de l'exercice suivant</td></tr>
+            <tr><td>Autres</td><td>1er jour du mois suivant l'échéance</td></tr>
+          </table>
+        </div>
+        <div class="card border-c">
+          <div class="card-title c3">Majorations</div>
+          <table class="bareme">
+            <tr><th>Infraction</th><th>Majoration</th></tr>
+            <tr><td>Manquement délibéré</td><td class="hl">40 %</td></tr>
+            <tr><td>Manœuvres frauduleuses</td><td class="hl">80 %</td></tr>
+            <tr><td>Abus de droit (but exclusivement fiscal ou fictif)</td><td class="hl">40 %</td></tr>
+            <tr><td>Abus de droit (initiateur/principal bénéficiaire)</td><td class="hl">80 %</td></tr>
+          </table>
+          <div class="alert ok" style="margin-top:0.75rem">
+            <span class="alert-icon">✓</span>
+            <span>Remise gracieuse possible via demande au service chargé du recouvrement.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Acte anormal et abus de droit -->
+    <div class="subsection">
+      <div class="subsection-title">Notions-clés du contrôle</div>
+      <div class="grid grid-2">
+        <div class="card border-c">
+          <div class="card-title c3">Acte anormal de gestion</div>
+          <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:0.75rem"><strong>Définition :</strong> acte par lequel une entreprise décide de s'appauvrir à des fins étrangères à son intérêt commercial (dépense/perte injustifiée ou privation de recette).</p>
+          <ul class="items">
+            <li>Principe de <strong>non-immixtion</strong> : l'administration ne peut pas se substituer à la gestion de l'entreprise</li>
+            <li>Exception : l'administration peut rectifier les conséquences d'un acte anormal</li>
+            <li>Charge de la preuve : <strong>administration</strong> (sauf imposition d'office ou irrégularités graves → contribuable)</li>
+          </ul>
+        </div>
+        <div class="card border-c">
+          <div class="card-title c3">Abus de droit (art. L64 LPF)</div>
+          <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:0.75rem">Permet à l'administration d'écarter les actes constitutifs d'abus. Deux formes :</p>
+          <ul class="items">
+            <li>Actes <strong>fictifs</strong></li>
+            <li>Actes à <strong>but exclusivement fiscal</strong> (application littérale des textes à l'encontre de leur objectif)</li>
+            <li>Actes à <strong>but principalement fiscal</strong> (fraude à la loi)</li>
+            <li>Comité de l'abus de droit : saisi par l'administration <em>ou</em> le contribuable</li>
+            <li>Débat <strong>oral et contradictoire</strong></li>
+            <li>Toutes les parties à l'acte sont <strong>solidairement</strong> responsables</li>
+          </ul>
+        </div>
+        <div class="card border-c">
+          <div class="card-title c3">Délit de fraude fiscale</div>
+          <ul class="items">
+            <li><strong>Élément légal</strong> : texte réprimant l'infraction</li>
+            <li><strong>Élément matériel</strong> : faits tendant à soustraire l'impôt</li>
+            <li><strong>Élément intentionnel</strong> : intention délibérée de fraude</li>
+            <li>Formes : omission volontaire, dissimulation, organisation d'insolvabilité, autres agissements</li>
+          </ul>
+        </div>
+        <div class="card border-c">
+          <div class="card-title c3">Délit comptable</div>
+          <ul class="items">
+            <li><strong>Omission délibérée</strong> de passer des écritures au livre journal</li>
+            <li>Passation délibérée d'<strong>écritures fictives ou inexactes</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ CONTENTIEUX ═══════════════════════════════════════ -->
+  <section id="contentieux">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <h2 class="section-title">Contentieux Fiscal</h2>
+      <div class="section-accent" style="background:#f97316"></div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card" style="border-left:3px solid #f97316">
+        <div class="card-title" style="color:#f97316">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#f97316;margin-right:0.5rem"></span>
+          Introduction de la réclamation
+        </div>
+        <ul class="items">
+          <li>Dépôt d'une <strong>réclamation préalable</strong> obligatoire auprès du service des impôts</li>
+          <li>Délai de réclamation après proposition de rectification : <strong>3 ans</strong> à compter de l'année de la proposition</li>
+          <li>Si rejet ou absence de réponse → saisine du tribunal compétent</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:3px solid #f97316">
+        <div class="card-title" style="color:#f97316">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#f97316;margin-right:0.5rem"></span>
+          Juridictions compétentes
+        </div>
+        <table class="bareme">
+          <tr><th>Impôt</th><th>Ordre</th><th>Juridiction</th></tr>
+          <tr><td>IS, IR, TVA, impôts directs locaux</td><td style="color:var(--accent2)">Administratif</td><td>TA → CAA → Conseil d'État</td></tr>
+          <tr><td>Droits d'enregistrement, IFI, timbre, contributions indirectes</td><td style="color:var(--accent3)">Judiciaire</td><td>TJ → CA → Cour de cassation</td></tr>
+        </table>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<script>
+function doSearch(q) {
+  const marks = document.querySelectorAll('.highlight');
+  marks.forEach(m => {
+    const parent = m.parentNode;
+    parent.replaceChild(document.createTextNode(m.textContent), m);
+    parent.normalize();
+  });
+  if (!q || q.length < 2) return;
+  const re = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+  const walker = document.createTreeWalker(document.querySelector('main'), NodeFilter.SHOW_TEXT);
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(node => {
+    if (!node.parentNode || node.parentNode.nodeName === 'SCRIPT') return;
+    const m = node.textContent.match(re);
+    if (!m) return;
+    const span = document.createElement('span');
+    span.innerHTML = node.textContent.replace(re, '<mark class="highlight">$1</mark>');
+    node.parentNode.replaceChild(span, node);
+  });
+}
+</script>
+</body>
+</html>

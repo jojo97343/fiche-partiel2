@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fiche Partiel – UE 444 Management</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --ink2: #2d2d44;
+    --paper: #f5f0e8;
+    --paper2: #ece6d8;
+    --accent: #c84b31;
+    --accent2: #e8753a;
+    --teal: #1a6b6b;
+    --teal-light: #e0f0f0;
+    --amber: #b8860b;
+    --amber-light: #fdf3dc;
+    --purple: #5b4a8a;
+    --purple-light: #eeebf6;
+    --coral: #c84b31;
+    --coral-light: #fdf0ec;
+    --green: #2d6a4f;
+    --green-light: #e8f5ef;
+    --border: rgba(26,26,46,0.12);
+    --shadow: 0 2px 12px rgba(26,26,46,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 32px 40px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    border: 2px solid rgba(200,75,49,0.3);
+    border-radius: 50%;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 20%;
+    width: 300px; height: 300px;
+    border: 1px solid rgba(200,75,49,0.15);
+    border-radius: 50%;
+  }
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+  .header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  .header h1 span { color: var(--accent2); }
+  .badge {
+    background: var(--accent);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .header-sub {
+    font-size: 13px;
+    color: rgba(245,240,232,0.6);
+    margin-top: 6px;
+  }
+  .toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+  .toc a {
+    color: var(--paper);
+    font-size: 12px;
+    text-decoration: none;
+    border: 1px solid rgba(245,240,232,0.25);
+    padding: 4px 12px;
+    border-radius: 16px;
+    transition: all 0.2s;
+    opacity: 0.8;
+  }
+  .toc a:hover { opacity: 1; border-color: var(--accent2); color: var(--accent2); }
+
+  /* LAYOUT */
+  .container { max-width: 1100px; margin: 0 auto; padding: 28px 24px; }
+
+  /* SECTION TITLES */
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--ink);
+    margin: 36px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title .num {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    width: 26px; height: 26px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* GRID SYSTEMS */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .col-span-2 { grid-column: span 2; }
+
+  @media(max-width: 700px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .col-span-2 { grid-column: span 1; }
+  }
+
+  /* CARDS */
+  .card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    box-shadow: var(--shadow);
+  }
+  .card-title {
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* COLOR VARIANTS */
+  .card-teal { border-left: 3px solid var(--teal); }
+  .card-teal .card-title .dot { background: var(--teal); }
+  .card-amber { border-left: 3px solid var(--amber); }
+  .card-amber .card-title .dot { background: var(--amber); }
+  .card-purple { border-left: 3px solid var(--purple); }
+  .card-purple .card-title .dot { background: var(--purple); }
+  .card-coral { border-left: 3px solid var(--coral); }
+  .card-coral .card-title .dot { background: var(--coral); }
+  .card-green { border-left: 3px solid var(--green); }
+  .card-green .card-title .dot { background: var(--green); }
+
+  /* DEFINITION BOX */
+  .def {
+    background: var(--paper2);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .def strong { color: var(--ink); }
+  .def-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  /* LISTS */
+  ul.clean { list-style: none; }
+  ul.clean li {
+    padding: 4px 0;
+    padding-left: 14px;
+    position: relative;
+    font-size: 13px;
+    color: var(--ink2);
+  }
+  ul.clean li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* AUTHOR PILLS */
+  .author {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 9px;
+    border-radius: 12px;
+    margin: 2px 2px 2px 0;
+  }
+  .author.teal { background: var(--teal); }
+  .author.amber { background: var(--amber); }
+  .author.purple { background: var(--purple); }
+  .author.coral { background: var(--coral); }
+  .author.green { background: var(--green); }
+
+  /* TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+  }
+  th {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 12px;
+  }
+  td {
+    padding: 7px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: var(--paper2); }
+  tr:hover td { background: #efe8d8; }
+
+  /* RONDEAU TABLE */
+  .rondeau-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .rondeau-table th { background: var(--ink); color: var(--paper); padding: 8px 12px; font-weight: 500; font-size: 12px; }
+  .rondeau-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .rondeau-table tr:nth-child(odd) td { background: white; }
+  .rondeau-table tr:nth-child(even) td { background: var(--paper2); }
+  .niveau-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+  .n1 { background: #fdf0ec; color: var(--coral); }
+  .n2 { background: var(--amber-light); color: var(--amber); }
+  .n3 { background: var(--teal-light); color: var(--teal); }
+
+  /* METHODE DOSSIER 2 */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+  }
+  @media(max-width:700px){ .steps { grid-template-columns: 1fr 1fr; } }
+  .step {
+    text-align: center;
+    padding: 14px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: white;
+  }
+  .step-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .step-label { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+  .step-detail { font-size: 11px; color: #666; }
+
+  /* INNOV TYPES */
+  .innov-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  @media(max-width:600px) { .innov-grid { grid-template-columns: 1fr; } }
+  .innov-card {
+    border-radius: 8px;
+    padding: 14px;
+    border: 1px solid var(--border);
+  }
+  .innov-card h4 { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .innov-card p { font-size: 12px; color: var(--ink2); }
+
+  /* TAG */
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin: 2px 2px 2px 0;
+    border: 1px solid;
+  }
+  .tag-teal { color: var(--teal); border-color: var(--teal); background: var(--teal-light); }
+  .tag-amber { color: var(--amber); border-color: var(--amber); background: var(--amber-light); }
+  .tag-purple { color: var(--purple); border-color: var(--purple); background: var(--purple-light); }
+  .tag-coral { color: var(--coral); border-color: var(--coral); background: var(--coral-light); }
+  .tag-green { color: var(--green); border-color: var(--green); background: var(--green-light); }
+
+  /* HIGHLIGHT */
+  .highlight {
+    background: var(--amber-light);
+    border: 1px solid rgba(184,134,11,0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px;
+    margin: 10px 0;
+  }
+  .highlight strong { color: var(--amber); }
+
+  .alert {
+    background: var(--coral-light);
+    border: 1px solid rgba(200,75,49,0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px;
+    margin: 10px 0;
+  }
+  .alert strong { color: var(--coral); }
+
+  /* FULL WIDTH CARD */
+  .card-full {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 14px;
+  }
+
+  /* GPEC TOOLS */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  @media(max-width:600px){ .tools-grid { grid-template-columns: 1fr 1fr; } }
+  .tool-item {
+    background: var(--paper2);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+  .tool-item strong { display: block; font-size: 12.5px; margin-bottom: 3px; color: var(--purple); }
+
+  /* REMUNERATION */
+  .remun-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  @media(max-width:600px){ .remun-box { grid-template-columns: 1fr; } }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    color: #999;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+
+  /* PRINT */
+  @media print {
+    body { font-size: 12px; background: white; }
+    .header { background: var(--ink) !important; -webkit-print-color-adjust: exact; }
+    .container { padding: 12px; }
+    .section-title { margin: 20px 0 10px; }
+    .grid-2, .grid-3 { gap: 8px; }
+    a { text-decoration: none; }
+  }
+
+  /* SEPARATOR */
+  hr.sep { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+
+  /* SMALL */
+  .small { font-size: 11.5px; color: #666; }
+
+  /* PILL ROW */
+  .pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .pill {
+    background: var(--paper2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    color: var(--ink2);
+  }
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="header-top">
+      <div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:1.5px;opacity:0.5;margin-bottom:6px;">CNAM INTEC</div>
+        <h1>Fiche Partiel &mdash; <span>UE 444</span><br>Management</h1>
+        <div class="header-sub">GRH · GPEC · Motivation · Conflits · Innovation · Stratégie · Fonction commerciale · Production</div>
+      </div>
+      <div class="badge">&#9998; Tout le programme</div>
+    </div>
+    <div class="toc">
+      <a href="#rh">Fonction RH</a>
+      <a href="#gpec">GPEC</a>
+      <a href="#motivation">Motivation</a>
+      <a href="#remuneration">Rémunération</a>
+      <a href="#conflits">Conflits</a>
+      <a href="#innovation">Innovation</a>
+      <a href="#strategie">Stratégie</a>
+      <a href="#commercial">Fct Commerciale</a>
+      <a href="#production">Fct Production</a>
+      <a href="#marketing">Marketing</a>
+      <a href="#auteurs">Auteurs clés</a>
+      <a href="#methode">Méthode Dossier 2</a>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ====================== SECTION 1 : FONCTION RH ====================== -->
+<div class="section-title" id="rh">
+  <span class="num">1</span> La fonction Ressources Humaines
+</div>
+
+<div class="card-full">
+  <div class="def">
+    <div class="def-label">Définition</div>
+    <strong>La GRH (Gestion des Ressources Humaines)</strong> est l'ensemble des pratiques mises en œuvre pour <strong>administrer, mobiliser et développer</strong> les ressources humaines impliquées dans l'activité d'une organisation.
+  </div>
+  <div class="def">
+    <div class="def-label">Spécificités de la fonction RH (Porter)</div>
+    Le capital humain est <strong>indivisible et hétérogène</strong> · Il est composé <strong>d'acteurs stratégiques</strong> (qui peuvent se mobiliser, faire grève…) · Il est parfois considéré comme une <strong>variable d'ajustement</strong> (réduction effectifs en crise) · Il est en <strong>permanente évolution</strong> sociétale
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="card card-teal">
+    <div class="card-title"><span class="dot"></span>Évolution historique de la fonction RH</div>
+    <table>
+      <tr><th>Période</th><th>Caractéristiques</th></tr>
+      <tr><td><strong>19e siècle</strong></td><td>Entreprise familiale, management <strong>paternaliste</strong> (ordre + sphère privée)</td></tr>
+      <tr><td><strong>Fin 19e – 20e</strong></td><td>Modèle <strong>taylorien</strong>, développement syndicats, encadrement législateur → technicisation de la RH</td></tr>
+      <tr><td><strong>Années 60-80</strong></td><td>Formation, changements sociétaux, enrichissement du travail, remise en cause du paternalisme (Mai 68)</td></tr>
+      <tr><td><strong>Années 80</strong></td><td>Fort chômage → RH devient <strong>fonction stratégique</strong>, arrivée de la <strong>GPEC</strong></td></tr>
+    </table>
+  </div>
+
+  <div class="card card-coral">
+    <div class="card-title"><span class="dot"></span>Activités RH (chaîne de valeur de Porter)</div>
+    <div style="margin-bottom:8px;"><span class="tag tag-teal">Fonctions opérationnelles</span> <span class="small">Acheter · Produire · Vendre</span></div>
+    <div style="margin-bottom:8px;"><span class="tag tag-coral">Fonctions de support</span> <span class="small">Financer · Innover · Recruter · Former</span></div>
+    <ul class="clean" style="margin-top:8px;">
+      <li>Recrutement et intégration</li>
+      <li>Évaluation des salariés (entretien annuel)</li>
+      <li>Rémunération (fixe + variable)</li>
+      <li>Formation professionnelle</li>
+      <li>Mobilité et gestion des carrières</li>
+      <li>Gestion du climat social</li>
+      <li>Relations professionnelles (CSE, syndicats)</li>
+    </ul>
+    <div class="highlight" style="margin-top:10px;">
+      <strong>Limites de légitimité :</strong> vue comme centre de coûts · activités partagées aux opérationnels · dépend de la conjoncture
+    </div>
+  </div>
+</div>
+
+<div class="grid-3" style="margin-top:14px;">
+  <div class="card card-purple">
+    <div class="card-title"><span class="dot"></span>Recrutement — 4 étapes</div>
+    <ul class="clean">
+      <li><strong>1.</strong> Définition du profil du poste et du candidat</li>
+      <li><strong>2.</strong> Recherche de candidats (interne / externe)</li>
+      <li><strong>3.</strong> Sélection des candidats</li>
+      <li><strong>4.</strong> Accueil et intégration</li>
+    </ul>
+    <div class="small" style="margin-top:8px;">Recruter = choisir entre divers candidats pour pourvoir un poste à créer, maintenir ou transformer</div>
+  </div>
+
+  <div class="card card-amber">
+    <div class="card-title"><span class="dot"></span>Évaluation des salariés</div>
+    <ul class="clean">
+      <li>Entretien annuel ou bi-annuel</li>
+      <li>Manager + salarié complètent questionnaire</li>
+      <li>Objectif : apprécier la contribution individuelle</li>
+      <li>Transmission à la RH pour gestion personnalisée</li>
+    </ul>
+  </div>
+
+  <div class="card card-green">
+    <div class="card-title"><span class="dot"></span>Climat social & CSE</div>
+    <div class="def" style="margin-bottom:8px;">
+      <strong>Climat social</strong> : indicateur mesurant le <strong>degré de satisfaction des salariés</strong> à l'égard de leur entreprise
+    </div>
+    <ul class="clean">
+      <li><strong>CSE</strong> : instance représentative du personnel depuis 2017</li>
+      <li>Obligatoire ≥ 11 salariés / 12 mois consécutifs</li>
+      <li>Missions : conditions de travail, santé, sécurité, stratégie</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Formation -->
+<div class="card-full" style="margin-top:14px;">
+  <div class="card-title" style="font-size:14px;margin-bottom:12px;"><span class="dot" style="background:var(--teal);"></span>Formation professionnelle</div>
+  <div class="def">
+    <strong>Formation professionnelle</strong> : ensemble des moyens développés par une entreprise pour accroître les <strong>savoirs, savoir-faire, savoir-être</strong> de ses salariés. (Lois 1966 et 1971)
+  </div>
+  <div class="grid-3" style="margin-top:10px;">
+    <div class="innov-card" style="background:var(--teal-light);">
+      <h4>Logique d'apprentissage</h4>
+      <p>Contrat de professionnalisation, alternance, apprentissage</p>
+    </div>
+    <div class="innov-card" style="background:var(--amber-light);">
+      <h4>Logique d'épanouissement</h4>
+      <p>Congé pour transition professionnelle (CTP) · Bilan de compétences · VAE</p>
+    </div>
+    <div class="innov-card" style="background:var(--purple-light);">
+      <h4>Logique d'investissement</h4>
+      <p>Plan de développement des compétences · CPF · Ingénierie de formation</p>
+    </div>
+  </div>
+  <div class="highlight" style="margin-top:10px;">
+    <strong>Ingénierie de formation</strong> : ensemble des travaux méthodiques de conception et réalisation des systèmes de formation. Difficultés : cohérence/coordination · recensement des besoins · évaluation ex-post des dépenses.
+  </div>
+</div>
+
+
+<!-- ====================== SECTION 2 : GPEC ====================== -->
+<div class="section-title" id="gpec">
+  <span class="num">2</span> La GPEC — Gestion Prévisionnelle des Emplois et des Compétences
+</div>
+
+<div class="card-full">
+  <div class="def">
+    <div class="def-label">Définition officielle</div>
+    <strong>La GPEC</strong> est une stratégie globale de GRH (recrutement, gestion des carrières, évaluation des compétences et performances, formation professionnelle) dont l'objectif est le <strong>développement collectif des compétences</strong>. <br>
+    <em style="color:var(--accent);">« Placer la personne qu'il faut, à l'endroit qu'il faut et au moment où il le faut »</em>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="card card-purple">
+    <div class="card-title"><span class="dot"></span>Objectifs de la GPEC</div>
+    <ul class="clean">
+      <li>Mettre en relation la <strong>stratégie de l'entreprise</strong> et l'évolution des emplois</li>
+      <li>Réduire l'écart entre <strong>compétences réelles</strong> et <strong>compétences stratégiques requises</strong></li>
+      <li>Anticiper les départs (retraites, turn-over)</li>
+      <li>Gérer la montée en compétences</li>
+      <li>Favoriser la mobilité interne</li>
+    </ul>
+    <div class="alert" style="margin-top:10px;">
+      <strong>Situations déclenchant la GPEC :</strong> recrutement · formation · mobilité · restructuration · management
+    </div>
+  </div>
+
+  <div class="card card-teal">
+    <div class="card-title"><span class="dot"></span>7 outils de la GPEC à connaître</div>
+    <div class="tools-grid">
+      <div class="tool-item">
+        <strong>Référentiel de compétences</strong>
+        Liste les compétences nécessaires par poste
+      </div>
+      <div class="tool-item">
+        <strong>Cartographie des métiers</strong>
+        Représentation visuelle des emplois et passerelles
+      </div>
+      <div class="tool-item">
+        <strong>Aires de mobilité</strong>
+        Chemins possibles entre métiers (horizontal/vertical)
+      </div>
+      <div class="tool-item">
+        <strong>Entretien professionnel / annuel</strong>
+        Évaluation individuelle, objectifs, formation
+      </div>
+      <div class="tool-item">
+        <strong>Bilan de compétences</strong>
+        Analyse des acquis professionnels du salarié
+      </div>
+      <div class="tool-item">
+        <strong>Plan de développement des compétences</strong>
+        Programme de formation aligné sur les besoins
+      </div>
+      <div class="tool-item">
+        <strong>CPF / VAE</strong>
+        Compte personnel de formation · Validation des acquis
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card card-coral" style="margin-top:14px;">
+  <div class="card-title"><span class="dot"></span>Risques d'une GPEC inefficace</div>
+  <div class="grid-3">
+    <div class="def"><strong>Surcharge de travail</strong> pour les personnels en poste (sous-effectif)</div>
+    <div class="def"><strong>Sous-utilisation des compétences</strong> (mauvaise adéquation poste/personne)</div>
+    <div class="def"><strong>Retard sur l'évolution du secteur</strong> (compétences obsolètes, perte de compétitivité)</div>
+  </div>
+</div>
+
+<div class="grid-2" style="margin-top:14px;">
+  <div class="card card-amber">
+    <div class="card-title"><span class="dot"></span>Mobilité et gestion des carrières</div>
+    <ul class="clean">
+      <li><strong>Mobilité géographique</strong> : changement de lieu de travail</li>
+      <li><strong>Mobilité horizontale</strong> : changement de poste, même niveau hiérarchique</li>
+      <li><strong>Mobilité verticale</strong> : promotion (ou rétrogradation)</li>
+    </ul>
+    <div class="small" style="margin-top:8px;">Les "filières de mobilité" = chaînage entre emplois pour établir des passerelles</div>
+  </div>
+  <div class="card card-green">
+    <div class="card-title"><span class="dot"></span>Cadre législatif GPEC</div>
+    <ul class="clean">
+      <li>Loi de <strong>modernisation sociale (2002)</strong></li>
+      <li>Loi de <strong>cohésion sociale (2005)</strong></li>
+      <li>Loi <strong>avenir professionnel (2018)</strong></li>
+    </ul>
+    <div class="small" style="margin-top:8px;">Apparition dans les ateliers industriels (1990-1995) → institutionnalisation → stabilisation → réglementation (depuis 2004)</div>
+  </div>
+</div>
+
+
+<!-- ====================== SECTION 3 : MOTIVATION ====================== -->
+<div class="section-title" id="motivation">
+  <span class="num">3</span> Les théories de la motivation
+</div>
+
+<div class="card-full">
+  <div class="grid-2">
+    <div class="def">
+      <div class="def-label">Comportement organisationnel</div>
+      Étude de l'impact des <strong>individus, groupes et structures</strong> sur le comportement au sein des organisations, dans le but d'améliorer leur efficacité.
+    </div>
+    <div class="def">
+      <div class="def-label">Motivation — définition</div>
+      Ensemble des <strong>forces internes et externes</strong> qui déclenchent, orientent et maintiennent un comportement vers un objectif. Elle est à la fois <em>source d'énergie</em> et <em>direction</em> de l'action.
+    </div>
+  </div>
+  <div class="def" style="margin-top:10px;">
+    <div class="def-label">Les 6 catégories de valeurs — Allport, Vernon &amp; Lindzey (1931, 1960)</div>
+    Les valeurs déterminent les motivations profondes de l'individu. 6 catégories :
+    <div class="pill-row" style="margin-top:8px;">
+      <span class="pill" style="background:var(--teal-light);border-color:var(--teal);color:var(--teal);"><strong>Théorique</strong> — quête de vérité, connaissance</span>
+      <span class="pill" style="background:var(--amber-light);border-color:var(--amber);color:var(--amber);"><strong>Économique</strong> — utilité, rentabilité</span>
+      <span class="pill" style="background:var(--purple-light);border-color:var(--purple);color:var(--purple);"><strong>Esthétique</strong> — forme, harmonie, beauté</span>
+      <span class="pill" style="background:var(--green-light);border-color:var(--green);color:var(--green);"><strong>Social</strong> — amour d'autrui, altruisme</span>
+      <span class="pill" style="background:var(--coral-light);border-color:var(--coral);color:var(--coral);"><strong>Politique</strong> — pouvoir, influence</span>
+      <span class="pill" style="background:var(--paper2);border-color:#999;color:#555;"><strong>Religieuse</strong> — sens, transcendance</span>
+    </div>
+  </div>
+</div>
+
+<!-- THÉORIES DU CONTENU -->
+<div class="section-title" style="font-size:16px;border-bottom:1px solid var(--border);margin-top:24px;margin-bottom:14px;">
+  <span style="background:var(--teal);color:white;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px;margin-right:10px;">THÉORIES DU CONTENU</span>
+  Qu'est-ce qui motive ? (les besoins)
+</div>
+
+<div class="grid-3">
+  <div class="card card-teal">
+    <div class="card-title"><span class="dot"></span>Pyramide de Maslow <span class="author teal">Maslow</span></div>
+    <div class="def">La motivation naît d'un <strong>besoin insatisfait</strong>. Les besoins sont hiérarchisés : on ne cherche à satisfaire un besoin supérieur que lorsque le besoin inférieur est comblé.</div>
+    <div style="margin-top:10px;">
+      <div style="background:var(--coral);color:white;padding:5px 10px;border-radius:4px;font-size:11px;font-weight:600;text-align:center;margin-bottom:3px;">5. Réalisation de soi</div>
+      <div style="background:#e07050;color:white;padding:5px 10px;border-radius:4px;font-size:11px;font-weight:600;text-align:center;margin-bottom:3px;">4. Estime (reconnaissance, statut)</div>
+      <div style="background:var(--amber);color:white;padding:5px 10px;border-radius:4px;font-size:11px;font-weight:600;text-align:center;margin-bottom:3px;">3. Appartenance (social, affection)</div>
+      <div style="background:#7aaa80;color:white;padding:5px 10px;border-radius:4px;font-size:11px;font-weight:600;text-align:center;margin-bottom:3px;">2. Sécurité (emploi, protection)</div>
+      <div style="background:var(--teal);color:white;padding:5px 10px;border-radius:4px;font-size:11px;font-weight:600;text-align:center;">1. Physiologique (salaire, nourriture)</div>
+    </div>
+    <div class="small" style="margin-top:8px;"><strong>Limite :</strong> la hiérarchie n'est pas universelle, certains besoins peuvent coexister</div>
+  </div>
+
+  <div class="card card-purple">
+    <div class="card-title"><span class="dot"></span>Modèle ERG — Alderfer <span class="author purple">Alderfer</span></div>
+    <div class="def">Reformulation de Maslow en <strong>3 niveaux non hiérarchisés</strong> pouvant être simultanés :</div>
+    <ul class="clean" style="margin-top:8px;">
+      <li><strong>E — Existence</strong> : besoins physiologiques + sécurité</li>
+      <li><strong>R — Relatedness (Relations)</strong> : appartenance, relations sociales</li>
+      <li><strong>G — Growth (Croissance)</strong> : développement personnel, réalisation</li>
+    </ul>
+    <div class="highlight" style="margin-top:10px;">
+      <strong>Apport vs Maslow :</strong> plusieurs niveaux peuvent être actifs simultanément · si un besoin supérieur est frustré, on revient au niveau inférieur (régression)
+    </div>
+  </div>
+
+  <div class="card card-amber">
+    <div class="card-title"><span class="dot"></span>Modèle bifactoriel — Herzberg <span class="author amber">Herzberg</span></div>
+    <div class="def">Deux types de facteurs distincts et indépendants agissent sur la motivation :</div>
+    <div style="margin-top:10px;">
+      <div class="innov-card" style="background:var(--coral-light);margin-bottom:8px;">
+        <h4 style="color:var(--coral);">Facteurs d'hygiène (démotivation si absents)</h4>
+        <p>Salaire · conditions de travail · sécurité · politique d'entreprise · relations avec supérieurs<br><span class="small">→ Leur présence n'augmente PAS la motivation, mais leur absence crée de l'insatisfaction</span></p>
+      </div>
+      <div class="innov-card" style="background:var(--green-light);">
+        <h4 style="color:var(--green);">Facteurs de motivation (satisfaction)</h4>
+        <p>Réalisation · reconnaissance · responsabilité · avancement · contenu du travail<br><span class="small">→ Leur présence AUGMENTE la motivation et l'engagement</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- THÉORIES DU PROCESSUS -->
+<div class="section-title" style="font-size:16px;border-bottom:1px solid var(--border);margin-top:24px;margin-bottom:14px;">
+  <span style="background:var(--purple);color:white;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px;margin-right:10px;">THÉORIES DU PROCESSUS</span>
+  Comment se construit la motivation ? (les mécanismes)
+</div>
+
+<div class="grid-3">
+  <div class="card card-purple">
+    <div class="card-title"><span class="dot"></span>Théorie de l'équité <span class="author purple">Adams</span></div>
+    <div class="def">La motivation dépend de la <strong>perception d'équité</strong> dans le traitement reçu, par comparaison avec un référent.</div>
+    <div style="background:var(--purple-light);border-radius:8px;padding:10px;margin-top:8px;text-align:center;font-size:12px;">
+      <div style="margin-bottom:6px;"><strong>Ratio individuel</strong></div>
+      <div style="font-size:13px;">Rétribution perçue / Contribution perçue</div>
+      <div style="font-size:18px;margin:4px 0;">⟺</div>
+      <div style="font-size:13px;">Rétribution collègue / Contribution collègue</div>
+      <div style="margin-top:6px;font-size:11px;color:var(--purple);"><strong>Si inégalité perçue → tension → démotivation ou comportement correcteur</strong></div>
+    </div>
+  </div>
+
+  <div class="card card-coral">
+    <div class="card-title"><span class="dot"></span>Théorie de l'attente EIV <span class="author coral">Vroom</span></div>
+    <div class="def">La motivation est le produit de <strong>3 perceptions</strong> :</div>
+    <div style="margin-top:10px;">
+      <div class="def" style="margin-bottom:6px;">
+        <strong>E — Expectation (Espérance)</strong><br>
+        <span class="small">Conviction que mes efforts aboutiront à la performance souhaitée</span>
+      </div>
+      <div class="def" style="margin-bottom:6px;">
+        <strong>I — Instrumentalité</strong><br>
+        <span class="small">Conviction que la performance conduira à la récompense attendue</span>
+      </div>
+      <div class="def" style="margin-bottom:6px;">
+        <strong>V — Valence</strong><br>
+        <span class="small">Valeur subjective accordée à la récompense (positive ou négative)</span>
+      </div>
+    </div>
+    <div style="background:var(--coral-light);border-radius:6px;padding:8px;text-align:center;font-size:12px;font-weight:600;color:var(--coral);">
+      Motivation = E × I × V<br><span style="font-size:10px;font-weight:400;color:var(--ink2);">Si l'un des 3 = 0 → motivation nulle</span>
+    </div>
+  </div>
+
+  <div class="card card-green">
+    <div class="card-title"><span class="dot"></span>Modèle intégrateur &amp; limites</div>
+    <div class="def" style="margin-bottom:8px;">
+      <strong>Modèle intégrateur</strong> : combine les deux approches — les besoins (contenu) orientent la direction, le processus explique l'intensité et la persistance de l'effort.
+    </div>
+    <div class="def-label" style="margin-bottom:6px;">Limites des théories de la motivation</div>
+    <ul class="clean">
+      <li>Hiérarchie des besoins <strong>non universelle</strong> (Maslow)</li>
+      <li>Difficile à mesurer objectivement (perception subjective)</li>
+      <li>Différences culturelles, individuelles fortes</li>
+      <li>Ne prennent pas toujours en compte le <strong>contexte organisationnel</strong></li>
+      <li>Théories souvent construites sur des échantillons restreints</li>
+    </ul>
+  </div>
+</div>
+
+<!-- GROUPES -->
+<div class="card-full" style="margin-top:14px;">
+  <div class="card-title" style="font-size:14px;margin-bottom:12px;"><span class="dot" style="background:var(--amber);"></span>Comportement organisationnel — Groupes</div>
+  <div class="grid-2">
+    <div>
+      <div class="def">
+        <div class="def-label">Définition du groupe</div>
+        Ensemble d'individus qui <strong>interagissent, partagent des normes</strong> et poursuivent des objectifs communs. Le groupe développe une identité collective et des rôles différenciés.
+      </div>
+    </div>
+    <div class="innov-grid">
+      <div class="innov-card" style="background:var(--teal-light);">
+        <h4>Groupes formels</h4>
+        <p>Créés par l'organisation · structure officielle · objectifs définis (équipe projet, service, comité…)</p>
+      </div>
+      <div class="innov-card" style="background:var(--amber-light);">
+        <h4>Groupes informels</h4>
+        <p>Émergent spontanément · liens affectifs, intérêts communs · influencent le climat social</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====================== SECTION 3bis : RÉMUNÉRATION ====================== -->
+<div class="section-title" id="remuneration">
+  <span class="num">4</span> La rémunération des salariés
+</div>
+
+<div class="grid-2">
+  <div class="card card-amber">
+    <div class="card-title"><span class="dot"></span>Structure de la rémunération</div>
+    <div class="remun-box">
+      <div class="innov-card" style="background:var(--teal-light);">
+        <h4>Partie fixe</h4>
+        <p>Déterminée par : conditions économiques · marché du travail · rareté des compétences · concurrence · temps travaillé · SMIC</p>
+      </div>
+      <div class="innov-card" style="background:var(--amber-light);">
+        <h4>Partie variable</h4>
+        <p>Heures sup · primes d'intéressement · participation · accessoires · primes particulières</p>
+      </div>
+    </div>
+    <div class="highlight" style="margin-top:10px;">
+      <strong>Depuis les années 80 :</strong> <strong>individualisation croissante</strong> de la rémunération (rémunération au mérite, part variable…)
+    </div>
+  </div>
+
+  <div class="card card-purple">
+    <div class="card-title"><span class="dot"></span>Cadre légal et périphériques</div>
+    <ul class="clean">
+      <li><strong>Non-discrimination</strong> (loi anti-discrimination)</li>
+      <li><strong>Égalité femmes-hommes</strong></li>
+      <li><strong>SMIC</strong> : salaire minimum légal (France : 1801 €/mois brut en 2024)</li>
+      <li><strong>Conventions collectives</strong> : cadre par branche</li>
+    </ul>
+    <div style="margin-top:10px;">
+      <div class="def-label">Périphériques de rémunération</div>
+      <div class="pill-row">
+        <span class="pill">Intéressement</span>
+        <span class="pill">Participation</span>
+        <span class="pill">Stocks-options</span>
+        <span class="pill">Actionnariat salarié</span>
+        <span class="pill">Primes</span>
+      </div>
+    </div>
+    <div class="def" style="margin-top:10px;">
+      <strong>Ratio d'équité (Adams / Pertti 2004) :</strong> <br>
+      Rétribution individu / Contribution individu <strong>≥</strong> Rétribution collègue / Contribution collègue<br>
+      <span class="small">Si l'individu perçoit une inégalité → démotivation et conflits</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ====================== SECTION 5 : CONFLITS ====================== -->
+<div class="section-title" id="conflits">
+  <span class="num">5</span> La gestion des conflits
+</div>
+
+<div class="card-full">
+  <div class="grid-2">
+    <div>
+      <div class="def">
+        <div class="def-label">Définition — Bréard &amp; Pastor</div>
+        <strong>Un conflit</strong> est une situation de <strong>désaccord et d'affrontement</strong> entre plusieurs groupes sociaux antagonistes, opposés sur un <strong>objet commun</strong>, avec une interdépendance des parties. Les conflits sont <strong>inévitables</strong> (Crozier &amp; Friedberg : composante intrinsèque des organisations).
+      </div>
+      <div class="def" style="margin-top:8px;">
+        <div class="def-label">Types de conflits</div>
+        <span class="tag tag-coral">Économique</span> <span class="small">salaires, retraites</span>&nbsp;
+        <span class="tag tag-purple">Social</span> <span class="small">divergences d'intérêts</span>&nbsp;
+        <span class="tag tag-teal">Technologique</span> <span class="small">rupture technologique</span>&nbsp;
+        <span class="tag tag-amber">Affectif</span> <span class="small">démotivation, mal-être</span>
+      </div>
+    </div>
+    <div>
+      <div class="def">
+        <div class="def-label">Gestion des conflits — définition</div>
+        C'est l'ensemble des moyens et actions mis en œuvre par l'entreprise ou le manager pour <strong>résoudre et dépasser</strong> une situation conflictuelle, afin de garantir le bon fonctionnement de l'organisation.
+      </div>
+      <div class="highlight" style="margin-top:8px;">
+        <strong>Avantages d'une gestion efficace :</strong> réduction des tensions internes · compensation des frustrations · renforcement de la cohésion des groupes
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Rondeau -->
+<div class="card-full" style="margin-top:14px;">
+  <div class="card-title" style="font-size:14px;margin-bottom:14px;">
+    <span class="dot" style="background:var(--coral);"></span>
+    Modèle de diagnostic complet du conflit — <span class="author coral">Alain Rondeau</span>
+  </div>
+  <div class="def">Outil d'analyse des conflits organisationnels permettant de <strong>repérer les points critiques</strong> sur lesquels des actions doivent être engagées. Approche à <strong>3 niveaux</strong>.</div>
+  <div style="overflow-x:auto;margin-top:12px;">
+    <table class="rondeau-table">
+      <tr>
+        <th>Niveau</th>
+        <th>Type d'analyse</th>
+        <th>Description</th>
+        <th>Ce qu'on analyse</th>
+      </tr>
+      <tr>
+        <td><span class="niveau-badge n1">1er niveau</span></td>
+        <td><strong>Structurelle</strong></td>
+        <td>Conditions préalables et statiques du conflit</td>
+        <td>
+          <ul class="clean">
+            <li><strong>Caractères propres aux acteurs</strong> : prédispositions, stratégies</li>
+            <li><strong>Enjeux du conflit</strong> : ce que chaque partie veut obtenir/éviter</li>
+            <li><strong>Cadre de référence</strong> : règles, normes (ex : droit de grève)</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td><span class="niveau-badge n2">2e niveau</span></td>
+        <td><strong>Dynamique</strong></td>
+        <td>Processus d'échange et d'influence réciproque des acteurs</td>
+        <td>
+          <ul class="clean">
+            <li>Interactions et négociations entre parties</li>
+            <li>Comportements influencés par les réactions des autres</li>
+            <li>Dialogue direction / syndicats / salariés</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td><span class="niveau-badge n3">3e niveau</span></td>
+        <td><strong>Diachronique</strong></td>
+        <td>Analyse des changements de comportement tout au long du processus</td>
+        <td>
+          <ul class="clean">
+            <li>Évolution et résolution du conflit</li>
+            <li>Accords conclus, résultat gagnant/gagnant ou non</li>
+            <li>Changements obtenus (salaires, conditions de travail…)</li>
+          </ul>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="grid-2" style="margin-top:14px;">
+  <div class="card card-teal">
+    <div class="card-title"><span class="dot"></span>Prévenir les conflits — à priori</div>
+    <div style="margin-bottom:8px;"><strong class="small">Mécanismes FORMELS</strong></div>
+    <ul class="clean">
+      <li>Contrat de travail précis</li>
+      <li>Modèle rationnel (Taylor, Fayol) : unité de commandement, séparation des tâches, définition claire des rôles</li>
+    </ul>
+    <div style="margin-top:10px;margin-bottom:6px;"><strong class="small">Mécanismes INFORMELS (École des Relations Humaines)</strong></div>
+    <ul class="clean">
+      <li>Prise en compte des besoins (Maslow, Mayo, Herzberg)</li>
+      <li>Implication dans les décisions (Likert, MacGregor, Lawler & Porter)</li>
+      <li>Amélioration de la communication</li>
+      <li>Culture participative d'entreprise</li>
+    </ul>
+  </div>
+  <div class="card card-coral">
+    <div class="card-title"><span class="dot"></span>Résoudre les conflits — à posteriori</div>
+    <ul class="clean">
+      <li><strong>Négociation</strong> : dialogue direct entre les parties</li>
+      <li><strong>Médiation</strong> : tiers neutre facilitateur, en cas d'échec interne — objectif : amélioration du climat, accord commun</li>
+      <li><strong>Arbitrage</strong> : l'arbitre prend une décision contraignante pour les parties (≠ médiateur)</li>
+    </ul>
+    <div class="highlight" style="margin-top:10px;">
+      <strong>Bonne pratique :</strong> Considérer les conflits comme <strong>constructifs</strong> et porteurs d'évolution. Rechercher le consensus. Stratégies alternatives.
+    </div>
+  </div>
+</div>
+
+
+<!-- ====================== SECTION 6 : INNOVATION ====================== -->
+<div class="section-title" id="innovation">
+  <span class="num">6</span> L'innovation et la fonction R&amp;D
+</div>
+
+<div class="card-full">
+  <div class="def">
+    <div class="def-label">Définition</div>
+    <strong>L'innovation</strong> est l'introduction marchande d'une nouveauté économique concernant le <strong>produit, le procédé, l'organisation sociale, la vente, la finance</strong>, etc.
+  </div>
+</div>
+
+<div class="grid-2" style="margin-top:14px;">
+  <div class="card card-teal">
+    <div class="card-title"><span class="dot"></span>2 types d'innovation (par nature)</div>
+    <div class="innov-grid">
+      <div class="innov-card" style="background:var(--teal-light);">
+        <h4>Innovation produit-marché</h4>
+        <p>Mise sur le marché d'un <strong>produit nouveau</strong> : radicalement nouveau, modification des caractéristiques ou des conditions de mise sur le marché.<br>
+        → <em>Liée à la stratégie de <strong>différenciation</strong> (Porter)</em></p>
+      </div>
+      <div class="innov-card" style="background:var(--amber-light);">
+        <h4>Innovation de processus (procédé)</h4>
+        <p>Nouveau procédé de fabrication, organisation différente ou amélioration des composants → <strong>réduire les coûts</strong> ou accroître l'efficience.<br>
+        → <em>Liée à la stratégie de <strong>domination par les coûts</strong> (Porter)</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-purple">
+    <div class="card-title"><span class="dot"></span>2 degrés d'innovation (par intensité)</div>
+    <div class="innov-grid">
+      <div class="innov-card" style="background:var(--purple-light);">
+        <h4>Innovation incrémentale</h4>
+        <p>Amélioration progressive et adaptation d'un produit ou service existant. Faible rupture avec l'existant.</p>
+      </div>
+      <div class="innov-card" style="background:var(--coral-light);">
+        <h4>Innovation radicale (de rupture)</h4>
+        <p><strong>Christensen</strong> : nouvelles dimensions de performance, ouvre de nouveaux marchés (non-consommateurs). Chaque nouveau marché = une innovation de rupture.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-3" style="margin-top:14px;">
+  <div class="card card-amber">
+    <div class="card-title"><span class="dot"></span>3 processus d'innovation</div>
+    <ul class="clean">
+      <li>Poussé par le <strong>progrès technique</strong> (technology push)</li>
+      <li>Tiré par la <strong>demande</strong> du marché (market pull)</li>
+      <li><strong>Interactif</strong> : combinaison des deux → modèle le plus réaliste</li>
+    </ul>
+  </div>
+
+  <div class="card card-teal">
+    <div class="card-title"><span class="dot"></span>Innovation ouverte — Chesbrough (2003)</div>
+    <div class="def">Approche stratégique selon laquelle les entreprises exploitent des idées <strong>internes ET externes</strong> pour innover (start-ups, partenaires, clients, universités…) <span class="author teal">Chesbrough</span></div>
+    <ul class="clean">
+      <li>Trophées de l'innovation</li>
+      <li>Co-innovation avec partenaires</li>
+      <li>Collaboration avec start-ups</li>
+    </ul>
+  </div>
+
+  <div class="card card-coral">
+    <div class="card-title"><span class="dot"></span>Dispositifs organisationnels d'innovation</div>
+    <ul class="clean">
+      <li><strong>Structure par projets</strong> : transversalité, pluridisciplinarité, durée limitée</li>
+      <li><strong>Labs centralisés</strong> : R&D fondamentale et appliquée (SportsLab, Add Lab…)</li>
+      <li><strong>Intrapreneuriat</strong> : salarié-entrepreneur en interne</li>
+      <li><strong>Essaimage</strong> : accompagnement à la création d'entreprise</li>
+    </ul>
+  </div>
+</div>
+
+<div class="grid-2" style="margin-top:14px;">
+  <div class="card card-green">
+    <div class="card-title"><span class="dot"></span>Intrapreneuriat</div>
+    <div class="def">L'intrapreneuriat naît de l'association de l'entreprise avec un ou plusieurs salariés pour créer une <strong>structure organisationnelle spécifique</strong>. Les salariés conservent leur statut mais développent un esprit entrepreneurial (statut hybride).</div>
+    <ul class="clean">
+      <li>Accélère la transformation d'idées en produits rentables</li>
+      <li>Saisit des opportunités sans engager l'entreprise entière</li>
+      <li>Développe le potentiel d'innovation</li>
+      <li>Monte en compétences les salariés</li>
+    </ul>
+  </div>
+  <div class="card card-purple">
+    <div class="card-title"><span class="dot"></span>Essaimage</div>
+    <div class="def">Pratique consistant à <strong>encourager les salariés à entreprendre</strong> en les accompagnant dans leur projet de création ou reprise d'entreprise.</div>
+    <ul class="clean">
+      <li>Favorise la mobilité et le renouvellement des effectifs</li>
+      <li>Source de motivation et d'innovation globale</li>
+      <li>Renforce l'esprit entrepreneur en interne</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ====================== SECTION 7 : STRATÉGIE ====================== -->
+<div class="section-title" id="strategie">
+  <span class="num">7</span> Stratégie &amp; avantage concurrentiel
+</div>
+
+<div class="grid-2">
+  <div class="card card-teal">
+    <div class="card-title"><span class="dot"></span>Chaîne de valeur — Porter</div>
+    <div class="def">Outil identifiant les <strong>activités sources d'avantage concurrentiel</strong> dans l'entreprise. Chaque organisation identifie ses activités principales et de soutien.</div>
+    <ul class="clean">
+      <li><strong>Activités primaires</strong> : logistique, production, commercialisation, SAV</li>
+      <li><strong>Activités de soutien</strong> : infrastructure, RH, R&D, achats</li>
+      <li>Variables à maîtriser : qualité · délai · coûts · environnement</li>
+    </ul>
+  </div>
+
+  <div class="card card-amber">
+    <div class="card-title"><span class="dot"></span>Stratégies génériques — Porter</div>
+    <div class="innov-grid">
+      <div class="innov-card" style="background:var(--teal-light);">
+        <h4>Différenciation</h4>
+        <p>Se distinguer par l'innovation, la qualité, le service → prix premium justifié</p>
+      </div>
+      <div class="innov-card" style="background:var(--amber-light);">
+        <h4>Domination par les coûts</h4>
+        <p>Produire moins cher que les concurrents → avantage prix ou marges supérieures</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-3" style="margin-top:14px;">
+  <div class="card card-purple">
+    <div class="card-title"><span class="dot"></span>Théorie des ressources &amp; compétences</div>
+    <div class="def">L'avantage concurrentiel repose sur l'<strong>unicité et la spécificité des compétences</strong> de l'entreprise. Les <strong>capacités dynamiques</strong> = renouvellement des compétences dans le temps.</div>
+  </div>
+
+  <div class="card card-coral">
+    <div class="card-title"><span class="dot"></span>Stratégie de diversification</div>
+    <ul class="clean">
+      <li><strong>Liée</strong> : activités proches du cœur de métier</li>
+      <li><strong>Conglomérale</strong> : activités sans lien entre elles</li>
+      <li>Objectifs : répartition des risques · croissance · synergies</li>
+    </ul>
+  </div>
+
+  <div class="card card-green">
+    <div class="card-title"><span class="dot"></span>Leadership &amp; vision stratégique</div>
+    <ul class="clean">
+      <li><strong>Vision</strong> claire et partagée</li>
+      <li><strong>Capacité à énoncer des objectifs</strong></li>
+      <li><strong>Mobiliser</strong> autour de la trajectoire choisie</li>
+      <li>Gestion des cultures dans les fusions</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card card-teal" style="margin-top:14px;">
+  <div class="card-title"><span class="dot"></span>Théorie de la contingence — Burns &amp; Stalker</div>
+  <div class="grid-2">
+    <div>
+      <div class="def">La structure des organisations dépend de <strong>facteurs contingents</strong> (variables internes/externes) sur lesquels le décideur a peu de prise : taille · environnement · stratégie · technologie · incertitude.</div>
+    </div>
+    <div class="innov-grid">
+      <div class="innov-card" style="background:var(--teal-light);">
+        <h4>Structure organique</h4>
+        <p>Environnement instable, innovant. Flexible, décentralisé, faible formalisation.</p>
+      </div>
+      <div class="innov-card" style="background:var(--amber-light);">
+        <h4>Structure mécaniste</h4>
+        <p>Environnement stable. Hiérarchique, centralisé, formalisation forte (Taylor).</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ====================== SECTION 8 : FONCTION COMMERCIALE ====================== -->
+<div class="section-title" id="commercial">
+  <span class="num">8</span> La fonction commerciale
+</div>
+
+<div class="card-full">
+  <div class="def">
+    <div class="def-label">Définition</div>
+    La fonction commerciale regroupe l'ensemble des activités qui permettent à l'entreprise de <strong>vendre ses produits ou services</strong> à ses clients, en répondant à leurs besoins tout en atteignant les objectifs de chiffre d'affaires.
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="card card-amber">
+    <div class="card-title"><span class="dot"></span>Les 3 niveaux de la stratégie commerciale</div>
+    <ul class="clean">
+      <li><strong>Analyse du marché</strong> : étude de la demande, concurrence, environnement (PESTEL)</li>
+      <li><strong>Segmentation – Ciblage – Positionnement (SCP)</strong> : identifier les segments, choisir les cibles, se différencier</li>
+      <li><strong>Marketing mix (4P)</strong> : Produit · Prix · Communication · Distribution</li>
+    </ul>
+  </div>
+  <div class="card card-teal">
+    <div class="card-title"><span class="dot"></span>Les activités de la fonction commerciale</div>
+    <ul class="clean">
+      <li><strong>Prospection</strong> : identification et conquête de nouveaux clients</li>
+      <li><strong>Vente</strong> : argumentation, négociation, conclusion</li>
+      <li><strong>Fidélisation</strong> : relation client, SAV, CRM</li>
+      <li><strong>Veille commerciale</strong> : suivi de la concurrence et du marché</li>
+      <li><strong>Gestion de la force de vente</strong> : recrutement, formation, animation des commerciaux</li>
+    </ul>
+  </div>
+</div>
+
+<div class="grid-3" style="margin-top:14px;">
+  <div class="card card-purple">
+    <div class="card-title"><span class="dot"></span>Segmentation &amp; ciblage</div>
+    <div class="def"><strong>Segmenter</strong> = diviser le marché en groupes homogènes de clients ayant des besoins similaires.</div>
+    <ul class="clean" style="margin-top:8px;">
+      <li>Critères géographiques · démographiques · psychographiques · comportementaux</li>
+      <li><strong>Ciblage</strong> : choisir le(s) segment(s) prioritaire(s)</li>
+      <li><strong>Positionnement</strong> : image que l'entreprise veut donner dans l'esprit du consommateur</li>
+    </ul>
+  </div>
+
+  <div class="card card-coral">
+    <div class="card-title"><span class="dot"></span>La relation client (CRM)</div>
+    <div class="def"><strong>CRM (Customer Relationship Management)</strong> : ensemble des outils et pratiques pour gérer et optimiser la relation avec les clients (acquisition, rétention, fidélisation).</div>
+    <ul class="clean" style="margin-top:8px;">
+      <li>Base de données clients</li>
+      <li>Programmes de fidélité</li>
+      <li>Personnalisation de l'offre</li>
+      <li>Omnicanalité (web + physique)</li>
+    </ul>
+  </div>
+
+  <div class="card card-green">
+    <div class="card-title"><span class="dot"></span>Force de vente &amp; animation</div>
+    <ul class="clean">
+      <li><strong>Force de vente interne</strong> : salariés de l'entreprise</li>
+      <li><strong>Force de vente externe</strong> : agents, distributeurs indépendants</li>
+      <li><strong>Animation</strong> : objectifs, challenges, rémunération variable, formation</li>
+      <li><strong>Contrôle</strong> : tableaux de bord commerciaux, indicateurs (CA, taux de conversion, panier moyen)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card-full" style="margin-top:14px;">
+  <div class="card-title" style="font-size:14px;margin-bottom:12px;"><span class="dot" style="background:var(--amber);"></span>Comportement du consommateur</div>
+  <div class="grid-2">
+    <div>
+      <div class="def">
+        <div class="def-label">Processus d'achat (modèle AIDA)</div>
+        <strong>A</strong>ttention → <strong>I</strong>ntérêt → <strong>D</strong>ésir → <strong>A</strong>ction<br>
+        <span class="small">Utilisé pour concevoir les messages publicitaires et les argumentaires de vente</span>
+      </div>
+    </div>
+    <div>
+      <div class="def">
+        <div class="def-label">Facteurs influençant l'achat</div>
+        <span class="tag tag-teal">Culturels</span> <span class="tag tag-amber">Sociaux</span> <span class="tag tag-purple">Personnels</span> <span class="tag tag-coral">Psychologiques</span>
+        <div class="small" style="margin-top:6px;">Motivation (Maslow) · perception · apprentissage · attitudes · valeurs (Allport)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ====================== SECTION 9 : FONCTION DE PRODUCTION ====================== -->
+<div class="section-title" id="production">
+  <span class="num">9</span> La fonction de production
+</div>
+
+<div class="card-full">
+  <div class="def">
+    <div class="def-label">Définition</div>
+    La fonction de production regroupe l'ensemble des activités permettant de <strong>transformer des inputs (matières premières, travail, capital) en outputs (produits ou services)</strong> destinés à être commercialisés.
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="card card-teal">
+    <div class="card-title"><span class="dot"></span>Les objectifs de la fonction production</div>
+    <div class="grid-2" style="margin-top:4px;">
+      <div class="innov-card" style="background:var(--teal-light);">
+        <h4>Qualité</h4>
+        <p>Répondre aux exigences clients · normes ISO · zéro défaut</p>
+      </div>
+      <div class="innov-card" style="background:var(--amber-light);">
+        <h4>Coût</h4>
+        <p>Minimiser les coûts de production · économies d'échelle</p>
+      </div>
+      <div class="innov-card" style="background:var(--purple-light);">
+        <h4>Délai</h4>
+        <p>Respecter les délais de livraison · réactivité · flux tendus</p>
+      </div>
+      <div class="innov-card" style="background:var(--green-light);">
+        <h4>Flexibilité</h4>
+        <p>S'adapter aux variations de la demande · personnalisation</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-amber">
+    <div class="card-title"><span class="dot"></span>Types d'organisation de la production</div>
+    <div class="innov-grid">
+      <div class="innov-card" style="background:var(--teal-light);">
+        <h4>Production à l'unité</h4>
+        <p>Sur commande, personnalisée, coût élevé (ex : avion, BTP)</p>
+      </div>
+      <div class="innov-card" style="background:var(--amber-light);">
+        <h4>Production en série</h4>
+        <p>Lots identiques, standardisation, économies d'échelle</p>
+      </div>
+      <div class="innov-card" style="background:var(--purple-light);">
+        <h4>Production en continu</h4>
+        <p>Flux ininterrompu, 24h/24 (ex : pétrochimie, agroalimentaire)</p>
+      </div>
+      <div class="innov-card" style="background:var(--green-light);">
+        <h4>Production flexible</h4>
+        <p>Adaptation rapide, cellules de production, personnalisation de masse</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-3" style="margin-top:14px;">
+  <div class="card card-coral">
+    <div class="card-title"><span class="dot"></span>Organisation taylorienne vs post-taylorienne</div>
+    <div class="innov-grid">
+      <div class="innov-card" style="background:var(--coral-light);">
+        <h4>Taylorisme (OST)</h4>
+        <p>Division du travail · one best way · spécialisation · séparation conception/exécution <span class="author coral">Taylor</span></p>
+      </div>
+      <div class="innov-card" style="background:var(--green-light);">
+        <h4>Post-taylorisme</h4>
+        <p>Enrichissement des tâches · polyvalence · groupes semi-autonomes · qualité totale</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-purple">
+    <div class="card-title"><span class="dot"></span>Gestion des flux de production</div>
+    <ul class="clean">
+      <li><strong>Flux poussé</strong> : production sur prévision → stockage puis vente</li>
+      <li><strong>Flux tiré (juste-à-temps)</strong> : production déclenchée par la demande réelle → zéro stock</li>
+      <li><strong>Lean manufacturing</strong> : éliminer les gaspillages (muda), amélioration continue (kaizen)</li>
+      <li><strong>MRP</strong> : planification des besoins en composants</li>
+    </ul>
+  </div>
+
+  <div class="card card-green">
+    <div class="card-title"><span class="dot"></span>Sous-traitance &amp; externalisation</div>
+    <div class="def"><strong>Sous-traitance</strong> : confier une partie de la production à un sous-traitant tout en gardant la responsabilité du produit final.</div>
+    <ul class="clean" style="margin-top:8px;">
+      <li>Permet de se concentrer sur le <strong>cœur de métier</strong></li>
+      <li>Risques : perte de contrôle qualité · dépendance fournisseur</li>
+      <li>Airbus : 80% de sous-traitance sur l'A350</li>
+      <li>Nécessite une <strong>gestion rigoureuse de la supply chain</strong></li>
+    </ul>
+  </div>
+</div>
+
+<div class="grid-2" style="margin-top:14px;">
+  <div class="card card-teal">
+    <div class="card-title"><span class="dot"></span>Numérique &amp; transformation de la production</div>
+    <ul class="clean">
+      <li><strong>Industrie 4.0</strong> : automatisation, robots, IoT, big data</li>
+      <li><strong>Maintenance prédictive</strong> : capteurs + IA pour anticiper les pannes</li>
+      <li><strong>Jumeau numérique</strong> : modèle virtuel de l'usine/produit</li>
+      <li><strong>Impression 3D</strong> : prototypage rapide, personnalisation</li>
+      <li><strong>Objets connectés</strong> : traçabilité, optimisation des flux</li>
+    </ul>
+  </div>
+  <div class="card card-amber">
+    <div class="card-title"><span class="dot"></span>Indicateurs de performance production (KPI)</div>
+    <ul class="clean">
+      <li><strong>Taux de rendement synthétique (TRS)</strong> : efficacité globale de la machine</li>
+      <li><strong>Taux de défauts / rebuts</strong> : qualité de la production</li>
+      <li><strong>Délai de production</strong> : lead time, cycle time</li>
+      <li><strong>Niveau de stocks</strong> : rotation des stocks</li>
+      <li><strong>Coût de revient</strong> : matières + main d'œuvre + frais généraux</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ====================== SECTION 10 : MARKETING ====================== -->
+<div class="section-title" id="marketing">
+  <span class="num">10</span> Marketing opérationnel
+</div>
+
+<div class="grid-2">
+  <div class="card card-amber">
+    <div class="card-title"><span class="dot"></span>Marketing mix — les 4P</div>
+    <table>
+      <tr><th>Levier</th><th>Éléments</th></tr>
+      <tr><td><strong>Produit</strong></td><td>Gamme, marque, qualité, RSE, durabilité</td></tr>
+      <tr><td><strong>Prix</strong></td><td>Politique tarifaire, positionnement</td></tr>
+      <tr><td><strong>Communication</strong></td><td>Publicité, réseaux sociaux, digital, omnicanal</td></tr>
+      <tr><td><strong>Distribution</strong></td><td>Exclusive, sélective, intensive, click & collect, omnicanal</td></tr>
+    </table>
+  </div>
+
+  <div class="card card-purple">
+    <div class="card-title"><span class="dot"></span>Objectifs de la communication marketing</div>
+    <div class="grid-3" style="grid-template-columns:1fr 1fr 1fr;">
+      <div class="innov-card" style="background:var(--teal-light);">
+        <h4>Cognitif</h4>
+        <p><strong>Faire connaître</strong> : notoriété, identification de la marque</p>
+      </div>
+      <div class="innov-card" style="background:var(--amber-light);">
+        <h4>Affectif</h4>
+        <p><strong>Faire adhérer</strong> : convaincre, créer une préférence</p>
+      </div>
+      <div class="innov-card" style="background:var(--purple-light);">
+        <h4>Conatif</h4>
+        <p><strong>Faire agir</strong> : inciter à l'achat, au rachat</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-3" style="margin-top:14px;">
+  <div class="card card-teal">
+    <div class="card-title"><span class="dot"></span>Études de marché — 3 types</div>
+    <ul class="clean">
+      <li><strong>Documentaires</strong> : données existantes, peu chères, accessibles — mais ne répondent pas à une question précise</li>
+      <li><strong>Qualitatives</strong> : comprendre « pourquoi » et « comment » (entretiens) — riches mais coûteuses</li>
+      <li><strong>Quantitatives</strong> : mesurer et établir des tendances (sondages, panels) — représentatives mais rigides</li>
+    </ul>
+  </div>
+
+  <div class="card card-coral">
+    <div class="card-title"><span class="dot"></span>Supply Chain Management (SCM)</div>
+    <div class="def">Gestion des flux de produits et d'informations depuis l'achat des matières jusqu'à la livraison au client, sous contraintes de <strong>délai, qualité et coûts</strong>.</div>
+    <ul class="clean">
+      <li>Différenciation retardée</li>
+      <li>Omnicanalité (ship-from-store)</li>
+      <li>Digitalisation et IA des stocks</li>
+    </ul>
+  </div>
+
+  <div class="card card-green">
+    <div class="card-title"><span class="dot"></span>Création de valeur — dimensions</div>
+    <ul class="clean">
+      <li><strong>Valeur économique</strong> : centrée sur le client</li>
+      <li><strong>Valeur financière</strong> : actionnaires, marchés</li>
+      <li><strong>Valeur sociale</strong> : salariés (rémunération, bien-être)</li>
+      <li><strong>Valeur sociétale</strong> : parties prenantes externes <span class="author green">Freeman</span> <span class="author green">Clarkson</span></li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ====================== SECTION 11 : AUTEURS ====================== -->
+<div class="section-title" id="auteurs">
+  <span class="num">11</span> Auteurs &amp; théories à citer à l'examen
+</div>
+
+<div class="card-full">
+  <div style="overflow-x:auto;">
+    <table>
+      <tr>
+        <th>Auteur</th>
+        <th>Théorie / Concept</th>
+        <th>À retenir pour l'exam</th>
+      </tr>
+      <tr>
+        <td><strong>Porter</strong></td>
+        <td>Chaîne de valeur · Stratégies génériques · 5 forces</td>
+        <td>Activités primaires/soutien · Différenciation vs domination coûts</td>
+      </tr>
+      <tr>
+        <td><strong>Christensen</strong></td>
+        <td>Innovation continue vs innovation de rupture</td>
+        <td>Chaque nouveau marché = résultat d'une innovation de rupture</td>
+      </tr>
+      <tr>
+        <td><strong>Chesbrough (2003)</strong></td>
+        <td>Innovation ouverte (Open Innovation)</td>
+        <td>Idées internes + externes · partenaires, start-ups</td>
+      </tr>
+      <tr>
+        <td><strong>Rondeau</strong></td>
+        <td>Diagnostic complet du conflit — 3 niveaux</td>
+        <td>Structurel · Dynamique · Diachronique</td>
+      </tr>
+      <tr>
+        <td><strong>Bréard &amp; Pastor</strong></td>
+        <td>Définition du conflit</td>
+        <td>Opposition ≥ 2 parties · objet commun · interdépendance</td>
+      </tr>
+      <tr>
+        <td><strong>Crozier &amp; Friedberg</strong></td>
+        <td>Acteur et système · conflits intrinsèques aux organisations</td>
+        <td>Le conflit est une composante normale des organisations (≠ Taylor)</td>
+      </tr>
+      <tr>
+        <td><strong>Adams</strong></td>
+        <td>Théorie de l'équité</td>
+        <td>Motivation = perception d'équité du traitement (ratio rétribution/contribution)</td>
+      </tr>
+      <tr>
+        <td><strong>Vroom</strong></td>
+        <td>Théorie de l'attente (VIE)</td>
+        <td>Motivation = Valence × Instrumentalité × Expectation</td>
+      </tr>
+      <tr>
+        <td><strong>Maslow</strong></td>
+        <td>Hiérarchie des besoins (pyramide)</td>
+        <td>Physiologique → Sécurité → Social → Estime → Réalisation</td>
+      </tr>
+      <tr>
+        <td><strong>Herzberg</strong></td>
+        <td>Théorie des deux facteurs</td>
+        <td>Facteurs d'hygiène (insatisfaction) vs facteurs de motivation (satisfaction)</td>
+      </tr>
+      <tr>
+        <td><strong>Mayo</strong></td>
+        <td>École des Relations Humaines (ERH) — expériences Hawthorne</td>
+        <td>Importance des relations humaines et du groupe sur la productivité</td>
+      </tr>
+      <tr>
+        <td><strong>Freeman &amp; Clarkson</strong></td>
+        <td>Théorie des parties prenantes</td>
+        <td>Valeur sociétale = intégrer toutes les parties prenantes (salariés, clients, société…)</td>
+      </tr>
+      <tr>
+        <td><strong>Burns &amp; Stalker</strong></td>
+        <td>Théorie de la contingence</td>
+        <td>Structure organique (env. instable) vs mécaniste (env. stable)</td>
+      </tr>
+      <tr>
+        <td><strong>Fayol</strong></td>
+        <td>Principes d'administration (14 principes)</td>
+        <td>Unité de commandement · Division du travail · Mécanismes formels de prévention des conflits</td>
+      </tr>
+      <tr>
+        <td><strong>Alderfer</strong></td>
+        <td>Modèle ERG (Existence, Relatedness, Growth)</td>
+        <td>Reformulation de Maslow · 3 niveaux simultanés · régression si frustration du niveau supérieur</td>
+      </tr>
+      <tr>
+        <td><strong>Allport, Vernon &amp; Lindzey</strong></td>
+        <td>6 catégories de valeurs (1931, 1960)</td>
+        <td>Théorique · Économique · Esthétique · Social · Politique · Religieux</td>
+      </tr>
+      <tr>
+        <td><strong>Taylor</strong></td>
+        <td>Organisation Scientifique du Travail (OST)</td>
+        <td>Division du travail · one best way · séparation conception/exécution · spécialisation</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+<!-- ====================== SECTION 12 : MÉTHODE DOSSIER 2 ====================== -->
+<div class="section-title" id="methode">
+  <span class="num">12</span> Méthode — Dossier 2 : Argumentation structurée (8 pts)
+</div>
+
+<div class="alert">
+  <strong>Points perdus ici si la méthode n'est pas maîtrisée !</strong> Le Dossier 2 demande une argumentation structurée avec préambule, axes, ancrage théorique et application au cas. Toujours conclure par une ouverture.
+</div>
+
+<div class="steps">
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-label">PRÉAMBULE</div>
+    <div class="step-detail">Contexte · spécificités entreprise/environnement · justification de la problématique</div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-label">DÉFINITIONS</div>
+    <div class="step-detail">Définir les concepts clés de la question · utiliser le vocabulaire précis du cours</div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-label">AXES (×2)</div>
+    <div class="step-detail">Annoncer 2 axes d'argumentation structurés, logiques et complémentaires</div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-label">DÉVELOPPEMENT</div>
+    <div class="step-detail">Citer les auteurs · mobiliser les concepts · illustrer avec le cas · preuves du dossier</div>
+  </div>
+</div>
+
+<div class="grid-2" style="margin-top:14px;">
+  <div class="card card-purple">
+    <div class="card-title"><span class="dot"></span>Structure type d'un axe</div>
+    <ul class="clean">
+      <li><strong>Argument principal</strong> (lié à la problématique)</li>
+      <li><strong>Développement théorique</strong> : définition, auteur, théorie</li>
+      <li><strong>Application au cas</strong> : élément du dossier fourni, chiffre, exemple</li>
+      <li><strong>Transition</strong> vers l'axe suivant</li>
+    </ul>
+  </div>
+
+  <div class="card card-amber">
+    <div class="card-title"><span class="dot"></span>Exemples de problématiques récurrentes (2023-2025)</div>
+    <ul class="clean">
+      <li>Comment la <strong>GRH contribue-t-elle à la création de valeur</strong> ?</li>
+      <li>Comment l'<strong>animation des équipes prévient-elle les conflits</strong> ?</li>
+      <li>Quels <strong>conseils pour une GRH plus efficace</strong> ?</li>
+      <li>Quelles <strong>recommandations organisationnelles et marketing</strong> ?</li>
+      <li>Comment <strong>accompagner les salariés</strong> après une acquisition ?</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card-full" style="margin-top:14px;">
+  <div class="card-title" style="font-size:14px;margin-bottom:12px;"><span class="dot" style="background:var(--teal);"></span>Exemple de plan type — GRH créatrice de valeur</div>
+  <div class="grid-2">
+    <div>
+      <div class="def-label" style="margin-bottom:8px;">AXE 1 — Valeur sociale et sociétale</div>
+      <ul class="clean">
+        <li>Rémunération équitable (Adams, équité)</li>
+        <li>Développement des carrières et mobilité interne (GPEC)</li>
+        <li>Formation et employabilité (Maslow, besoins de réalisation)</li>
+        <li>Bien-être au travail, conditions de travail (ERH)</li>
+        <li>RSE, marque employeur, externalités positives</li>
+      </ul>
+    </div>
+    <div>
+      <div class="def-label" style="margin-bottom:8px;">AXE 2 — Valeur économique et financière</div>
+      <ul class="clean">
+        <li>Motivation → productivité, qualité, innovation (Vroom, Herzberg)</li>
+        <li>Management participatif → engagement (Likert, MacGregor)</li>
+        <li>Structure plate, intrapreneuriat, essaimage</li>
+        <li>Formation = investissement stratégique (compétences uniques)</li>
+        <li>Image employeur → attractivité des talents</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- RÉCAP FLASH -->
+<div class="card-full" style="background:var(--ink);color:var(--paper);border:none;">
+  <div style="font-family:'DM Serif Display',serif;font-size:18px;margin-bottom:14px;color:var(--accent2);">Récap ultra-rapide — Ce qu'il faut toujours avoir en tête</div>
+  <div class="grid-3">
+    <div>
+      <div style="font-size:11px;font-weight:600;letter-spacing:1px;opacity:0.5;margin-bottom:6px;">DÉFINITIONS INCONTOURNABLES</div>
+      <ul class="clean">
+        <li style="color:var(--paper);">GRH = administrer, mobiliser, développer</li>
+        <li style="color:var(--paper);">GPEC = stratégie RH globale → compétences collectives</li>
+        <li style="color:var(--paper);">Motivation = forces déclenchant un comportement vers un objectif</li>
+        <li style="color:var(--paper);">Innovation = introduction marchande d'une nouveauté</li>
+        <li style="color:var(--paper);">Conflit = opposition ≥ 2 parties sur un objet commun</li>
+        <li style="color:var(--paper);">Climat social = degré de satisfaction des salariés</li>
+        <li style="color:var(--paper);">Formation pro = savoirs + savoir-faire + savoir-être</li>
+        <li style="color:var(--paper);">Production = transformer inputs → outputs commercialisables</li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:600;letter-spacing:1px;opacity:0.5;margin-bottom:6px;">TRIPTYQUES À MÉMORISER</div>
+      <ul class="clean">
+        <li style="color:var(--paper);">Rondeau : Structurel → Dynamique → Diachronique</li>
+        <li style="color:var(--paper);">Innovation : Produit-marché / Procédé + Incrémentale / Radicale</li>
+        <li style="color:var(--paper);">Théories motivation contenu : Maslow · ERG · Herzberg bifactoriel</li>
+        <li style="color:var(--paper);">Théories motivation processus : Équité (Adams) · Attente EIV (Vroom)</li>
+        <li style="color:var(--paper);">Formation : Apprentissage / Épanouissement / Investissement</li>
+        <li style="color:var(--paper);">Valeur : Économique / Financière / Sociale / Sociétale</li>
+        <li style="color:var(--paper);">Production : Qualité · Coût · Délai · Flexibilité</li>
+        <li style="color:var(--paper);">Marketing mix : Produit / Prix / Communication / Distribution</li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:600;letter-spacing:1px;opacity:0.5;margin-bottom:6px;">AUTEURS ASSOCIÉS</div>
+      <ul class="clean">
+        <li style="color:var(--paper);">Conflits → Rondeau, Bréard &amp; Pastor, Crozier &amp; Friedberg</li>
+        <li style="color:var(--paper);">Motivation contenu → Maslow, Alderfer, Herzberg</li>
+        <li style="color:var(--paper);">Motivation processus → Vroom (EIV), Adams (équité)</li>
+        <li style="color:var(--paper);">Valeurs → Allport, Vernon &amp; Lindzey (6 catégories)</li>
+        <li style="color:var(--paper);">Innovation → Christensen, Chesbrough</li>
+        <li style="color:var(--paper);">Stratégie → Porter, Burns &amp; Stalker</li>
+        <li style="color:var(--paper);">Parties prenantes → Freeman, Clarkson</li>
+        <li style="color:var(--paper);">Production → Taylor (OST), lean, juste-à-temps</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div><!-- end container -->
+
+<div class="footer">
+  Fiche de révision UE 444 – Management · CNAM INTEC · Basée sur les corrigés 2023–2025 (sessions normale &amp; rattrapage), le cours RH &amp; GPEC, et le cours Comportements organisationnels
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UE 441 – Comptabilité Approfondie</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Syne:wght@400;600;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F7F5F0;
+  --surface: #FFFFFF;
+  --surface2: #F0EDE6;
+  --ink: #1C1917;
+  --ink2: #57534E;
+  --ink3: #A8A29E;
+  --accent-blue: #1E40AF;
+  --accent-blue-bg: #EFF6FF;
+  --accent-blue-border: #BFDBFE;
+  --accent-teal: #0F766E;
+  --accent-teal-bg: #F0FDFA;
+  --accent-teal-border: #99F6E4;
+  --accent-amber: #92400E;
+  --accent-amber-bg: #FFFBEB;
+  --accent-amber-border: #FDE68A;
+  --accent-purple: #5B21B6;
+  --accent-purple-bg: #F5F3FF;
+  --accent-purple-border: #DDD6FE;
+  --accent-coral: #9F1239;
+  --accent-coral-bg: #FFF1F2;
+  --accent-coral-border: #FECDD3;
+  --accent-green: #14532D;
+  --accent-green-bg: #F0FDF4;
+  --accent-green-border: #BBF7D0;
+  --rule: #E7E3DB;
+  --radius: 8px;
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'Syne', sans-serif;
+  --serif: 'Lora', serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* ── HEADER ── */
+.header {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 48px 48px 40px;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 280px; height: 280px;
+  border: 2px solid rgba(255,255,255,.08);
+  border-radius: 50%;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: 160px;
+  width: 180px; height: 180px;
+  border: 1px solid rgba(255,255,255,.05);
+  border-radius: 50%;
+}
+.header-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+  margin-bottom: 14px;
+}
+.header h1 {
+  font-family: var(--sans);
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  margin-bottom: 10px;
+}
+.header-sub {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-style: italic;
+  color: rgba(255,255,255,.55);
+}
+.header-pills {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 28px;
+}
+.pill {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 4px 12px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 20px;
+  color: rgba(255,255,255,.7);
+}
+
+/* ── NAV ── */
+.nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 48px;
+  display: flex; gap: 0;
+  position: sticky; top: 0; z-index: 100;
+  overflow-x: auto;
+}
+.nav a {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  text-decoration: none;
+  padding: 14px 16px;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color .2s, border-color .2s;
+}
+.nav a:hover { color: var(--ink); border-color: var(--ink); }
+
+/* ── MAIN LAYOUT ── */
+.main { max-width: 1100px; margin: 0 auto; padding: 48px 48px 80px; }
+
+/* ── SECTION ── */
+.section { margin-bottom: 60px; }
+.section-header {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule);
+}
+.section-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink3);
+  letter-spacing: .1em;
+}
+.section h2 {
+  font-family: var(--sans);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -.01em;
+  color: var(--ink);
+}
+.section-badge {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+.badge-blue { background: var(--accent-blue-bg); color: var(--accent-blue); border: 1px solid var(--accent-blue-border); }
+.badge-teal { background: var(--accent-teal-bg); color: var(--accent-teal); border: 1px solid var(--accent-teal-border); }
+.badge-purple { background: var(--accent-purple-bg); color: var(--accent-purple); border: 1px solid var(--accent-purple-border); }
+.badge-amber { background: var(--accent-amber-bg); color: var(--accent-amber); border: 1px solid var(--accent-amber-border); }
+.badge-coral { background: var(--accent-coral-bg); color: var(--accent-coral); border: 1px solid var(--accent-coral-border); }
+.badge-green { background: var(--accent-green-bg); color: var(--accent-green); border: 1px solid var(--accent-green-border); }
+
+/* ── SUBSECTION ── */
+.subsection { margin-bottom: 36px; }
+.subsection h3 {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink2);
+  margin-bottom: 14px;
+  padding-left: 12px;
+  border-left: 3px solid var(--rule);
+}
+.subsection h3.blue  { border-color: var(--accent-blue);   color: var(--accent-blue);   }
+.subsection h3.teal  { border-color: var(--accent-teal);   color: var(--accent-teal);   }
+.subsection h3.purple{ border-color: var(--accent-purple); color: var(--accent-purple); }
+.subsection h3.amber { border-color: var(--accent-amber);  color: var(--accent-amber);  }
+.subsection h3.coral { border-color: var(--accent-coral);  color: var(--accent-coral);  }
+.subsection h3.green { border-color: var(--accent-green);  color: var(--accent-green);  }
+
+/* ── THEORY BOX ── */
+.theory {
+  background: var(--surface2);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  margin-bottom: 14px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.theory strong {
+  font-family: var(--sans);
+  font-weight: 600;
+  color: var(--ink);
+}
+.theory ul { margin-top: 8px; padding-left: 18px; }
+.theory ul li { margin-bottom: 4px; }
+
+.tip {
+  background: var(--accent-amber-bg);
+  border-left: 3px solid #F59E0B;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+  font-size: 13.5px;
+}
+.tip-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent-amber);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.warning {
+  background: var(--accent-coral-bg);
+  border-left: 3px solid #F43F5E;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+  font-size: 13.5px;
+}
+.warning-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent-coral);
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* ── JOURNAL ENTRY TABLE ── */
+.je-wrap { margin-bottom: 16px; }
+.je-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin-bottom: 6px;
+}
+.je-date {
+  font-family: var(--mono);
+  font-size: 11px;
+  background: var(--ink);
+  color: var(--bg);
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 3px;
+  margin-bottom: 1px;
+}
+
+table.je {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--mono);
+  font-size: 13px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+table.je thead tr {
+  background: var(--ink);
+  color: var(--bg);
+}
+table.je thead th {
+  padding: 7px 12px;
+  text-align: left;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+table.je thead th.num { text-align: right; }
+table.je tbody tr { border-top: 1px solid var(--rule); }
+table.je tbody tr:hover { background: var(--bg); }
+table.je tbody td { padding: 6px 12px; vertical-align: top; }
+table.je tbody td.compte { color: var(--accent-blue); font-weight: 600; width: 70px; }
+table.je tbody td.libelle { color: var(--ink); }
+table.je tbody td.libelle.sub { padding-left: 28px; color: var(--ink2); font-style: italic; }
+table.je tbody td.debit  { text-align: right; color: var(--accent-teal);  font-weight: 600; width: 130px; }
+table.je tbody td.credit { text-align: right; color: var(--accent-coral); font-weight: 600; width: 130px; }
+table.je tbody td.empty  { color: transparent; }
+table.je tfoot td {
+  padding: 5px 12px;
+  font-size: 11px;
+  font-style: italic;
+  color: var(--ink3);
+  border-top: 1px solid var(--rule);
+  background: var(--surface2);
+}
+
+/* ── FORMULA BOX ── */
+.formula {
+  background: var(--ink);
+  color: #F0FDFA;
+  font-family: var(--mono);
+  font-size: 13px;
+  padding: 14px 18px;
+  border-radius: var(--radius);
+  margin-bottom: 14px;
+  white-space: pre-wrap;
+  line-height: 1.8;
+}
+.formula .comment { color: rgba(255,255,255,.35); }
+.formula .val { color: #6EE7B7; font-weight: 600; }
+.formula .op  { color: #FCA5A5; }
+
+/* ── GRID ── */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+@media(max-width:720px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
+
+/* ── CARD ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.card-title {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.card-title.blue  { color: var(--accent-blue);   }
+.card-title.teal  { color: var(--accent-teal);   }
+.card-title.amber { color: var(--accent-amber);  }
+.card-title.coral { color: var(--accent-coral);  }
+.card-title.green { color: var(--accent-green);  }
+
+/* ── DIVIDER ── */
+.divider {
+  height: 1px; background: var(--rule);
+  margin: 28px 0;
+}
+
+/* ── TAG ── */
+.tag {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin: 1px;
+}
+
+/* ── PRINT ── */
+@media print {
+  .nav { display: none; }
+  .header { background: #1C1917 !important; -webkit-print-color-adjust: exact; }
+  .main { padding: 24px; }
+  .section { page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-tag">Fiche de révision · INTEC · 3h</div>
+  <h1>UE 441 — Comptabilité<br>Approfondie</h1>
+  <div class="header-sub">Toutes les écritures à maîtriser · Sessions 2023–2025</div>
+  <div class="header-pills">
+    <span class="pill">Emprunts obligataires</span>
+    <span class="pill">Capitaux propres</span>
+    <span class="pill">Provisions</span>
+    <span class="pill">Contrats LT</span>
+    <span class="pill">Changements comptables</span>
+    <span class="pill">Participation</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#s1">1 · Emprunts</a>
+  <a href="#s2">2 · Crédit-bail</a>
+  <a href="#s3">3 · Affectation</a>
+  <a href="#s4">4 · Capital</a>
+  <a href="#s5">5 · Provisions</a>
+  <a href="#s6">6 · Contrats LT</a>
+  <a href="#s7">7 · Changements</a>
+  <a href="#s8">8 · Participation</a>
+</nav>
+
+<div class="main">
+
+<!-- ════════════════════════════════════════════════════
+     SECTION 1 – EMPRUNTS OBLIGATAIRES
+════════════════════════════════════════════════════ -->
+<div class="section" id="s1">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2>Emprunts Obligataires</h2>
+    <span class="section-badge badge-blue">Présent 4×</span>
+  </div>
+
+  <!-- Émission -->
+  <div class="subsection">
+    <h3 class="blue">Émission de l'emprunt</h3>
+    <div class="theory">
+      <strong>Principe :</strong> L'emprunt est comptabilisé dès l'émission pour la valeur nominale totale de remboursement (valeur de remboursement × nombre d'obligations). La prime de remboursement (différence valeur remboursement − prix d'émission) est immédiatement constatée à l'actif en <strong>compte 169</strong>.
+    </div>
+    <div class="tip">
+      <span class="tip-label">⚑ Méthode en 2 étapes (souscription puis libération)</span>
+      On passe d'abord par les comptes <strong>473 Obligations à placer</strong> et <strong>4617 Obligations souscrites</strong>, puis on solde lors du virement des fonds.
+    </div>
+
+    <div class="je-wrap">
+      <div class="je-title">Écriture 1 — Émission (création de la dette)</div>
+      <div class="je-date">Date d'émission</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">473</td><td class="libelle">Obligations à placer</td><td class="debit">Nb × Val remb.</td><td class="empty">—</td></tr>
+          <tr><td class="compte">163</td><td class="libelle sub">Autres emprunts obligataires</td><td class="empty">—</td><td class="credit">Nb × Val remb.</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4">Émission de X obligations, valeur remboursement Y €</td></tr></tfoot>
+      </table>
+    </div>
+
+    <div class="je-wrap">
+      <div class="je-title">Écriture 2 — Souscription (fonds + prime)</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">4617</td><td class="libelle">Obligations souscrites</td><td class="debit">Nb × Prix émis.</td><td class="empty">—</td></tr>
+          <tr><td class="compte">169</td><td class="libelle">Prime de remboursement des obligations</td><td class="debit">Prime totale</td><td class="empty">—</td></tr>
+          <tr><td class="compte">473</td><td class="libelle sub">Obligations à placer</td><td class="empty">—</td><td class="credit">Nb × Val remb.</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4">Prime = (Val. remb. − Prix émission) × Nb obligations</td></tr></tfoot>
+      </table>
+    </div>
+
+    <div class="je-wrap">
+      <div class="je-title">Écriture 3 — Libération (virement bancaire)</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">512</td><td class="libelle">Banque</td><td class="debit">Nb × Prix émis.</td><td class="empty">—</td></tr>
+          <tr><td class="compte">4617</td><td class="libelle sub">Obligations souscrites</td><td class="empty">—</td><td class="credit">Nb × Prix émis.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="je-wrap">
+      <div class="je-title">Écriture 4 — Frais d'émission</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">627</td><td class="libelle">Frais bancaires (option charges)</td><td class="debit">Montant HT</td><td class="empty">—</td></tr>
+          <tr><td class="compte">44566</td><td class="libelle">TVA déductible</td><td class="debit">TVA</td><td class="empty">—</td></tr>
+          <tr><td class="compte">512</td><td class="libelle sub">Banque</td><td class="empty">—</td><td class="credit">TTC</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4">Ou : option étalement → transfert en 4816 au 31/12 (voir ci-dessous)</td></tr></tfoot>
+      </table>
+    </div>
+  </div>
+
+  <!-- Clôture -->
+  <div class="subsection">
+    <h3 class="blue">Écritures d'inventaire au 31/12</h3>
+
+    <div class="theory">
+      <strong>2 méthodes d'amortissement de la prime :</strong>
+      <ul>
+        <li><strong>Prorata des intérêts courus</strong> (méthode par défaut si la prime excède 10 % des sommes versées) : Prime amortie N = Prime totale × Intérêts N / Total intérêts.</li>
+        <li><strong>Fractions égales</strong> : Prime amortie = Prime totale / Durée en années.</li>
+      </ul>
+    </div>
+
+    <div class="je-wrap">
+      <div class="je-title">Amortissement de la prime de remboursement</div>
+      <div class="je-date">31/12/N</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">6861</td><td class="libelle">DAP — primes de remboursement des obligations</td><td class="debit">Quotité</td><td class="empty">—</td></tr>
+          <tr><td class="compte">169</td><td class="libelle sub">Prime de remboursement des obligations</td><td class="empty">—</td><td class="credit">Quotité</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4">Fractions égales : Prime / durée. Prorata intérêts : Prime × Int.N / Total Int.</td></tr></tfoot>
+      </table>
+    </div>
+
+    <div class="je-wrap">
+      <div class="je-title">Étalement des frais d'émission (option charges à répartir)</div>
+      <div class="je-date">31/12/N</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">4816</td><td class="libelle">Charges à répartir sur plusieurs exercices</td><td class="debit">Frais HT</td><td class="empty">—</td></tr>
+          <tr><td class="compte">791</td><td class="libelle sub">Transfert de charges d'exploitation</td><td class="empty">—</td><td class="credit">Frais HT</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4">Puis amortissement : 681 / 4816 = Frais HT / durée × prorata temps</td></tr></tfoot>
+      </table>
+    </div>
+
+    <div class="je-wrap">
+      <div class="je-title">ICNE — Intérêts courus non échus</div>
+      <div class="je-date">31/12/N</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">6611</td><td class="libelle">Intérêts des emprunts et dettes</td><td class="debit">Capital dû × taux × mois/12</td><td class="empty">—</td></tr>
+          <tr><td class="compte">16883</td><td class="libelle sub">Intérêts courus sur emprunts obligataires</td><td class="empty">—</td><td class="credit">ICNE</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="je-wrap">
+      <div class="je-title">Extourne des ICNE au 01/01/N+1</div>
+      <div class="je-date">01/01/N+1</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">16883</td><td class="libelle">Intérêts courus sur emprunts obligataires</td><td class="debit">ICNE</td><td class="empty">—</td></tr>
+          <tr><td class="compte">6611</td><td class="libelle sub">Intérêts des emprunts et dettes</td><td class="empty">—</td><td class="credit">ICNE</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4">Contre-passation obligatoire pour remettre la charge à zéro en N+1</td></tr></tfoot>
+      </table>
+    </div>
+
+    <div class="je-wrap">
+      <div class="je-title">Paiement de l'annuité (amortissement + coupon)</div>
+      <div class="je-date">Date d'échéance (ex: 01/07/N+1)</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">6611</td><td class="libelle">Intérêts des emprunts</td><td class="debit">Intérêts annuels</td><td class="empty">—</td></tr>
+          <tr><td class="compte">163</td><td class="libelle">Autres emprunts obligataires (capital)</td><td class="debit">Capital remboursé</td><td class="empty">—</td></tr>
+          <tr><td class="compte">512</td><td class="libelle sub">Banque</td><td class="empty">—</td><td class="credit">Annuité totale</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4">Capital remboursé = Nb oblig. remboursées × Valeur de remboursement</td></tr></tfoot>
+      </table>
+    </div>
+
+    <div class="formula">
+<span class="comment">── TABLEAU D'AMORTISSEMENT ──────────────────────────────
+Obligations vivantes N  =  Vivantes N-1  −  Remboursées N-1
+Intérêts N              =  Vivantes N  ×  Val.nominale  ×  Taux
+Annuité N               =  Intérêts N  +  Remboursement N
+</span>
+<span class="comment">── PRIME DE REMBOURSEMENT ──────────────────────────────</span>
+<span class="val">Prime totale</span>   = (Val.remboursement − Prix émission) × Nb oblig.
+<span class="val">Méthode intérêts</span> = Prime × Intérêts exercice / Total intérêts
+<span class="val">Méthode linéaire</span> = Prime / durée en années</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     SECTION 2 – CRÉDIT-BAIL
+════════════════════════════════════════════════════ -->
+<div class="section" id="s2">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2>Crédit-Bail Immobilier</h2>
+    <span class="section-badge badge-teal">Ponctuel</span>
+  </div>
+
+  <div class="subsection">
+    <h3 class="teal">Pendant la durée du contrat</h3>
+    <div class="theory">
+      En comptabilité française (PCG), les redevances de crédit-bail sont comptabilisées en <strong>charges</strong> (non activation). L'annexe doit comporter un tableau spécifique mentionnant valeur d'origine estimée, amortissements théoriques, redevances payées et restant à payer, et prix d'option résiduel.
+    </div>
+    <div class="je-wrap">
+      <div class="je-title">Paiement d'une redevance</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">6122</td><td class="libelle">Redevances de crédit-bail immobilier</td><td class="debit">Montant HT</td><td class="empty">—</td></tr>
+          <tr><td class="compte">44566</td><td class="libelle">TVA déductible</td><td class="debit">TVA</td><td class="empty">—</td></tr>
+          <tr><td class="compte">512</td><td class="libelle sub">Banque</td><td class="empty">—</td><td class="credit">TTC</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="je-wrap">
+      <div class="je-title">Charges à payer si redevance à cheval sur 2 exercices</div>
+      <div class="je-date">31/12/N</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">6122</td><td class="libelle">Redevances de crédit-bail (prorata)</td><td class="debit">Redev × mois/12</td><td class="empty">—</td></tr>
+          <tr><td class="compte">44586</td><td class="libelle">TVA sur facture non parvenue</td><td class="debit">TVA</td><td class="empty">—</td></tr>
+          <tr><td class="compte">4081</td><td class="libelle sub">Fournisseurs, factures non parvenues</td><td class="empty">—</td><td class="credit">TTC</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <h3 class="teal">Levée de l'option d'achat</h3>
+    <div class="je-wrap">
+      <div class="je-title">Inscription à l'actif lors de la levée</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">211</td><td class="libelle">Terrain</td><td class="debit">Quote-part terrain</td><td class="empty">—</td></tr>
+          <tr><td class="compte">213</td><td class="libelle">Construction</td><td class="debit">Quote-part construction</td><td class="empty">—</td></tr>
+          <tr><td class="compte">512</td><td class="libelle sub">Banque</td><td class="empty">—</td><td class="credit">Prix option total</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4">Le prix de l'option est affecté en priorité au terrain, le solde à la construction</td></tr></tfoot>
+      </table>
+    </div>
+    <div class="formula">
+<span class="comment">── RÉINTÉGRATION FISCALE ───────────────────────────────</span>
+<span class="val">VNC théorique</span>   = Coût d'acquisition − Amort. qui auraient pu être pratiqués
+<span class="val">Réintégration</span>   = VNC théorique − Prix de levée de l'option
+<span class="op">→ Montant à réintégrer extra-comptablement sur imprimé 2058A</span>
+<span class="comment">── AMORTISSEMENT POST-LEVÉE ───────────────────────────</span>
+DAP économique     = Valeur actif comptable / Durée restante
+DAP fiscal         = Valeur résiduelle fiscale / Durée restante
+Amort. dérogatoire = DAP fiscal − DAP économique   <span class="comment">(compte 145)</span></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     SECTION 3 – AFFECTATION DU RÉSULTAT
+════════════════════════════════════════════════════ -->
+<div class="section" id="s3">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2>Affectation du Résultat</h2>
+    <span class="section-badge badge-purple">Présent 4×</span>
+  </div>
+
+  <div class="subsection">
+    <h3 class="purple">Ordre de calcul (à respecter impérativement)</h3>
+    <div class="formula">
+<span class="val">Bénéfice net</span>                             + X
+<span class="op">−</span> Report à nouveau débiteur (si déficit N-1)   − X
+<span class="op">−</span> Réserve légale  (5% du bénéfice, max 10% cap) − X
+= Bénéfice distribuable
+<span class="op">−</span> Réserves statutaires / facultatives           − X
+<span class="op">−</span> Dividendes prioritaires (actions A)           − X  <span class="comment">(si perte N-1 → 2 ans)</span>
+<span class="op">−</span> 1er dividende actions ordinaires              − X  <span class="comment">(% × nominal)</span>
+<span class="op">−</span> Super-dividende                               − X  <span class="comment">(montant / nb actions totales)</span>
+= Report à nouveau créditeur</div>
+
+    <div class="warning">
+      <span class="warning-label">⚠ Réserve légale — piège fréquent</span>
+      Calculer d'abord 5 % du bénéfice. Si la réserve légale existante + cette dotation dépasse 10 % du capital social, ne doter <strong>que ce qui manque</strong> pour atteindre exactement 10 %.
+    </div>
+  </div>
+
+  <div class="subsection">
+    <h3 class="purple">Écriture d'affectation et de paiement</h3>
+    <div class="je-wrap">
+      <div class="je-title">Affectation du bénéfice (AGO)</div>
+      <div class="je-date">15/06/N+1 (date AGO)</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">120</td><td class="libelle">Résultat de l'exercice (solde)</td><td class="debit">Bénéfice net</td><td class="empty">—</td></tr>
+          <tr><td class="compte">119</td><td class="libelle">Report à nouveau N-1 (si débiteur)</td><td class="debit">Solde déficit</td><td class="empty">—</td></tr>
+          <tr><td class="compte">1061</td><td class="libelle sub">Réserves légales</td><td class="empty">—</td><td class="credit">Dotation RL</td></tr>
+          <tr><td class="compte">1068</td><td class="libelle sub">Autres réserves</td><td class="empty">—</td><td class="credit">Réserves facultatives</td></tr>
+          <tr><td class="compte">4571</td><td class="libelle sub">Associés, dividendes à payer (net 70%)</td><td class="empty">—</td><td class="credit">Dividendes × 70%</td></tr>
+          <tr><td class="compte">442</td><td class="libelle sub">Impôt (prélèvement forfaitaire 30%)</td><td class="empty">—</td><td class="credit">Dividendes × 30%</td></tr>
+          <tr><td class="compte">110</td><td class="libelle sub">Report à nouveau N (si solde positif)</td><td class="empty">—</td><td class="credit">Solde</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="je-wrap">
+      <div class="je-title">Paiement des dividendes</div>
+      <div class="je-date">5/07/N+1</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">4571</td><td class="libelle">Associés, dividendes à payer</td><td class="debit">Net 70%</td><td class="empty">—</td></tr>
+          <tr><td class="compte">442</td><td class="libelle">Impôt sur dividendes</td><td class="debit">30%</td><td class="empty">—</td></tr>
+          <tr><td class="compte">512</td><td class="libelle sub">Banque</td><td class="empty">—</td><td class="credit">Brut total</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="je-wrap">
+      <div class="je-title">Acompte sur dividendes (avant AGO)</div>
+      <div class="je-date">Date de décision du CA</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">1209</td><td class="libelle">Résultat — acompte sur dividendes</td><td class="debit">Acompte brut</td><td class="empty">—</td></tr>
+          <tr><td class="compte">4571</td><td class="libelle sub">Associés, acomptes à payer (70%)</td><td class="empty">—</td><td class="credit">Brut × 70%</td></tr>
+          <tr><td class="compte">442</td><td class="libelle sub">Impôt (30%)</td><td class="empty">—</td><td class="credit">Brut × 30%</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4">Condition : bilan certifié par CAC montrant un bénéfice ≥ acompte</td></tr></tfoot>
+      </table>
+    </div>
+
+    <div class="tip">
+      <span class="tip-label">💡 Dividende au prorata temporis</span>
+      Actions émises en cours d'exercice → dividende ordinaire × (nb mois restants / 12) × (fraction libérée). Dividende prioritaire (action A) sur 2 ans si perte l'année précédente.
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     SECTION 4 – VARIATIONS DE CAPITAL
+════════════════════════════════════════════════════ -->
+<div class="section" id="s4">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2>Variations de Capital</h2>
+    <span class="section-badge badge-amber">Présent 4×</span>
+  </div>
+
+  <div class="subsection">
+    <h3 class="amber">Augmentation en numéraire</h3>
+    <div class="theory">
+      Libération minimum : <strong>¼ du nominal</strong> à la souscription + totalité de la prime d'émission. Le solde (¾) est appelé dans les <strong>5 ans</strong>. La prime d'émission rémunère les anciens actionnaires pour les réserves constituées.
+    </div>
+
+    <div class="je-wrap">
+      <div class="je-title">Capital non appelé</div>
+      <div class="je-date">Date d'augmentation</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">109</td><td class="libelle">Actionnaires — capital souscrit non appelé</td><td class="debit">¾ Nominal</td><td class="empty">—</td></tr>
+          <tr><td class="compte">1011</td><td class="libelle sub">Capital souscrit non appelé</td><td class="empty">—</td><td class="credit">¾ Nominal</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="je-wrap">
+      <div class="je-title">Capital appelé + prime d'émission</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">4563</td><td class="libelle">Actionnaires — versements reçus augmentation</td><td class="debit">¼ Nominal + Prime</td><td class="empty">—</td></tr>
+          <tr><td class="compte">1013</td><td class="libelle sub">Capital souscrit appelé versé</td><td class="empty">—</td><td class="credit">¼ Nominal</td></tr>
+          <tr><td class="compte">1041</td><td class="libelle sub">Primes d'émission</td><td class="empty">—</td><td class="credit">Prime totale</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="je-wrap">
+      <div class="je-title">Virement des fonds</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">512</td><td class="libelle">Banque</td><td class="debit">¼ Nominal + Prime</td><td class="empty">—</td></tr>
+          <tr><td class="compte">4563</td><td class="libelle sub">Actionnaires — versements reçus</td><td class="empty">—</td><td class="credit">¼ Nominal + Prime</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="formula">
+<span class="comment">── DROITS DE SOUSCRIPTION (DS) & D'ATTRIBUTION (DA) ────</span>
+Valeur après augmentation = (Val.ancienne × Nb.anc. + Prix.émis × Nb.nouv + 0 × Nb.gratuit) / Total
+<span class="val">DS</span> = Valeur avant − Valeur après augmentation
+<span class="val">DA</span> = DS total − DS (valeur avant − valeur après)
+
+Vérification DS : Nb.DS × DS + Prix émission = Valeur après
+<span class="comment">Nb DS nécessaires = Nb.anc. / Nb.nouv</span></div>
+  </div>
+
+  <div class="subsection">
+    <h3 class="amber">Actions gratuites (incorporation de réserves)</h3>
+    <div class="je-wrap">
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">1068</td><td class="libelle">Autres réserves (ou 1061 si légale)</td><td class="debit">Nb.gratuit × Nominal</td><td class="empty">—</td></tr>
+          <tr><td class="compte">1013</td><td class="libelle sub">Capital souscrit appelé versé</td><td class="empty">—</td><td class="credit">Nb.gratuit × Nominal</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4">Pas de flux de trésorerie. Les réserves se capitalisent.</td></tr></tfoot>
+      </table>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <h3 class="amber">Réduction de capital (apurement de pertes)</h3>
+    <div class="je-wrap">
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">101</td><td class="libelle">Capital (souscrit appelé versé)</td><td class="debit">Réduction capital</td><td class="empty">—</td></tr>
+          <tr><td class="compte">1068</td><td class="libelle">Autres réserves (si insuffisant)</td><td class="debit">Complément</td><td class="empty">—</td></tr>
+          <tr><td class="compte">119</td><td class="libelle sub">Report à nouveau (solde débiteur)</td><td class="empty">—</td><td class="credit">Pertes à apurer</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <h3 class="amber">Conversion de dette en capital</h3>
+    <div class="je-wrap">
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">401</td><td class="libelle">Fournisseur (solde de la dette)</td><td class="debit">Montant dette</td><td class="empty">—</td></tr>
+          <tr><td class="compte">1013</td><td class="libelle sub">Capital souscrit appelé versé</td><td class="empty">—</td><td class="credit">Nb.actions × Nominal</td></tr>
+          <tr><td class="compte">1041</td><td class="libelle sub">Primes d'émission</td><td class="empty">—</td><td class="credit">Complément</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4">Nb actions = Montant dette / Prix d'émission (valeur mathématique)</td></tr></tfoot>
+      </table>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <h3 class="amber">Frais d'augmentation de capital — 3 méthodes</h3>
+    <div class="grid3">
+      <div class="card">
+        <div class="card-title blue">① En charges</div>
+        <div style="font-size:13px;color:var(--ink2);">Débit 6xx / Crédit 512<br>Déductible immédiatement.</div>
+      </div>
+      <div class="card">
+        <div class="card-title amber">② Frais d'établissement</div>
+        <div style="font-size:13px;color:var(--ink2);">Cte <strong>2013</strong> / 512<br>Amorti max 5 ans.<br>DAP = 6811 / 28013</div>
+      </div>
+      <div class="card">
+        <div class="card-title green">③ Imputation prime</div>
+        <div style="font-size:13px;color:var(--ink2);">Cte 1041 / 512<br>Net d'IS. Déduction extracomptable. Méthode de référence jusqu'en 2020.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     SECTION 5 – PROVISIONS ET PASSIFS
+════════════════════════════════════════════════════ -->
+<div class="section" id="s5">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2>Provisions et Passifs</h2>
+    <span class="section-badge badge-coral">Présent 6×</span>
+  </div>
+
+  <div class="subsection">
+    <h3 class="coral">Définition d'un passif — 3 conditions cumulatives</h3>
+    <div class="theory">
+      <ul>
+        <li><strong>a)</strong> Il existe une <strong>obligation certaine à l'égard d'un tiers</strong> à la date de clôture.</li>
+        <li><strong>b)</strong> Il est <strong>probable</strong> que l'entreprise ait à effectuer une sortie de ressources <strong>sans contrepartie équivalente</strong> attendue.</li>
+        <li><strong>c)</strong> Il est possible d'<strong>estimer de manière fiable</strong> cette sortie de ressources.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <h3 class="coral">Provisions pour risques et charges</h3>
+    <div class="je-wrap">
+      <div class="je-title">Dotation à la provision</div>
+      <div class="je-date">31/12/N</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">687</td><td class="libelle">DAP — exceptionnelles (litiges, restructuration…)</td><td class="debit">Montant estimé</td><td class="empty">—</td></tr>
+          <tr><td class="compte">681</td><td class="libelle">DAP — exploitation (grosses réparations, charges)</td><td class="debit">Montant estimé</td><td class="empty">—</td></tr>
+          <tr><td class="compte">151</td><td class="libelle sub">Provisions pour litiges</td><td class="empty">—</td><td class="credit">Selon objet</td></tr>
+          <tr><td class="compte">152</td><td class="libelle sub">Provisions pour garanties données</td><td class="empty">—</td><td class="credit">—</td></tr>
+          <tr><td class="compte">157</td><td class="libelle sub">Provisions pour charges à répartir</td><td class="empty">—</td><td class="credit">—</td></tr>
+          <tr><td class="compte">158</td><td class="libelle sub">Autres provisions pour risques</td><td class="empty">—</td><td class="credit">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="je-wrap">
+      <div class="je-title">Reprise de provision (risque disparu ou réalisé)</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">151/158</td><td class="libelle">Provision (solde ou ajustement)</td><td class="debit">Montant reprise</td><td class="empty">—</td></tr>
+          <tr><td class="compte">781</td><td class="libelle sub">Reprises sur provisions d'exploitation</td><td class="empty">—</td><td class="credit">—</td></tr>
+          <tr><td class="compte">787</td><td class="libelle sub">Reprises sur provisions exceptionnelles</td><td class="empty">—</td><td class="credit">—</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4">Reprendre toujours l'intégralité de la provision, puis constater la charge ou perte réelle</td></tr></tfoot>
+      </table>
+    </div>
+
+    <div class="je-wrap">
+      <div class="je-title">Réalisation du risque — cas d'un litige (condamnation)</div>
+      <div class="je-date">N+1</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">671</td><td class="libelle">Dommages et intérêts</td><td class="debit">D&amp;I</td><td class="empty">—</td></tr>
+          <tr><td class="compte">622</td><td class="libelle">Frais d'avocats / de justice</td><td class="debit">Frais</td><td class="empty">—</td></tr>
+          <tr><td class="compte">512</td><td class="libelle sub">Banque</td><td class="empty">—</td><td class="credit">Total versé</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <h3 class="coral">Engagements de retraite</h3>
+    <div class="theory">
+      <strong>Méthode de référence (PCG art. 335-1) :</strong> provisionnement total en une fois lors du 1er exercice d'application. L'impact est imputé sur le <strong>Report à Nouveau (119)</strong>. Les dotations annuelles suivantes alimentent la provision.
+      <br><strong>Méthode alternative :</strong> mention en annexe seulement.
+    </div>
+    <div class="je-wrap">
+      <div class="je-title">Première comptabilisation (changement de méthode)</div>
+      <div class="je-date">01/01/N (ouverture)</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">119</td><td class="libelle">Report à nouveau (débiteur)</td><td class="debit">Engagement total</td><td class="empty">—</td></tr>
+          <tr><td class="compte">153</td><td class="libelle sub">Provisions pour pensions et obligations similaires</td><td class="empty">—</td><td class="credit">Engagement total</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="je-wrap">
+      <div class="je-title">Dotation annuelle en N</div>
+      <div class="je-date">31/12/N</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">681</td><td class="libelle">DAP d'exploitation</td><td class="debit">Δ engagement N</td><td class="empty">—</td></tr>
+          <tr><td class="compte">153</td><td class="libelle sub">Provisions pour pensions</td><td class="empty">—</td><td class="credit">Δ engagement N</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4">Non déductible fiscalement → réintégration extra-comptable. Déductible l'année du versement.</td></tr></tfoot>
+      </table>
+    </div>
+    <div class="formula">
+<span class="comment">── CALCUL ACTUARIEL (formule 6 facteurs) ───────────────</span>
+Provision = <span class="val">Indemnité non actualisée</span>
+          × <span class="val">Progression salaire</span>   (1 + taux évol.)^années
+          × <span class="val">Proba survie</span>          (table mortalité)
+          × <span class="val">Proba présence</span>        (1 − taux turn-over)^années
+          × <span class="val">Actualisation</span>         (1 + taux act.)^(−années)
+          × <span class="val">Aa/Af</span>                 (ancienneté actuelle / ancienneté finale)</div>
+  </div>
+
+  <div class="subsection">
+    <h3 class="coral">Provisions réglementées — Hausse des prix</h3>
+    <div class="theory">
+      Applicable si la hausse des prix d'un élément de stock sur 1 ou 2 exercices dépasse 10%. Provision = Qté × (Vn − 110% × Vn-2) si Vn-2 &lt; Vn-1. Avantage fiscal <strong>temporaire</strong> : reprise obligatoire après 6 ans.
+    </div>
+    <div class="je-wrap">
+      <div class="je-title">Dotation provision pour hausse des prix</div>
+      <div class="je-date">31/12/N</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">687</td><td class="libelle">DAP — charges exceptionnelles</td><td class="debit">Montant</td><td class="empty">—</td></tr>
+          <tr><td class="compte">1431</td><td class="libelle sub">Provision pour hausse des prix</td><td class="empty">—</td><td class="credit">Montant</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4">Pas obligatoire — décision de gestion libre. Le principe de permanence des méthodes ne s'applique pas.</td></tr></tfoot>
+      </table>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <h3 class="coral">Événements postérieurs à la clôture</h3>
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title coral">Lien direct avec N → Ajuster les comptes</div>
+        <div style="font-size:13px;color:var(--ink2);">Exemple : licenciement en déc. N, procès prud'homal en fév. N+1 → provision en N. Le fait existait à la clôture.</div>
+      </div>
+      <div class="card">
+        <div class="card-title teal">Pas de lien avec N → Mention en annexe</div>
+        <div style="font-size:13px;color:var(--ink2);">Exemple : incendie, catastrophe naturelle en janv. N+1 → pas d'écriture, mais information annexe si significatif ou continuité d'exploitation remise en cause.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     SECTION 6 – CONTRATS À LONG TERME
+════════════════════════════════════════════════════ -->
+<div class="section" id="s6">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <h2>Contrats à Long Terme</h2>
+    <span class="section-badge badge-green">Présent 4×</span>
+  </div>
+
+  <div class="subsection">
+    <h3 class="green">Méthode à l'avancement (principe : rattachement au cycle)</h3>
+    <div class="theory">
+      Le CA est reconnu <strong>au fur et à mesure</strong> de l'avancement. Principe comptable mobilisé : <strong>indépendance des exercices</strong>. Taux d'avancement = Coûts engagés N / Coût total prévisionnel.
+    </div>
+    <div class="formula">
+<span class="val">Taux avancement N</span>    = Coûts engagés cumulés N / Coût total prévisionnel
+<span class="val">CA à l'avancement N</span>  = Prix vente HT × Taux avancement N  (cumulé)
+<span class="val">CA à comptabiliser N</span> = CA cumulé N  −  CA déjà comptabilisé N-1</div>
+
+    <div class="je-wrap">
+      <div class="je-title">Constatation du CA à l'avancement (31/12)</div>
+      <div class="je-date">31/12/N</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">4181</td><td class="libelle">Clients — factures à établir (TTC)</td><td class="debit">TTC</td><td class="empty">—</td></tr>
+          <tr><td class="compte">704</td><td class="libelle sub">Travaux (CA HT)</td><td class="empty">—</td><td class="credit">HT</td></tr>
+          <tr><td class="compte">44581</td><td class="libelle sub">TVA sur facture à établir</td><td class="empty">—</td><td class="credit">TVA</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="je-wrap">
+      <div class="je-title">Extourne obligatoire au 01/01/N+1</div>
+      <div class="je-date">01/01/N+1</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">704</td><td class="libelle">Travaux</td><td class="debit">HT</td><td class="empty">—</td></tr>
+          <tr><td class="compte">44581</td><td class="libelle">TVA</td><td class="debit">TVA</td><td class="empty">—</td></tr>
+          <tr><td class="compte">4181</td><td class="libelle sub">Clients, factures à établir</td><td class="empty">—</td><td class="credit">TTC</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="je-wrap">
+      <div class="je-title">Perte à terminaison — provision (méthode avancement)</div>
+      <div class="theory" style="margin-bottom:10px;font-size:13px;">
+        Perte totale = Coût total − Prix vente. La partie <strong>déjà constatée</strong> est incluse dans le CA. Seule la <strong>perte résiduelle</strong> (travaux non encore réalisés) donne lieu à provision.
+        <br>Provision = Perte totale − Perte déjà constatée via CA.
+      </div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">6815</td><td class="libelle">DAP d'exploitation</td><td class="debit">Perte résiduelle</td><td class="empty">—</td></tr>
+          <tr><td class="compte">1518</td><td class="libelle sub">Autres provisions pour risques</td><td class="empty">—</td><td class="credit">Perte résiduelle</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <h3 class="green">Méthode à l'achèvement (prudence)</h3>
+    <div class="theory">
+      Les coûts sont stockés en <strong>travaux en cours (cte 335)</strong>. Le CA n'est comptabilisé qu'à la <strong>livraison</strong>. Si perte à terminaison : dépréciation du stock + provision pour le complément.
+    </div>
+    <div class="je-wrap">
+      <div class="je-title">Stockage des coûts au 31/12</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">335</td><td class="libelle">Travaux en cours (stock)</td><td class="debit">Coûts engagés</td><td class="empty">—</td></tr>
+          <tr><td class="compte">71335</td><td class="libelle sub">Variation de stock — travaux en cours</td><td class="empty">—</td><td class="credit">Coûts engagés</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="je-wrap">
+      <div class="je-title">Perte à terminaison — 2 écritures</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">68173</td><td class="libelle">DAP dépréciations stocks</td><td class="debit">Taux × Perte totale</td><td class="empty">—</td></tr>
+          <tr><td class="compte">3935</td><td class="libelle sub">Dépréciation stock travaux en cours</td><td class="empty">—</td><td class="credit">—</td></tr>
+          <tr><td class="compte" style="padding-top:8px">6815</td><td class="libelle" style="padding-top:8px">DAP d'exploitation</td><td class="debit" style="padding-top:8px">(1−Taux) × Perte</td><td class="empty">—</td></tr>
+          <tr><td class="compte">1518</td><td class="libelle sub">Autres provisions pour risques</td><td class="empty">—</td><td class="credit">—</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4">Taux avancement = Coûts engagés / Coût total. Dépréciation = taux × perte. Provision = (1−taux) × perte.</td></tr></tfoot>
+      </table>
+    </div>
+    <div class="je-wrap">
+      <div class="je-title">Livraison en N+1 — facturation et reprise</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">411</td><td class="libelle">Client (TTC)</td><td class="debit">TTC</td><td class="empty">—</td></tr>
+          <tr><td class="compte">701</td><td class="libelle sub">Ventes de produits</td><td class="empty">—</td><td class="credit">HT</td></tr>
+          <tr><td class="compte">4457</td><td class="libelle sub">TVA collectée</td><td class="empty">—</td><td class="credit">TVA</td></tr>
+          <tr><td class="compte" style="padding-top:8px">71335</td><td class="libelle" style="padding-top:8px">Variation de stock (contre-passation)</td><td class="debit" style="padding-top:8px">Coûts engagés</td><td class="empty">—</td></tr>
+          <tr><td class="compte">335</td><td class="libelle sub">Travaux en cours (solde)</td><td class="empty">—</td><td class="credit">—</td></tr>
+          <tr><td class="compte" style="padding-top:8px">3935</td><td class="libelle" style="padding-top:8px">Dépréciation du stock</td><td class="debit" style="padding-top:8px">Dépréc.</td><td class="empty">—</td></tr>
+          <tr><td class="compte">1518</td><td class="libelle">Autres provisions</td><td class="debit">Provision</td><td class="empty">—</td></tr>
+          <tr><td class="compte">781</td><td class="libelle sub">Reprises sur provisions</td><td class="empty">—</td><td class="credit">Total perte</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     SECTION 7 – CHANGEMENTS COMPTABLES
+════════════════════════════════════════════════════ -->
+<div class="section" id="s7">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <h2>Changements Comptables</h2>
+    <span class="section-badge badge-blue">Présent 3×</span>
+  </div>
+
+  <div class="subsection">
+    <h3 class="blue">Les 3 catégories</h3>
+    <div class="grid3">
+      <div class="card">
+        <div class="card-title blue">① Changement de méthode</div>
+        <div style="font-size:13px;color:var(--ink2);">Déroge au principe de <strong>permanence des méthodes</strong>. Conditions : choix entre méthodes PCG + meilleure info. financière. Traitement rétrospectif via RAN.</div>
+      </div>
+      <div class="card">
+        <div class="card-title amber">② Changement d'estimation</div>
+        <div style="font-size:13px;color:var(--ink2);">Ex : révision de durée d'amortissement. Traitement <strong>prospectif</strong> (à partir de l'exercice en cours). Pas de retraitement du passé.</div>
+      </div>
+      <div class="card">
+        <div class="card-title coral">③ Correction d'erreur</div>
+        <div style="font-size:13px;color:var(--ink2);">Erreur comptable passée. Traitement rétrospectif. Mention obligatoire en annexe + présentation des postes corrigés.</div>
+      </div>
+    </div>
+    <div class="tip">
+      <span class="tip-label">💡 Méthode de référence</span>
+      Un changement vers une <strong>méthode de référence</strong> (ex : provisionnement total des engagements retraite) n'a pas besoin d'être justifié. La méthode elle-même est la justification.
+    </div>
+  </div>
+
+  <div class="subsection">
+    <h3 class="blue">Traitement rétrospectif — Changement de méthode</h3>
+    <div class="je-wrap">
+      <div class="je-title">Impact du changement sur les exercices antérieurs → RAN</div>
+      <div class="je-date">01/01/N (ouverture exercice d'application)</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">4181</td><td class="libelle">Clients FAE (selon nouvelle méthode)</td><td class="debit">TTC</td><td class="empty">—</td></tr>
+          <tr><td class="compte">335</td><td class="libelle">Travaux en cours (ancienne méthode)</td><td class="empty">—</td><td class="credit">Coûts stockés</td></tr>
+          <tr><td class="compte">110</td><td class="libelle sub">Report à nouveau (effet net IS)</td><td class="empty">—</td><td class="credit">Résultat net</td></tr>
+          <tr><td class="compte">115</td><td class="libelle sub">Provision pour impôts</td><td class="empty">—</td><td class="credit">IS différé</td></tr>
+          <tr><td class="compte">44587</td><td class="libelle sub">TVA à régulariser</td><td class="empty">—</td><td class="credit">TVA</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4">Résultat net = (CA nouvelle méthode − Charges) × (1 − IS%). IS = 25% ou taux applicable.</td></tr></tfoot>
+      </table>
+    </div>
+
+    <div class="je-wrap">
+      <div class="je-title">Correction d'erreur — omission d'amortissement N-1</div>
+      <div class="je-date">31/12/N</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">681</td><td class="libelle">DAP d'exploitation (amort. N-1 oublié)</td><td class="debit">Amort. N-1</td><td class="empty">—</td></tr>
+          <tr><td class="compte">687</td><td class="libelle">DAP exceptionnelles (amort. dérogatoire N-1)</td><td class="debit">Amort. dér. N-1</td><td class="empty">—</td></tr>
+          <tr><td class="compte">2818</td><td class="libelle sub">Amortissement du matériel</td><td class="empty">—</td><td class="credit">Amort. N-1</td></tr>
+          <tr><td class="compte">145</td><td class="libelle sub">Amortissement dérogatoire</td><td class="empty">—</td><td class="credit">Amort. dér. N-1</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4">Puis passer séparément les dotations normales de l'exercice N</td></tr></tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     SECTION 8 – PARTICIPATION ET INTÉRESSEMENT
+════════════════════════════════════════════════════ -->
+<div class="section" id="s8">
+  <div class="section-header">
+    <span class="section-num">08</span>
+    <h2>Participation et Intéressement</h2>
+    <span class="section-badge badge-teal">Ponctuel</span>
+  </div>
+
+  <div class="subsection">
+    <h3 class="teal">Formule légale de la participation</h3>
+    <div class="formula">
+<span class="val">RSP</span> = ½ × (Bénéfice fiscal − 5% × Capitaux propres) × (Salaires / Valeur ajoutée)
+
+<span class="comment">Vérification : RSP ≤ ½ × (Bénéfice fiscal − 5% × CP)</span></div>
+
+    <div class="je-wrap">
+      <div class="je-title">Constatation de la participation (31/12/N)</div>
+      <div class="je-date">31/12/N</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">691</td><td class="libelle">Participation des salariés aux résultats</td><td class="debit">RSP</td><td class="empty">—</td></tr>
+          <tr><td class="compte">645</td><td class="libelle">Charges de SS — forfait social (20%)</td><td class="debit">RSP × 20%</td><td class="empty">—</td></tr>
+          <tr><td class="compte">4284</td><td class="libelle sub">Personnel — participation</td><td class="empty">—</td><td class="credit">RSP</td></tr>
+          <tr><td class="compte">4386</td><td class="libelle sub">Charges sociales — forfait social</td><td class="empty">—</td><td class="credit">RSP × 20%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="je-wrap">
+      <div class="je-title">Affectation au fonds de participation (après AG — mai N+1)</div>
+      <div class="je-date">30/04/N+1</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">4284</td><td class="libelle">Personnel — participation</td><td class="debit">RSP</td><td class="empty">—</td></tr>
+          <tr><td class="compte">4386</td><td class="libelle">Charges sociales</td><td class="debit">Forfait social</td><td class="empty">—</td></tr>
+          <tr><td class="compte">4246</td><td class="libelle sub">Participation RSP (90% du net)</td><td class="empty">—</td><td class="credit">RSP × 90%</td></tr>
+          <tr><td class="compte">431</td><td class="libelle sub">URSSAF (cotisations + forfait social)</td><td class="empty">—</td><td class="credit">Charges sociales</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="je-wrap">
+      <div class="je-title">Versement au fonds + intérêts courus</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">4246</td><td class="libelle">Participation RSP</td><td class="debit">Net 90%</td><td class="empty">—</td></tr>
+          <tr><td class="compte">1662</td><td class="libelle sub">Fonds de participation (RSP bloqué 5 ans)</td><td class="empty">—</td><td class="credit">Net 90%</td></tr>
+          <tr><td class="compte" style="padding-top:8px">66117</td><td class="libelle" style="padding-top:8px">Intérêts sur participation</td><td class="debit" style="padding-top:8px">Capital × taux × mois/12</td><td class="empty">—</td></tr>
+          <tr><td class="compte">1688</td><td class="libelle sub">Intérêts courus sur participation</td><td class="empty">—</td><td class="credit">ICNE</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <h3 class="teal">Intéressement et abondement</h3>
+    <div class="je-wrap">
+      <div class="je-title">Intéressement (31/12/N)</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">6414</td><td class="libelle">Indemnités et avantages divers</td><td class="debit">Montant</td><td class="empty">—</td></tr>
+          <tr><td class="compte">4286</td><td class="libelle sub">Personnel — autres charges à payer</td><td class="empty">—</td><td class="credit">Montant</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="je-wrap">
+      <div class="je-title">Abondement + versement PEE (après AG)</div>
+      <table class="je">
+        <thead><tr><th>Cpte</th><th>Libellé</th><th class="num">Débit</th><th class="num">Crédit</th></tr></thead>
+        <tbody>
+          <tr><td class="compte">647</td><td class="libelle">Autres charges sociales (abondement)</td><td class="debit">Montant abond.</td><td class="empty">—</td></tr>
+          <tr><td class="compte">421</td><td class="libelle sub">Personnel — rémunérations (net 90%)</td><td class="empty">—</td><td class="credit">Net</td></tr>
+          <tr><td class="compte">431</td><td class="libelle sub">URSSAF (10%)</td><td class="empty">—</td><td class="credit">Charges sociales</td></tr>
+          <tr><td class="compte" style="padding-top:8px">421</td><td class="libelle" style="padding-top:8px">Personnel</td><td class="debit" style="padding-top:8px">Net total</td><td class="empty">—</td></tr>
+          <tr><td class="compte">4247</td><td class="libelle sub">Personnel — plan d'épargne (PEE)</td><td class="empty">—</td><td class="credit">Net total</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div style="border-top:1px solid var(--rule);padding-top:24px;margin-top:24px;font-family:var(--mono);font-size:11px;color:var(--ink3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+  <span>UE 441 — Comptabilité Approfondie · INTEC · Sessions 2023–2025</span>
+  <span>Fiche de révision · Toutes les écritures essentielles</span>
+</div>
+
+</div><!-- /main -->
+</body>
+</html>

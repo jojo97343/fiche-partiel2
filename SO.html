@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UE 442 – Droit des Sociétés · Fiche de Révision</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --noir: #0f0e0c;
+    --creme: #f5f0e8;
+    --or: #c8963e;
+    --or-clair: #e8c47a;
+    --rouge: #8b1a1a;
+    --bleu: #1a3a5c;
+    --vert: #1a4a2e;
+    --gris: #4a4540;
+    --fond: #faf7f2;
+    --ligne: #d4c9b0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--fond);
+    color: var(--noir);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  /* PAGE LAYOUT */
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 30px;
+  }
+
+  /* HEADER */
+  header {
+    border-top: 4px solid var(--or);
+    border-bottom: 2px solid var(--ligne);
+    padding: 28px 0 22px;
+    margin-bottom: 36px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  header .titre-bloc h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4em;
+    font-weight: 900;
+    color: var(--noir);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  header .titre-bloc h1 span {
+    color: var(--or);
+  }
+
+  header .titre-bloc .sous-titre {
+    font-size: 0.95em;
+    color: var(--gris);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 6px;
+    font-weight: 300;
+  }
+
+  header .meta {
+    text-align: right;
+    font-size: 0.82em;
+    color: var(--gris);
+    line-height: 1.8;
+    flex-shrink: 0;
+  }
+
+  header .meta strong {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3em;
+    color: var(--rouge);
+  }
+
+  /* TABLE OF CONTENTS */
+  .toc {
+    background: var(--noir);
+    color: var(--creme);
+    padding: 20px 28px;
+    margin-bottom: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 6px 24px;
+    border-left: 4px solid var(--or);
+  }
+
+  .toc-title {
+    grid-column: 1 / -1;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.75em;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 10px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 8px;
+  }
+
+  .toc a {
+    color: var(--creme);
+    text-decoration: none;
+    font-size: 0.82em;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .toc a:hover { opacity: 1; color: var(--or-clair); }
+
+  .toc a::before {
+    content: attr(data-num);
+    font-family: 'Playfair Display', serif;
+    font-size: 0.75em;
+    color: var(--or);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* SECTIONS */
+  .section {
+    margin-bottom: 44px;
+    page-break-inside: avoid;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--ligne);
+  }
+
+  .section-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2em;
+    font-weight: 900;
+    color: var(--ligne);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35em;
+    font-weight: 700;
+    color: var(--noir);
+  }
+
+  .section-header .badge {
+    margin-left: auto;
+    font-size: 0.7em;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .badge-star { background: var(--or); color: var(--noir); }
+  .badge-penal { background: var(--rouge); color: white; }
+  .badge-proc { background: var(--bleu); color: white; }
+  .badge-civil { background: var(--vert); color: white; }
+
+  /* GRID LAYOUTS */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+  }
+
+  .grid-auto {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  /* CARDS */
+  .card {
+    background: white;
+    border: 1px solid var(--ligne);
+    border-top: 3px solid var(--or);
+    padding: 16px 18px;
+  }
+
+  .card.rouge { border-top-color: var(--rouge); }
+  .card.bleu { border-top-color: var(--bleu); }
+  .card.vert { border-top-color: var(--vert); }
+  .card.noir { border-top-color: var(--noir); }
+
+  .card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.0em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--noir);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card h3 .icone {
+    font-size: 1.1em;
+  }
+
+  /* LISTS */
+  .liste {
+    list-style: none;
+    padding: 0;
+  }
+
+  .liste li {
+    padding: 4px 0 4px 18px;
+    position: relative;
+    border-bottom: 1px dotted #e5dfd4;
+    font-size: 0.88em;
+  }
+
+  .liste li:last-child { border-bottom: none; }
+
+  .liste li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--or);
+    font-weight: 700;
+  }
+
+  .liste.rouge li::before { color: var(--rouge); }
+  .liste.bleu li::before { color: var(--bleu); }
+  .liste.vert li::before { color: var(--vert); }
+
+  .liste li strong {
+    color: var(--noir);
+    font-weight: 600;
+  }
+
+  /* INFRACTIONS TABLE */
+  .infraction-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.83em;
+  }
+
+  .infraction-table thead tr {
+    background: var(--noir);
+    color: var(--creme);
+  }
+
+  .infraction-table thead th {
+    padding: 9px 12px;
+    text-align: left;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.9em;
+    letter-spacing: 0.03em;
+  }
+
+  .infraction-table tbody tr {
+    border-bottom: 1px solid var(--ligne);
+    transition: background 0.15s;
+  }
+
+  .infraction-table tbody tr:hover { background: #f0ebe0; }
+
+  .infraction-table tbody tr:nth-child(even) { background: #faf6ee; }
+  .infraction-table tbody tr:nth-child(even):hover { background: #f0ebe0; }
+
+  .infraction-table td {
+    padding: 8px 12px;
+    vertical-align: top;
+  }
+
+  .infraction-table td:first-child {
+    font-weight: 700;
+    color: var(--rouge);
+    font-family: 'Playfair Display', serif;
+    white-space: nowrap;
+  }
+
+  .infraction-table td .article {
+    font-size: 0.78em;
+    color: var(--gris);
+    font-family: 'Source Serif 4', serif;
+    font-weight: 400;
+  }
+
+  .peine {
+    background: var(--rouge);
+    color: white;
+    padding: 2px 7px;
+    font-size: 0.8em;
+    border-radius: 2px;
+    white-space: nowrap;
+    display: inline-block;
+  }
+
+  /* COMPARISON TABLE */
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.83em;
+    margin-top: 10px;
+  }
+
+  .comp-table th {
+    background: var(--bleu);
+    color: white;
+    padding: 8px 12px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    text-align: left;
+  }
+
+  .comp-table th:first-child { background: var(--gris); }
+
+  .comp-table td {
+    padding: 7px 12px;
+    border-bottom: 1px solid var(--ligne);
+    vertical-align: top;
+  }
+
+  .comp-table td:first-child {
+    font-weight: 600;
+    background: #f0ebe0;
+    border-right: 2px solid var(--ligne);
+    width: 22%;
+  }
+
+  .comp-table tr:hover td { background: #f5f0e4; }
+  .comp-table tr:hover td:first-child { background: #e8e0d0; }
+
+  /* ALERT BOXES */
+  .alerte {
+    border-left: 4px solid var(--or);
+    background: #fdf8ee;
+    padding: 10px 14px;
+    margin: 12px 0;
+    font-size: 0.86em;
+  }
+
+  .alerte.rouge { border-left-color: var(--rouge); background: #fdf2f2; }
+  .alerte.bleu { border-left-color: var(--bleu); background: #f2f5fd; }
+  .alerte.vert { border-left-color: var(--vert); background: #f2fdf5; }
+
+  .alerte strong { font-weight: 700; display: block; margin-bottom: 3px; }
+
+  /* ELEMENTS OF INFRACTIONS */
+  .elements-trio {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .element-box {
+    padding: 9px 12px;
+    font-size: 0.82em;
+    border: 1px solid var(--ligne);
+  }
+
+  .element-box .elem-titre {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .elem-legal .elem-titre { color: var(--bleu); }
+  .elem-materiel .elem-titre { color: var(--vert); }
+  .elem-moral .elem-titre { color: var(--rouge); }
+
+  /* TAG PILLS */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .tag {
+    font-size: 0.75em;
+    padding: 2px 9px;
+    border: 1px solid var(--ligne);
+    background: white;
+    color: var(--gris);
+    letter-spacing: 0.03em;
+  }
+
+  .tag.actif { background: var(--or); border-color: var(--or); color: var(--noir); font-weight: 700; }
+
+  /* SEPARATOR */
+  .sep {
+    border: none;
+    border-top: 1px solid var(--ligne);
+    margin: 24px 0;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 2px solid var(--ligne);
+    padding-top: 14px;
+    text-align: center;
+    font-size: 0.75em;
+    color: var(--gris);
+    margin-top: 40px;
+    letter-spacing: 0.05em;
+  }
+
+  /* HIGHLIGHT */
+  .hl { background: #fdecc8; padding: 1px 3px; }
+  .hl-rouge { background: #fde0e0; padding: 1px 3px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 750px) {
+    .grid-2, .grid-3, .elements-trio { grid-template-columns: 1fr; }
+    header { flex-direction: column; align-items: flex-start; }
+    header .meta { text-align: left; }
+  }
+
+  /* PRINT */
+  @media print {
+    body { font-size: 11px; }
+    .page { padding: 15px; }
+    .section { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div class="titre-bloc">
+      <h1>Droit des <span>Sociétés</span></h1>
+      <div class="sous-titre">UE 442 · Fiche de révision complète · CNAM-INTEC</div>
+    </div>
+    <div class="meta">
+      <strong>★ Toutes les notions</strong>
+      Cas pratiques + Jurisprudence<br>
+      Sessions 2023 · 2024 · 2025
+    </div>
+  </header>
+
+  <!-- TABLE OF CONTENTS -->
+  <nav class="toc">
+    <div class="toc-title">Sommaire</div>
+    <a href="#s1" data-num="01">Formes sociales — SCA</a>
+    <a href="#s2" data-num="02">SCS et SAS</a>
+    <a href="#s3" data-num="03">GIE, SEP, SCP/SCM</a>
+    <a href="#s4" data-num="04">Associations & Coopératives</a>
+    <a href="#s5" data-num="05">ESS & Agrément ESUS</a>
+    <a href="#s6" data-num="06">Infractions pénales</a>
+    <a href="#s7" data-num="07">Responsabilité des dirigeants</a>
+    <a href="#s8" data-num="08">Vie de la société</a>
+    <a href="#s9" data-num="09">Jurisprudence clé</a>
+    <a href="#s10" data-num="10">Droit commun des sociétés</a>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════ SECTION 1 : SCA -->
+  <div class="section" id="s1">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <h2>La Société en Commandite par Actions (SCA)</h2>
+      <span class="badge badge-star">★ Sujet phare</span>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3><span class="icone">👥</span> Composition des associés</h3>
+        <ul class="liste">
+          <li><strong>Commandités :</strong> statut d'associé de SNC, capacité commerciale obligatoire, responsabilité <span class="hl">indéfinie et solidaire</span> des dettes sociales</li>
+          <li><strong>Commanditaires :</strong> statut d'actionnaires de SA, responsabilité <span class="hl">limitée aux apports</span>, minimum 3 commanditaires</li>
+          <li>Interdiction d'immixtion des commanditaires dans la gestion (sous peine de perdre leur responsabilité limitée)</li>
+        </ul>
+      </div>
+
+      <div class="card rouge">
+        <h3><span class="icone">⚡</span> Avantages stratégiques</h3>
+        <ul class="liste rouge">
+          <li><strong>Dissociation capital/pouvoir :</strong> les commanditaires apportent des fonds, les commandités gardent le contrôle</li>
+          <li><strong>Protection OPA :</strong> seuls les commandités dirigent ; impossible de prendre le contrôle par simple rachat d'actions</li>
+          <li><strong>Liberté statutaire :</strong> les statuts fixent librement nomination, révocation et rémunération des gérants</li>
+          <li><strong>Accès aux marchés :</strong> société par actions → admission possible sur un marché réglementé</li>
+          <li>Soumise à l'impôt sur les sociétés</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top:14px">
+      <div class="card bleu">
+        <h3>🏛️ Conseil de surveillance</h3>
+        <ul class="liste bleu">
+          <li>Obligatoire dans la SCA</li>
+          <li>Composé <em>uniquement</em> de commanditaires (min. 3)</li>
+          <li>Contrôle les décisions de gestion des gérants</li>
+          <li>Mêmes pouvoirs que le CAC</li>
+          <li>Ne peut pas révoquer les gérants</li>
+          <li>Autorise les conventions réglementées</li>
+          <li>Délibère selon les statuts (loi muette)</li>
+        </ul>
+      </div>
+
+      <div class="card vert">
+        <h3>🔄 Transformation en SCA</h3>
+        <ul class="liste vert">
+          <li>Décision de l'AGE (modification statutaire)</li>
+          <li>AGE : majorité <strong>⅔</strong>, quorum ¼ (1re conv.) et ⅕ (2e conv.)</li>
+          <li>Futurs commandités : accord à <strong>l'unanimité</strong></li>
+          <li>Rapport du CAC obligatoire (capitaux propres ≥ capital social), à défaut : <span class="hl-rouge">nullité</span></li>
+          <li>Publicité : SHAL, dépôt au GUE/RCS, Bodacc</li>
+        </ul>
+      </div>
+
+      <div class="card noir">
+        <h3>📋 Cession des parts commandités</h3>
+        <ul class="liste">
+          <li>Régime identique aux parts de SNC</li>
+          <li>Agrément à <strong>l'unanimité</strong> des autres commandités</li>
+          <li>Agrément à la <strong>majorité</strong> des commanditaires</li>
+          <li>Sans agrément : associé <em>prisonnier</em> de ses titres</li>
+          <li>Cession par écrit obligatoire</li>
+          <li>Opposabilité société : dépôt original au siège</li>
+          <li>Opposabilité tiers : publication au RCS</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alerte rouge" style="margin-top:14px">
+      <strong>⚠️ Révocation du gérant de SCA</strong>
+      Selon les statuts si une clause le prévoit. Dans le silence des statuts : révocation judiciaire uniquement, pour cause légitime, à la demande de tout associé ou de la société. La commission d'infractions pénales constitue une cause légitime.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ SECTION 2 : SCS & SAS -->
+  <div class="section" id="s2">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <h2>SCS et SAS</h2>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <div class="card">
+          <h3>📜 SCS — Société en Commandite Simple</h3>
+          <ul class="liste" style="margin-bottom:10px">
+            <li><strong>Conditions de fond :</strong> consentement, capacité commerciale (commandités) / civile (commanditaires), objet licite</li>
+            <li><strong>Pluralité :</strong> min. 1 commandité + 1 commanditaire</li>
+            <li><strong>Apports :</strong> tous apports pour commandités, <span class="hl-rouge">apports en industrie interdits</span> pour les commanditaires</li>
+            <li><strong>Conditions de forme :</strong> statuts écrits signés, JAL, dépôt au greffe/RCS, Bodacc</li>
+          </ul>
+          <ul class="liste rouge">
+            <li><strong>Cumul mandat/contrat de travail :</strong> impossible pour l'associé commandité (responsabilité indéfinie + statut commerçant = incompatible avec lien de subordination)</li>
+            <li><strong>Commanditaires :</strong> ne peuvent pas s'immiscer sous peine de solidarité avec les commandités</li>
+            <li><strong>Pouvoirs du gérant :</strong> définis librement par les statuts ; à défaut, tous actes de gestion dans l'intérêt social</li>
+          </ul>
+        </div>
+        <div class="alerte" style="margin-top:10px">
+          <strong>Apport en industrie des commandités</strong>
+          Valeur fixée librement par les statuts ; à défaut, égale à la plus petite part des autres apporteurs (art. 1844-1 C.civ.). L'apporteur en industrie est pleinement associé avec droits au bénéfice, à l'actif net et droit de vote.
+        </div>
+        <div class="alerte" style="margin-top:8px">
+          <strong>Modification statutaire en SCS</strong>
+          Unanimité des commandités + majorité en nombre et en capital des commanditaires (art. L.222-9 C.com.).
+        </div>
+      </div>
+
+      <div>
+        <div class="card bleu">
+          <h3>⚙️ SAS — Société par Actions Simplifiée</h3>
+          <ul class="liste bleu">
+            <li><strong>Liberté statutaire :</strong> grande souplesse, pas de capital minimum</li>
+            <li><strong>Associés :</strong> pas de minimum (peut être unipersonnelle), personnes physiques ou morales, capacité civile de jouissance</li>
+            <li><strong>Apports numéraire :</strong> libérés pour moitié à la constitution, reste dans les 5 ans</li>
+            <li><strong>Apports en nature :</strong> évaluation par commissaire aux apports (sauf si totalité &lt; ½ capital, chaque apport &lt; 30 000 €, et décision unanime)</li>
+            <li><strong>Conditions de forme :</strong> statuts écrits, SHAL, RCS/RNE, Bodacc</li>
+          </ul>
+        </div>
+
+        <div class="card bleu" style="margin-top:12px; border-top-color: var(--bleu)">
+          <h3>🎯 Direction de la SAS</h3>
+          <ul class="liste bleu">
+            <li>Seul le <strong>Président</strong> est obligatoire (pouvoirs les plus étendus, représente la société)</li>
+            <li>Un seul Président possible, <span class="hl-rouge">coprésidents interdits</span></li>
+            <li>Les statuts peuvent désigner un ou plusieurs <strong>Directeurs généraux</strong> avec les mêmes pouvoirs (art. L.227-6 al.3)</li>
+            <li>Pour opposabilité aux tiers : dépôt des statuts au GUE/RCS-RNE</li>
+          </ul>
+        </div>
+
+        <div class="card vert" style="margin-top:12px">
+          <h3>🔒 Clauses de contrôle</h3>
+          <ul class="liste vert">
+            <li><strong>Clause d'agrément (statuts) :</strong> toute cession d'actions soumise à l'agrément des actionnaires ; violation → nullité de la cession</li>
+            <li><strong>Pacte d'actionnaires :</strong> confidentiel (non déposé au greffe), mais violation → <span class="hl">seulement dommages-intérêts</span>, pas nullité</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ SECTION 3 : GIE, SEP, SCP/SCM -->
+  <div class="section" id="s3">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <h2>GIE · Société en Participation · SCP / SCM</h2>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>🤝 GIE — Groupement d'Intérêt Économique</h3>
+        <ul class="liste">
+          <li>Min. 2 membres (personnes physiques ou morales)</li>
+          <li>Objet : <strong>prolongement et auxiliaire</strong> de l'activité économique des membres uniquement</li>
+          <li>Chaque membre conserve son <strong>indépendance totale</strong></li>
+          <li>Capital facultatif (avec ou sans)</li>
+          <li>Apports : numéraire, nature ou industrie</li>
+          <li>Non interdit de faire des bénéfices, mais <span class="hl">objectif non lucratif</span></li>
+          <li>Responsabilité <strong>indéfinie et solidaire</strong> des membres pour les dettes</li>
+          <li>Personnalité morale à l'immatriculation au RCS</li>
+          <li>Contrat écrit avec mentions obligatoires, dépôt au GUE, insertion Bodacc</li>
+          <li>Réserves : un membre exclu/retiré ne peut réclamer sa part sans clause statutaire ou décision d'assemblée (Cass.)</li>
+        </ul>
+      </div>
+
+      <div class="card rouge">
+        <h3>🌫️ Société en Participation (SEP)</h3>
+        <ul class="liste rouge">
+          <li>Société volontairement <strong>non immatriculée</strong> → <span class="hl-rouge">pas de personnalité morale</span></li>
+          <li>Peut être <em>occulte</em> (cachée) ou <em>ostensible</em> (connue des tiers)</li>
+          <li>Pas de capital social</li>
+          <li>Droits et obligations fixés par le contrat (statuts)</li>
+          <li>Responsabilité : <strong>indéfinie et solidaire</strong> si activité commerciale ; <strong>indéfinie et conjointe</strong> si activité civile</li>
+          <li>Dissolution non publiée (ni JAL ni RCS)</li>
+        </ul>
+        <div style="margin-top:10px; font-size:0.82em; border-top:1px dotted var(--ligne); padding-top:8px">
+          <strong>Dissolution :</strong> causes communes (art. 1844-7 C.civ.) + causes contractuelles + dissolution unilatérale à tout moment si durée indéterminée (sans mauvaise foi ni à contretemps).
+        </div>
+        <div class="alerte rouge" style="margin-top:8px">
+          <strong>⚠️ Profession libérale réglementée</strong> Si la SEP exerce une profession libérale réglementée → nature civile → seules les causes des art. 1846-1 et 1844-7 C.civ. s'appliquent (pas de dissolution unilatérale). <em>Cass. 1re civ., 27 nov. 2019</em>
+        </div>
+      </div>
+
+      <div class="card vert">
+        <h3>⚕️ SCP vs SCM (professions libérales)</h3>
+        <table class="comp-table" style="margin-top:0">
+          <thead>
+            <tr>
+              <th style="background:var(--gris)">Critère</th>
+              <th>SCP</th>
+              <th>SCM</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Objet</td>
+              <td>Exercice <em>en commun</em> de la profession</td>
+              <td>Mise en commun des <em>moyens</em> uniquement</td>
+            </tr>
+            <tr>
+              <td>Revenus</td>
+              <td>Encaissés par la société puis redistribués</td>
+              <td>Chaque membre conserve ses honoraires</td>
+            </tr>
+            <tr>
+              <td>Indépendance</td>
+              <td>Exercice collectif</td>
+              <td>Exercice <strong>indépendant</strong> de chacun</td>
+            </tr>
+            <tr>
+              <td>Bénéfices</td>
+              <td>Partagés selon statuts</td>
+              <td>Pas de bénéfices (réduction des coûts)</td>
+            </tr>
+            <tr>
+              <td>Responsabilité</td>
+              <td>Indéfinie + solidaire (actes pro)</td>
+              <td>Variable selon statuts</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ SECTION 4 : ASSOCIATIONS & COOPERATIVES -->
+  <div class="section" id="s4">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <h2>Associations & Sociétés Coopératives</h2>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>🏛️ Association loi 1901</h3>
+        <ul class="liste">
+          <li><strong>Conditions :</strong> au moins 2 membres, consentement, capacité, objet licite de mise en commun d'activité/connaissances, but <span class="hl">non lucratif</span> (pas de partage de bénéfices)</li>
+          <li><strong>Forme :</strong> aucun formalisme obligatoire (constitution par simple échange de consentements, pas d'écrit obligatoire)</li>
+          <li><strong>Personnalité morale :</strong> déclaration en préfecture → récépissé sous 5 jours → publication au JOAFE</li>
+          <li><strong>Association non déclarée = association de fait</strong> (n'existe pas à l'égard des tiers ni de la loi)</li>
+          <li><strong>Activité commerciale :</strong> possible, mais bénéfices affectés au fonctionnement et à l'objet social (jamais partagés)</li>
+          <li><strong>Dirigeants :</strong> fonctions gratuites en principe ; rémunération possible si elle ne dissimule pas une répartition de bénéfices</li>
+          <li><strong>Frais de mandat :</strong> remboursement possible</li>
+          <li><strong>Décisions :</strong> règles fixées par les statuts ; unanimité uniquement si augmentation des engagements des membres</li>
+          <li><strong>Modification des statuts :</strong> conditions fixées par les statuts (Cass. 1re civ., 11 fév. 2017)</li>
+        </ul>
+      </div>
+
+      <div class="card bleu">
+        <h3>🌾 Sociétés Coopératives</h3>
+        <ul class="liste bleu">
+          <li>Membres appelés <strong>sociétaires</strong></li>
+          <li>Condition : <strong>double qualité</strong> — à la fois associé et client/fournisseur de la coopérative</li>
+          <li>Engagement d'apporter sa clientèle ou une partie de son activité professionnelle</li>
+          <li>Si les statuts le prévoient : possibilité d'accueillir des <strong>associés non-coopérateurs</strong> dans la limite de <span class="hl">49% des droits de vote</span></li>
+          <li>Personnes physiques (ex. salariés) ou morales (apport de capitaux)</li>
+        </ul>
+
+        <hr class="sep">
+
+        <h3 style="margin-top:4px">⚖️ Apport de biens communs entre époux</h3>
+        <ul class="liste rouge">
+          <li><strong>Obligation d'information :</strong> l'époux apportant doit avertir son conjoint</li>
+          <li><strong>Revendication d'associé :</strong> le conjoint peut demander à être associé pour la moitié des parts
+            <ul style="margin-top:4px; padding-left:16px; font-size:0.92em">
+              <li>Lors de l'apport → associé d'office</li>
+              <li>Ultérieurement → possible procédure d'agrément</li>
+            </ul>
+          </li>
+          <li><strong>Biens dangereux</strong> (immeuble, fonds de commerce) : consentement exprès du conjoint obligatoire, sous peine de <span class="hl-rouge">nullité</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ SECTION 5 : ESS & ESUS -->
+  <div class="section" id="s5">
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <h2>ESS & Agrément ESUS</h2>
+      <span class="badge badge-civil">Loi 31 juil. 2014</span>
+    </div>
+
+    <div class="grid-2">
+      <div class="card vert">
+        <h3>🌿 Conditions d'intégration à l'ESS (cumulatives)</h3>
+        <ul class="liste vert">
+          <li><strong>But autre que le seul partage des bénéfices</strong></li>
+          <li><strong>Gouvernance démocratique</strong> définie et organisée par les statuts</li>
+          <li><strong>Recherche d'une utilité sociale</strong> : soutien à des publics vulnérables, maintien de solidarités territoriales, éducation à la citoyenneté, développement durable, transition énergétique…</li>
+          <li><strong>Principes de gestion stricts :</strong>
+            <ul style="margin-top:5px; padding-left:16px; font-size:0.92em">
+              <li>20% des bénéfices → <em>fonds de développement</em> (réserve statutaire plafonnée)</li>
+              <li>50% des bénéfices → report bénéficiaire + réserves obligatoires</li>
+              <li>Interdiction d'amortir le capital ou de réduire le capital sans perte</li>
+              <li>Réserves impartageables et non distribuables</li>
+            </ul>
+          </li>
+          <li>L'objet social dans les statuts doit être en lien avec l'utilité sociale</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>🏅 Agrément ESUS — Avantages</h3>
+        <ul class="liste">
+          <li><strong>Financements spécifiques :</strong> la BPI gère un fonds d'innovation sociale (avances remboursables) ; la Caisse des Dépôts renforce les fonds propres</li>
+          <li><strong>Commandes publiques :</strong> priorité au niveau national et territorial</li>
+          <li><strong>Avantage d'image</strong> auprès du public</li>
+        </ul>
+        <div class="alerte vert" style="margin-top:10px">
+          <strong>Pour une SCS :</strong> modification statutaire votée à l'unanimité des commandités + majorité en nombre et en capital des commanditaires (art. L.222-9 C.com.), lors d'une AGE.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ SECTION 6 : DROIT PÉNAL -->
+  <div class="section" id="s6">
+    <div class="section-header">
+      <div class="section-num">06</div>
+      <h2>Infractions pénales en droit des affaires</h2>
+      <span class="badge badge-penal">Droit pénal</span>
+    </div>
+
+    <div class="alerte rouge">
+      <strong>Structure universelle de toute infraction :</strong> Élément légal (texte d'incrimination) + Élément matériel (faits constitutifs) + Élément moral (intentionnel ou non). Ces trois éléments doivent être réunis pour caractériser l'infraction.
+    </div>
+
+    <div style="overflow-x:auto; margin-top:16px">
+      <table class="infraction-table">
+        <thead>
+          <tr>
+            <th style="width:18%">Infraction</th>
+            <th style="width:14%">Texte</th>
+            <th style="width:20%">Élt. matériel</th>
+            <th style="width:16%">Élt. moral</th>
+            <th style="width:14%">Sociétés visées</th>
+            <th style="width:18%">Sanction</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Abus de biens sociaux<div class="article">ABS</div></td>
+            <td>L.242-6 3° C.com.<br><span class="article">→ L.243-1 SCA<br>→ L.244-1 SAS<br>→ L.241-3 SARL</span></td>
+            <td>Usage des biens/crédit, contraire à l'intérêt social, à des fins personnelles ou pour favoriser une entreprise liée</td>
+            <td>Mauvaise foi (sciemment, en connaissance de cause)</td>
+            <td>SA, SCA, SAS, SARL<br><span class="article">⛔ SCI et sociétés de personnes exclus</span></td>
+            <td><span class="peine">5 ans / 375 000 €</span></td>
+          </tr>
+          <tr>
+            <td>Abus de confiance</td>
+            <td>Art. 314-1 CP</td>
+            <td>Remise préalable (contrat/titre), détournement frauduleux, préjudice</td>
+            <td>Intention frauduleuse ; se comporter comme propriétaire</td>
+            <td>Toutes formes, notamment SCI (où l'ABS ne s'applique pas)</td>
+            <td><span class="peine">3 ans / 375 000 €</span></td>
+          </tr>
+          <tr>
+            <td>Distribution dividendes fictifs</td>
+            <td>L.242-6 1° C.com.</td>
+            <td>Absence d'inventaire ou inventaire frauduleux, décision de mise en paiement, dividendes non issus de bénéfices distribuables</td>
+            <td>Sciemment, de mauvaise foi</td>
+            <td>SA, SCA (par renvoi)</td>
+            <td><span class="peine">5 ans / 375 000 €</span></td>
+          </tr>
+          <tr>
+            <td>Présentation de comptes infidèles</td>
+            <td>L.242-6 2° C.com.<br><span class="article">→ L.243-1 SCA</span></td>
+            <td>Comptes annuels inexacts publiés ou <strong>présentés aux actionnaires</strong> (conditions alternatives)</td>
+            <td>En connaissance de cause</td>
+            <td>SA, SCA<br><span class="article">⚠️ Seulement présentation aux actionnaires !</span></td>
+            <td><span class="peine">5 ans / 375 000 €</span></td>
+          </tr>
+          <tr>
+            <td>Faux et usage de faux</td>
+            <td>Art. 441-1 CP</td>
+            <td>Support à valeur probatoire, altération matérielle ou intellectuelle de la vérité, préjudice (actuel ou éventuel)</td>
+            <td>Intentionnel (sciemment). L'utilisateur est punissable même s'il n'est pas l'auteur</td>
+            <td>Tous</td>
+            <td><span class="peine">3 ans / 45 000 €</span></td>
+          </tr>
+          <tr>
+            <td>Escroquerie</td>
+            <td>Art. 313-1 CP</td>
+            <td>Manœuvres frauduleuses (comportement actif), tromperie, remise de la chose, préjudice. <em>Tentative punissable</em></td>
+            <td>En connaissance de cause</td>
+            <td>Tous (ex. faux bilan pour obtenir un prêt)</td>
+            <td><span class="peine">5 ans / 375 000 €</span></td>
+          </tr>
+          <tr>
+            <td>Infractions du CAC</td>
+            <td>Art. L.820-7 C.com.</td>
+            <td>① Confirmer des informations mensongères aux actionnaires ② Ne pas révéler les faits délictueux au procureur de la République</td>
+            <td>En connaissance de cause (professionnel : ne peut ignorer)</td>
+            <td>CAC de toute société</td>
+            <td><span class="peine">5 ans / 75 000 €</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="alerte" style="margin-top:14px">
+      <strong>Concours d'infractions :</strong> lorsque plusieurs infractions sont commises, le prévenu encourt au maximum la peine la plus élevée prévue parmi les délits commis.
+    </div>
+
+    <div class="grid-2" style="margin-top:14px">
+      <div class="card rouge">
+        <h3>🔍 ABS en groupe de sociétés</h3>
+        <ul class="liste rouge">
+          <li>Le concours financier d'une société à une autre du même groupe entre dans l'intérêt social uniquement si :</li>
+          <li>Il n'est pas <strong>dépourvu de contrepartie</strong></li>
+          <li>Il ne rompt pas l'<strong>équilibre entre les engagements</strong> respectifs des sociétés</li>
+          <li>Il n'excède pas les <strong>possibilités financières</strong> de la société qui en supporte la charge</li>
+          <li>L'existence d'un groupe n'est un fait justificatif que si ces trois conditions sont réunies</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>📌 Points clés à retenir</h3>
+        <ul class="liste">
+          <li>L'ABS ne s'applique <strong>pas</strong> aux SCI, SNC, SCS (→ abus de confiance si détournement)</li>
+          <li>Présentation de comptes infidèles = uniquement aux <strong>actionnaires</strong> (pas aux investisseurs tiers → faux)</li>
+          <li>Le faux est constitué même si l'auteur avait l'intention de rembourser</li>
+          <li>Usage de faux : punissable même si on n'est pas l'auteur du faux</li>
+          <li>Tentative d'escroquerie = même peine que l'escroquerie consommée</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ SECTION 7 : RESPONSABILITÉ -->
+  <div class="section" id="s7">
+    <div class="section-header">
+      <div class="section-num">07</div>
+      <h2>Responsabilité des dirigeants</h2>
+    </div>
+
+    <div class="grid-2">
+      <div class="card bleu">
+        <h3>⚖️ Responsabilité civile</h3>
+        <ul class="liste bleu">
+          <li><strong>Conditions :</strong> faute + préjudice + lien de causalité</li>
+          <li>Fautes : faute de gestion, violation des statuts, violation des dispositions législatives/réglementaires</li>
+        </ul>
+        <div style="margin-top:10px">
+          <table class="comp-table">
+            <thead><tr><th style="background:var(--gris)">Victime</th><th>Action</th><th>Conditions</th></tr></thead>
+            <tbody>
+              <tr><td>La société</td><td><em>Action sociale</em> ut universi (représentant légal) ou ut singuli (actionnaire seul ou groupe ≥ 5% capital). D&I versés à la société.</td><td>—</td></tr>
+              <tr><td>Un actionnaire</td><td>Action individuelle</td><td>Préjudice <strong>distinct</strong> du préjudice social</td></tr>
+              <tr><td>Un tiers</td><td>Action en responsabilité</td><td>Faute <strong>détachable</strong> des fonctions du dirigeant</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card rouge">
+        <h3>🚔 Procédure pénale</h3>
+        <ul class="liste rouge">
+          <li><strong>Action publique :</strong> exercée par le ministère public pour punir l'auteur (prison et/ou amende)</li>
+          <li><strong>Information du parquet :</strong> plainte, dénonciation</li>
+          <li><strong>Action civile (victime) :</strong> réparation pécuniaire du préjudice
+            <ul style="margin-top:4px; padding-left:16px; font-size:0.92em">
+              <li>Par voie d'<em>intervention</em> (action publique déjà engagée)</li>
+              <li>Par voie d'<em>action</em> (victime déclenche l'action publique)</li>
+            </ul>
+          </li>
+          <li>Devant le juge d'instruction ou directement devant la juridiction de jugement</li>
+          <li>Constitution de partie civile possible pour l'actionnaire en tant que victime directe ou au nom de la personne morale</li>
+        </ul>
+
+        <div class="alerte rouge" style="margin-top:10px">
+          <strong>Convocation d'AG (recours des actionnaires) :</strong> actionnaires représentant ≥ 5% du capital peuvent demander au président du tribunal de commerce la nomination d'un mandataire ad hoc pour convoquer l'AG.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ SECTION 8 : VIE DE LA SOCIÉTÉ -->
+  <div class="section" id="s8">
+    <div class="section-header">
+      <div class="section-num">08</div>
+      <h2>Vie de la société — Formation & Dissolution</h2>
+    </div>
+
+    <div class="grid-2">
+      <div class="card vert">
+        <h3>🏗️ Actes en période de formation</h3>
+        <ul class="liste vert">
+          <li><strong>Principe :</strong> seuls ceux qui ont agi sont tenus des actes accomplis (art. L.210-6 C.com.)</li>
+          <li><strong>Exception :</strong> reprise par la société régulièrement immatriculée</li>
+        </ul>
+        <div style="margin-top:10px; font-size:0.86em">
+          <strong>Modalités de reprise :</strong>
+          <table class="comp-table" style="margin-top:5px">
+            <thead><tr><th style="background:var(--gris)">Moment</th><th>Modalité</th></tr></thead>
+            <tbody>
+              <tr><td>Avant signature des statuts</td><td>Reprise <strong>automatique</strong> à l'immatriculation si acte annexé aux statuts et signé par les associés</td></tr>
+              <tr><td>Entre statuts et immatriculation</td><td>Reprise <strong>automatique</strong> si mandat spécial donné par les associés (peut être postérieur à l'acte mais avant immatriculation)</td></tr>
+              <tr><td>Après immatriculation</td><td>Reprise <strong>volontaire</strong> par vote des associés en AG</td></tr>
+            </tbody>
+          </table>
+          <div class="alerte vert" style="margin-top:8px">
+            <strong>Effet de la reprise :</strong> substitution de débiteur avec effet rétroactif. La société est seule tenue. En l'absence de reprise : seul celui qui a agi est tenu.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>💀 Dissolution des sociétés</h3>
+        <p style="font-size:0.86em; margin-bottom:8px"><strong>Causes communes à toutes les sociétés</strong> (art. 1844-7 C.civ.) :</p>
+        <ul class="liste">
+          <li>Expiration du terme (sauf prorogation — art. 1844-6)</li>
+          <li>Réalisation ou extinction de l'objet social</li>
+          <li>Annulation du contrat de société</li>
+          <li>Dissolution anticipée décidée par les associés</li>
+          <li>Dissolution judiciaire pour justes motifs (inexécution d'obligations, mésentente paralysante)</li>
+        </ul>
+        <p style="font-size:0.86em; margin:10px 0 6px"><strong>Spécificités SEP :</strong></p>
+        <ul class="liste rouge">
+          <li>Causes contractuelles prévues dans le contrat</li>
+          <li>Si durée indéterminée : dissolution unilatérale à tout moment (sans mauvaise foi ni à contretemps)</li>
+          <li>Dissolution non publiée (ni JAL ni RCS — art. 1871 C.civ.)</li>
+        </ul>
+        <div class="alerte" style="margin-top:8px">
+          <strong>Formalités générales de publicité :</strong> SHAL (journal d'annonces légales), dépôt au GUE/greffe pour immatriculation au RCS/RNE, insertion au Bodacc par le greffier.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ SECTION 9 : JURISPRUDENCE -->
+  <div class="section" id="s9">
+    <div class="section-header">
+      <div class="section-num">09</div>
+      <h2>Jurisprudence clé à connaître</h2>
+      <span class="badge badge-proc">Arrêts</span>
+    </div>
+
+    <div class="grid-2">
+      <div class="card bleu">
+        <h3>📌 Cass. 1re civ., 27 nov. 2019, n°18-21.207</h3>
+        <p style="font-size:0.85em; color:var(--gris); margin-bottom:8px"><em>SEP de chirurgiens orthopédistes</em></p>
+        <ul class="liste bleu">
+          <li><strong>Principe :</strong> lorsque la SEP exerce une profession libérale réglementée, ses conditions de dissolution sont différentes d'une SEP classique</li>
+          <li>Caractère civil → seuls les cas des <strong>art. 1846-1 et 1844-7 C.civ.</strong> s'appliquent</li>
+          <li>La dissolution par simple notification unilatérale d'un associé <strong>ne s'applique pas</strong></li>
+          <li>Statuts ne prévoyant pas ce mode → dissolution invalide → dommages-intérêts à l'associé lésé</li>
+        </ul>
+      </div>
+
+      <div class="card rouge">
+        <h3>📌 Cass. 1re civ., 11 fév. 2017, n°16-11979</h3>
+        <p style="font-size:0.85em; color:var(--gris); margin-bottom:8px"><em>Modification des statuts d'une association</em></p>
+        <ul class="liste rouge">
+          <li><strong>Principe :</strong> les conditions de prise de décision des sociétaires sont fixées par les statuts</li>
+          <li>À défaut, seule la modification entraînant une <strong>augmentation des engagements</strong> des associés doit être décidée à l'unanimité</li>
+          <li>Une modification n'affectant pas les engagements peut être votée à la majorité des membres présents</li>
+        </ul>
+      </div>
+
+      <div class="card vert">
+        <h3>📌 Société créée de fait entre concubins (Cass.)</h3>
+        <p style="font-size:0.85em; color:var(--gris); margin-bottom:8px"><em>Cour d'appel de Colmar, cassé</em></p>
+        <ul class="liste vert">
+          <li><strong>Définition :</strong> personnes agissant comme associés sans en avoir conscience</li>
+          <li>Preuve : apports + participation aux résultats + <em>affectio societatis</em> (intention de s'associer sur pied d'égalité) — chaque élément prouvé <strong>indépendamment</strong></li>
+          <li>L'<em>affectio societatis</em> <strong>ne peut pas se déduire</strong> de la seule participation financière à un projet immobilier</li>
+          <li>La mise en commun d'intérêts inhérente au concubinage est distincte</li>
+          <li><strong>Si invoquée par un tiers :</strong> théorie de l'apparence (apparences d'apports, bénéfices, pertes en agissant de concert) — preuve allégée</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>📌 ABS en groupe de sociétés (Cass. crim.)</h3>
+        <p style="font-size:0.85em; color:var(--gris); margin-bottom:8px"><em>SARL Hôtel de l'Espère / SCI de Paiolive</em></p>
+        <ul class="liste">
+          <li>Utiliser les fonds d'une SARL pour combler le passif d'une SCI liée, sans mandat ni régularité comptable = ABS</li>
+          <li>Le concours financier intra-groupe n'est justifié que si : contrepartie + équilibre des engagements + capacités financières respectées</li>
+          <li>L'appartenance à un groupe n'est un fait justificatif que si ces trois conditions sont réunies</li>
+        </ul>
+      </div>
+
+      <div class="card noir">
+        <h3>📌 Réserves du GIE et membres exclus (Cass.)</h3>
+        <ul class="liste">
+          <li>Le GIE n'a pas pour objectif de réaliser des bénéfices pour lui-même</li>
+          <li>À défaut de clause statutaire ou de décision d'assemblée, un membre exclu/retiré <strong>ne peut pas</strong> obtenir le remboursement de sa part dans les réserves régulièrement constituées</li>
+          <li>Les réserves servent à réaliser l'objet du GIE, pas à enrichir ses membres</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ SECTION 10 : DROIT COMMUN -->
+  <div class="section" id="s10">
+    <div class="section-header">
+      <div class="section-num">10</div>
+      <h2>Droit commun des sociétés</h2>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>📝 Conditions de validité</h3>
+        <p style="font-size:0.83em; color:var(--gris); margin-bottom:7px">Art. 1128 C.civ. + Art. 1832 C.civ.</p>
+        <ul class="liste">
+          <li>Consentement libre et éclairé (exempt de vice)</li>
+          <li>Capacité des parties (civile ou commerciale selon la forme)</li>
+          <li>Contenu licite et certain</li>
+          <li>Apports de chaque associé</li>
+          <li>Participation aux bénéfices et contribution aux pertes</li>
+          <li><em>Affectio societatis</em></li>
+        </ul>
+      </div>
+
+      <div class="card bleu">
+        <h3>📦 Types d'apports</h3>
+        <ul class="liste bleu">
+          <li><strong>Numéraire :</strong> somme d'argent (libération partielle possible)</li>
+          <li><strong>Nature :</strong> bien corporel ou incorporel (évaluation par commissaire aux apports en SA/SAS)</li>
+          <li><strong>Industrie :</strong> savoir-faire, travail (interdit aux commanditaires de SCA/SCS, ne constitue pas le capital social mais donne droit à des parts)</li>
+        </ul>
+      </div>
+
+      <div class="card vert">
+        <h3>📢 Formalités de publicité</h3>
+        <ul class="liste vert">
+          <li>Publication d'un avis dans un <strong>SHAL</strong> (support habilité aux annonces légales)</li>
+          <li>Dépôt du dossier au <strong>GUE</strong> (Guichet Unique des Entreprises)</li>
+          <li>Immatriculation au <strong>RCS</strong> et au <strong>RNE</strong></li>
+          <li>Insertion au <strong>Bodacc</strong> à la diligence du greffier</li>
+          <li>La personnalité morale est acquise à compter de l'immatriculation</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- TABLEAU COMPARATIF FINAL -->
+    <div style="margin-top:18px">
+      <div style="font-family:'Playfair Display',serif; font-size:1.05em; font-weight:700; margin-bottom:10px; border-bottom:1px solid var(--ligne); padding-bottom:6px">
+        Tableau comparatif des principales formes sociales
+      </div>
+      <div style="overflow-x:auto">
+        <table class="comp-table" style="font-size:0.8em">
+          <thead>
+            <tr>
+              <th style="background:var(--gris)">Critère</th>
+              <th>SCA</th>
+              <th>SCS</th>
+              <th>SAS</th>
+              <th>GIE</th>
+              <th>SEP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Personnalité morale</td><td>✅ (immat.)</td><td>✅ (immat.)</td><td>✅ (immat.)</td><td>✅ (immat.)</td><td>❌</td></tr>
+            <tr><td>Capital minimum</td><td>37 000 €</td><td>Aucun</td><td>Aucun</td><td>Aucun</td><td>Aucun</td></tr>
+            <tr><td>Responsabilité</td><td>Illimitée (commandités) / Limitée (commanditaires)</td><td>Illimitée (commandités) / Limitée (commanditaires)</td><td>Limitée aux apports</td><td>Indéfinie et solidaire</td><td>Variable selon activité</td></tr>
+            <tr><td>Direction</td><td>Commandités uniquement</td><td>Gérant(s)</td><td>Président obligatoire</td><td>Administrateur(s)</td><td>Gérant(s) désignés</td></tr>
+            <tr><td>IS ou IR</td><td>IS</td><td>IR (option IS)</td><td>IS (option IR)</td><td>Membres imposés</td><td>IR des associés</td></tr>
+            <tr><td>ABS applicable</td><td>✅ L.243-1</td><td>❌</td><td>✅ L.244-1</td><td>❌</td><td>❌</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    UE 442 – Droit des Sociétés · CNAM-INTEC · Fiche de révision synthétique — Sessions 2023, 2024, 2025
+  </footer>
+
+</div>
+</body>
+</html>
