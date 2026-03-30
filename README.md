@@ -584,7 +584,7 @@
         <!-- Welcome screen -->
         <div class="welcome" id="welcome">
             <div class="welcome-icon">🎯</div>
-            <h1>Bonne révision,<br>Enzo !</h1>
+            <h1>Bonne révision,<br></h1>
             <p>Sélectionne une matière dans le menu pour commencer ta session.</p>
             <div class="welcome-cards">
                 <div class="welcome-card" onclick="loadPage('CG.html', null, 'Contrôle de Gestion')">📊 Contrôle de Gestion</div>
