@@ -2,80 +2,683 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Mon Hub de Révisions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub de Révisions — CCA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --sidebar-width: 280px;
-            --bg-sidebar: #1e1e26;
-            --bg-active: #2d2d3a;
-            --accent: #4d96ff;
-            --text-color: #a7a3b8;
+            --sidebar-w: 300px;
+            --bg-deep:   #0b0c10;
+            --bg-card:   #13141a;
+            --bg-hover:  #1a1c25;
+            --border:    #222430;
+            --accent:    #f0c040;
+            --accent2:   #4d96ff;
+            --text:      #c8c4d8;
+            --muted:     #555668;
+            --white:     #f0eefc;
         }
 
-        body { margin: 0; display: flex; height: 100vh; font-family: 'Segoe UI', sans-serif; background: #000; overflow: hidden; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* Menu de gauche */
+        body {
+            display: flex;
+            height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-deep);
+            color: var(--text);
+            overflow: hidden;
+        }
+
+        /* ─── SIDEBAR ─────────────────────────────── */
         nav {
-            width: var(--sidebar-width);
-            background: var(--bg-sidebar);
+            width: var(--sidebar-w);
+            flex-shrink: 0;
+            background: var(--bg-card);
+            border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            border-right: 1px solid #333;
+            position: relative;
+            overflow: hidden;
         }
 
-        .nav-header { padding: 30px 20px; border-bottom: 1px solid #333; }
-        .nav-header h2 { margin: 0; color: #ffd93d; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+        /* subtle grain overlay */
+        nav::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            opacity: .5;
+            z-index: 0;
+        }
 
-        .menu-list { list-style: none; padding: 15px 0; margin: 0; flex-grow: 1; overflow-y: auto; }
+        nav > * { position: relative; z-index: 1; }
+
+        /* Header */
+        .nav-header {
+            padding: 28px 24px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: var(--accent);
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .nav-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1.1;
+            letter-spacing: -.3px;
+        }
+
+        .nav-sub {
+            font-size: .65rem;
+            color: var(--muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .session-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(240,192,64,.10);
+            border: 1px solid rgba(240,192,64,.25);
+            border-radius: 20px;
+            padding: 4px 10px;
+            font-size: .68rem;
+            color: var(--accent);
+            font-weight: 500;
+            letter-spacing: .5px;
+        }
+
+        .session-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50%       { opacity: .5; transform: scale(.7); }
+        }
+
+        /* Section label */
+        .menu-section {
+            padding: 20px 24px 8px;
+            font-size: .6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        /* Menu list */
+        .menu-list {
+            list-style: none;
+            padding: 0 12px;
+            flex-grow: 1;
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+
+        .menu-list::-webkit-scrollbar { display: none; }
+
         .menu-item {
-            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 14px;
+            border-radius: 10px;
             cursor: pointer;
-            color: var(--text-color);
-            transition: 0.2s;
-            border-left: 4px solid transparent;
+            color: var(--text);
+            transition: background .15s, color .15s;
+            margin-bottom: 3px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(77,150,255,.07), transparent);
+            opacity: 0;
+            transition: opacity .2s;
+        }
+
+        .menu-item:hover {
+            background: var(--bg-hover);
+            color: var(--white);
+        }
+
+        .menu-item:hover::after { opacity: 1; }
+
+        .menu-item.active {
+            background: rgba(77,150,255,.12);
+            color: var(--accent2);
+            font-weight: 500;
+        }
+
+        .menu-item.active::after { opacity: 1; }
+
+        .item-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: grid;
+            place-items: center;
+            font-size: 15px;
+            flex-shrink: 0;
+            background: rgba(255,255,255,.04);
+            transition: background .15s;
+        }
+
+        .menu-item.active .item-icon {
+            background: rgba(77,150,255,.18);
+        }
+
+        .item-label {
+            font-size: .82rem;
+            letter-spacing: .1px;
+        }
+
+        .item-arrow {
+            margin-left: auto;
+            opacity: 0;
+            color: var(--accent2);
+            font-size: .7rem;
+            transition: opacity .15s, transform .15s;
+        }
+
+        .menu-item:hover .item-arrow,
+        .menu-item.active .item-arrow {
+            opacity: 1;
+            transform: translateX(2px);
+        }
+
+        /* Footer */
+        .nav-footer {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-text {
+            font-size: .65rem;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+
+        .footer-text strong {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* ─── MAIN AREA ───────────────────────────── */
+        main {
+            flex: 1;
+            position: relative;
+            background: var(--bg-deep);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top bar */
+        .topbar {
+            height: 52px;
+            flex-shrink: 0;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            gap: 14px;
+        }
+
+        .topbar-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .8rem;
+            color: var(--muted);
+        }
+
+        .topbar-breadcrumb span { color: var(--text); font-weight: 500; }
+
+        .topbar-sep { color: var(--border); }
+
+        .topbar-actions {
+            margin-left: auto;
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        .menu-item:hover { background: var(--bg-active); color: white; }
-        .menu-item.active { background: var(--bg-active); color: var(--accent); border-left-color: var(--accent); font-weight: bold; }
 
-        /* Zone d'affichage (Droite) */
-        main { flex-grow: 1; background: #fff; position: relative; }
-        iframe { width: 100%; height: 100%; border: none; }
+        .btn-topbar {
+            background: var(--bg-hover);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: .72rem;
+            color: var(--text);
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: border-color .15s, color .15s;
+        }
+
+        .btn-topbar:hover {
+            border-color: var(--accent2);
+            color: var(--accent2);
+        }
+
+        /* Welcome state */
+        .welcome {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            opacity: 1;
+            transition: opacity .3s;
+            padding: 40px;
+        }
+
+        .welcome.hidden { opacity: 0; pointer-events: none; display: none; }
+
+        .welcome-icon {
+            font-size: 3rem;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%,100% { transform: translateY(0); }
+            50%      { transform: translateY(-8px); }
+        }
+
+        .welcome h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--white);
+            text-align: center;
+            line-height: 1.1;
+        }
+
+        .welcome p {
+            font-size: .85rem;
+            color: var(--muted);
+            text-align: center;
+            max-width: 360px;
+            line-height: 1.6;
+        }
+
+        .welcome-cards {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .welcome-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-size: .75rem;
+            color: var(--text);
+            cursor: pointer;
+            transition: border-color .2s, color .2s, transform .2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .welcome-card:hover {
+            border-color: var(--accent2);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* iFrame area */
+        .iframe-wrapper {
+            display: none;
+            flex: 1;
+            position: relative;
+        }
+
+        .iframe-wrapper.visible { display: block; }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Loading bar */
+        .loader {
+            position: absolute;
+            top: 0; left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent2), var(--accent));
+            border-radius: 2px;
+            transition: width .4s ease;
+            z-index: 10;
+        }
+
+        .loader.loading { width: 70%; }
+        .loader.done    { width: 100%; opacity: 0; transition: width .2s, opacity .3s .2s; }
+
+        /* ─── MOBILE BURGER BUTTON ────────────────── */
+        .burger {
+            display: none;
+            width: 38px;
+            height: 38px;
+            background: var(--bg-hover);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 5px;
+            flex-shrink: 0;
+            padding: 0;
+            position: relative;
+            z-index: 101;
+            transition: border-color .15s;
+        }
+
+        .burger:hover { border-color: var(--accent2); }
+
+        .burger span {
+            display: block;
+            width: 16px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: transform .25s, opacity .25s, width .25s;
+            pointer-events: none;
+        }
+
+        /* Overlay backdrop */
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.6);
+            backdrop-filter: blur(2px);
+            z-index: 99;
+            opacity: 0;
+            transition: opacity .3s;
+            pointer-events: none;
+        }
+
+        .nav-overlay.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* ─── RESPONSIVE ──────────────────────────── */
+        @media (max-width: 768px) {
+            body { overflow: hidden; }
+
+            .burger { display: flex; }
+
+            nav {
+                position: fixed;
+                top: 0; left: 0;
+                height: 100%;
+                width: min(300px, 85vw);
+                z-index: 100;
+                transform: translateX(-100%);
+                transition: transform .3s cubic-bezier(.4,0,.2,1);
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+
+            nav.open {
+                transform: translateX(0);
+            }
+
+            .nav-overlay { display: block; }
+
+            main {
+                width: 100%;
+                min-width: 0;
+            }
+
+            .topbar {
+                gap: 10px;
+                padding: 0 14px;
+            }
+
+            .topbar-breadcrumb {
+                font-size: .75rem;
+                flex: 1;
+                min-width: 0;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            .topbar-actions .btn-topbar:first-child { display: none; }
+
+            .welcome h1 { font-size: 1.5rem; }
+            .welcome-cards { flex-direction: column; align-items: stretch; }
+        }
     </style>
 </head>
 <body>
 
+    <!-- ─── SIDEBAR ─────────────────────────────── -->
     <nav>
         <div class="nav-header">
-            <h2>📚 Mes Fiches</h2>
+            <div class="nav-logo">
+                <div class="logo-icon">📚</div>
+                <div>
+                    <div class="nav-title">Hub Révisions</div>
+                    <div class="nav-sub">Licence CCA</div>
+                </div>
+            </div>
+            <div class="session-badge">Session active</div>
         </div>
+
+        <div class="menu-section">Matières</div>
+
         <ul class="menu-list">
-            <li class="menu-item active" onclick="loadPage('CG.html', this)">📊 Contrôle de Gestion</li>
-            <li class="menu-item" onclick="loadPage('FI.html', this)">💰 Finance</li>
-            <li class="menu-item" onclick="loadPage('mana.html', this)">👔 Management</li>
-            <li class="menu-item" onclick="loadPage('SO.html', this)">⚖️ Droit des Sociétés</li>
-            <li class="menu-item" onclick="loadPage('DT.html', this)">👷 Droit du Travail</li>
-            <li class="menu-item" onclick="loadPage('fisca.html', this)">🧾 Droit Fiscal</li>
-            <li class="menu-item" onclick="loadPage('compta.html', this)">📑 Comptabilité</li>
+            <li class="menu-item" onclick="loadPage('CG.html', this, 'Contrôle de Gestion')">
+                <div class="item-icon">📊</div>
+                <span class="item-label">Contrôle de Gestion</span>
+                <span class="item-arrow">›</span>
+            </li>
+            <li class="menu-item" onclick="loadPage('FI.html', this, 'Finance')">
+                <div class="item-icon">💰</div>
+                <span class="item-label">Finance</span>
+                <span class="item-arrow">›</span>
+            </li>
+            <li class="menu-item" onclick="loadPage('mana.html', this, 'Management')">
+                <div class="item-icon">👔</div>
+                <span class="item-label">Management</span>
+                <span class="item-arrow">›</span>
+            </li>
+            <li class="menu-item" onclick="loadPage('SO.html', this, 'Droit des Sociétés')">
+                <div class="item-icon">⚖️</div>
+                <span class="item-label">Droit des Sociétés</span>
+                <span class="item-arrow">›</span>
+            </li>
+            <li class="menu-item" onclick="loadPage('DT.html', this, 'Droit du Travail')">
+                <div class="item-icon">👷</div>
+                <span class="item-label">Droit du Travail</span>
+                <span class="item-arrow">›</span>
+            </li>
+            <li class="menu-item" onclick="loadPage('fisca.html', this, 'Droit Fiscal')">
+                <div class="item-icon">🧾</div>
+                <span class="item-label">Droit Fiscal</span>
+                <span class="item-arrow">›</span>
+            </li>
+            <li class="menu-item" onclick="loadPage('compta.html', this, 'Comptabilité')">
+                <div class="item-icon">📑</div>
+                <span class="item-label">Comptabilité</span>
+                <span class="item-arrow">›</span>
+            </li>
         </ul>
+
+        <div class="nav-footer">
+            <div class="footer-text">
+                <strong>7 matières</strong><br>
+                Partiel 2
+            </div>
+            <div style="font-size:.7rem;color:var(--muted)">2025–26</div>
+        </div>
     </nav>
 
+    <!-- Overlay mobile -->
+    <div class="nav-overlay" id="nav-overlay" onclick="closeSidebar()"></div>
+
+    <!-- ─── MAIN ─────────────────────────────────── -->
     <main>
-        <iframe id="content-frame" src="gestion.html"></iframe>
+        <div class="topbar">
+            <button class="burger" id="burger" onclick="toggleSidebar()" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="topbar-breadcrumb">
+                Hub Révisions <span class="topbar-sep">›</span>
+                <span id="current-page">Accueil</span>
+            </div>
+            <div class="topbar-actions">
+                <button class="btn-topbar" onclick="reloadFrame()">↺ Recharger</button>
+                <button class="btn-topbar" onclick="openFullscreen()">⛶ Plein écran</button>
+            </div>
+        </div>
+
+        <div class="loader" id="loader"></div>
+
+        <!-- Welcome screen -->
+        <div class="welcome" id="welcome">
+            <div class="welcome-icon">🎯</div>
+            <h1>Bonne révision,<br>Enzo !</h1>
+            <p>Sélectionne une matière dans le menu pour commencer ta session.</p>
+            <div class="welcome-cards">
+                <div class="welcome-card" onclick="loadPage('CG.html', null, 'Contrôle de Gestion')">📊 Contrôle de Gestion</div>
+                <div class="welcome-card" onclick="loadPage('mana.html', null, 'Management')">👔 Management</div>
+                <div class="welcome-card" onclick="loadPage('SO.html', null, 'Droit des Sociétés')">⚖️ Droit des Sociétés</div>
+            </div>
+        </div>
+
+        <!-- iFrame zone -->
+        <div class="iframe-wrapper" id="iframe-wrapper">
+            <iframe id="content-frame"></iframe>
+        </div>
     </main>
 
     <script>
-        function loadPage(fileName, element) {
-            // 1. Changer la source de l'iframe
-            document.getElementById('content-frame').src = fileName;
+        function toggleSidebar() {
+            const nav = document.querySelector('nav');
+            if (nav.classList.contains('open')) {
+                closeSidebar();
+            } else {
+                openSidebar();
+            }
+        }
 
-            // 2. Mettre à jour le style du menu
-            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
-            element.classList.add('active');
+        function openSidebar() {
+            document.querySelector('nav').classList.add('open');
+            document.getElementById('nav-overlay').classList.add('visible');
+        }
+
+        function closeSidebar() {
+            document.querySelector('nav').classList.remove('open');
+            document.getElementById('nav-overlay').classList.remove('visible');
+        }
+
+        let currentFile = null;
+
+        function loadPage(fileName, element, label) {
+            currentFile = fileName;
+
+            // Mise à jour du menu
+            document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+            if (element) {
+                element.classList.add('active');
+            } else {
+                // Trouver le bon item par fileName
+                document.querySelectorAll('.menu-item').forEach(item => {
+                    const fn = item.getAttribute('onclick').match(/'([^']+\.html)'/);
+                    if (fn && fn[1] === fileName) item.classList.add('active');
+                });
+            }
+
+            // Masquer l'écran d'accueil
+            document.getElementById('welcome').classList.add('hidden');
+
+            // Afficher le wrapper iframe
+            const wrapper = document.getElementById('iframe-wrapper');
+            wrapper.classList.add('visible');
+
+            // Fermer le volet sur mobile après sélection
+            if (window.innerWidth <= 768) closeSidebar();
+
+            // Breadcrumb
+            if (label) document.getElementById('current-page').textContent = label;
+
+            // Loader animation
+            const loader = document.getElementById('loader');
+            loader.className = 'loader loading';
+
+            // Charger l'iframe
+            const frame = document.getElementById('content-frame');
+            frame.onload = () => {
+                loader.className = 'loader done';
+                setTimeout(() => loader.className = 'loader', 600);
+            };
+            frame.src = fileName;
+        }
+
+        function reloadFrame() {
+            if (currentFile) {
+                const loader = document.getElementById('loader');
+                loader.className = 'loader loading';
+                const frame = document.getElementById('content-frame');
+                frame.onload = () => {
+                    loader.className = 'loader done';
+                    setTimeout(() => loader.className = 'loader', 600);
+                };
+                frame.src = currentFile;
+            }
+        }
+
+        function openFullscreen() {
+            const frame = document.getElementById('content-frame');
+            if (frame.requestFullscreen) frame.requestFullscreen();
         }
     </script>
-
 </body>
 </html>
