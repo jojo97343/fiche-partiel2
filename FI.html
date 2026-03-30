@@ -7,30 +7,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --ink: #1a1814;
-  --ink2: #3d3a33;
-  --ink3: #6b6760;
-  --paper: #faf8f3;
-  --cream: #f2ede3;
-  --rule: #d8d0c0;
-  --gold: #b8860b;
-  --gold-lt: #fdf3d0;
-  --red: #9b2c2c;
-  --blue: #1a3a5c;
-  --blue-lt: #deeaf5;
-  --green: #1e4d2b;
-  --green-lt: #ddf0e4;
-  --purple: #3b2070;
-  --purple-lt: #ece6f8;
-  --orange: #7a3300;
-  --orange-lt: #fde8cc;
-  --teal: #0f4c4c;
-  --teal-lt: #d4f0ee;
-  --rose: #7a1f3d;
-  --rose-lt: #fde8ef;
+  --ink: #1a1814; --ink2: #3d3a33; --ink3: #6b6760;
+  --paper: #faf8f3; --cream: #f2ede3; --rule: #d8d0c0;
+  --gold: #b8860b; --gold-lt: #fdf3d0;
+  --red: #9b2c2c; --blue: #1a3a5c; --blue-lt: #deeaf5;
+  --green: #1e4d2b; --green-lt: #ddf0e4;
+  --purple: #3b2070; --purple-lt: #ece6f8;
+  --orange: #7a3300; --orange-lt: #fde8cc;
+  --teal: #0f4c4c; --teal-lt: #d4f0ee;
+  --rose: #7a1f3d; --rose-lt: #fde8ef;
+  --nav-h: 56px;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+html, body { height: 100%; }
 body {
   background: var(--paper);
   color: var(--ink);
@@ -40,12 +30,13 @@ body {
   line-height: 1.6;
 }
 
-/* ── LAYOUT ── */
+/* ════════════════════════════════════
+   DESKTOP LAYOUT  (≥ 640px)
+════════════════════════════════════ */
 .app { display: flex; min-height: 100vh; }
 
-/* ── SIDEBAR ── */
 .sidebar {
-  width: 200px;
+  width: 196px;
   flex-shrink: 0;
   background: var(--ink);
   position: sticky;
@@ -54,161 +45,194 @@ body {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  padding: 24px 0 24px;
+  padding: 20px 0;
 }
 .sidebar-title {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 8px;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
+  font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase;
   color: rgba(255,255,255,0.35);
-  padding: 0 18px 16px;
+  padding: 0 16px 14px;
   border-bottom: 1px solid rgba(255,255,255,0.08);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 .nav-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 18px;
-  cursor: pointer;
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 16px; cursor: pointer;
   transition: background 0.15s;
   border-left: 3px solid transparent;
   text-decoration: none;
 }
 .nav-item:hover { background: rgba(255,255,255,0.06); }
-.nav-item.active {
-  background: rgba(255,255,255,0.1);
-  border-left-color: var(--gold);
-}
+.nav-item.active { background: rgba(255,255,255,0.1); border-left-color: var(--gold); }
 .nav-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 18px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.25);
-  width: 24px;
-  flex-shrink: 0;
-  transition: color 0.15s;
-  line-height: 1;
+  font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700;
+  color: rgba(255,255,255,0.25); width: 22px; flex-shrink: 0;
+  transition: color 0.15s; line-height: 1;
 }
-.nav-item.active .nav-num,
-.nav-item:hover .nav-num { color: var(--gold); }
+.nav-item.active .nav-num, .nav-item:hover .nav-num { color: var(--gold); }
 .nav-label {
-  font-size: 11px;
-  font-weight: 400;
-  color: rgba(255,255,255,0.55);
-  line-height: 1.3;
-  transition: color 0.15s;
+  font-size: 11px; font-weight: 400;
+  color: rgba(255,255,255,0.55); line-height: 1.3; transition: color 0.15s;
 }
-.nav-item.active .nav-label,
-.nav-item:hover .nav-label { color: rgba(255,255,255,0.9); }
-.nav-freq {
-  margin-left: auto;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 8px;
-  color: var(--gold);
-  opacity: 0.7;
+.nav-item.active .nav-label, .nav-item:hover .nav-label { color: rgba(255,255,255,0.9); }
+.nav-freq { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 8px; color: var(--gold); opacity: 0.7; }
+
+/* Mobile bottom nav — hidden on desktop */
+.mobile-nav { display: none; }
+
+.main { flex: 1; padding: 28px 32px; max-width: 780px; }
+
+/* ════════════════════════════════════
+   MOBILE LAYOUT  (< 640px)
+════════════════════════════════════ */
+@media (max-width: 639px) {
+  .app { flex-direction: column; }
+
+  /* Hide desktop sidebar */
+  .sidebar { display: none; }
+
+  /* Scrollable content, leaves room for bottom bar */
+  .main {
+    padding: 14px 14px calc(var(--nav-h) + 14px);
+    max-width: 100%;
+    width: 100%;
+  }
+
+  /* ── MOBILE BOTTOM NAV BAR ── */
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: var(--nav-h);
+    background: var(--ink);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    z-index: 100;
+    align-items: stretch;
+    overflow: hidden;
+  }
+  .mob-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    gap: 2px;
+    border: none;
+    background: transparent;
+    color: rgba(255,255,255,0.4);
+    transition: background 0.15s, color 0.15s;
+    padding: 4px 2px;
+    min-width: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mob-btn.active { color: var(--gold); background: rgba(255,255,255,0.07); }
+  .mob-btn:active { background: rgba(255,255,255,0.12); }
+  .mob-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; font-weight: 700; line-height: 1;
+  }
+  .mob-lbl {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 7px; letter-spacing: 0.5px; line-height: 1;
+    text-align: center; white-space: nowrap; overflow: hidden;
+    text-overflow: ellipsis; max-width: 100%;
+  }
+
+  /* ── COMPACT PAGE HEADER ── */
+  .page-header {
+    padding: 10px 0 8px;
+    margin-bottom: 14px;
+    flex-direction: column;
+    gap: 2px;
+    align-items: flex-start;
+  }
+  .page-header h1 { font-size: 18px; }
+  .page-header .meta { display: none; }
+
+  /* ── SECTION HERO ── */
+  .section-hero { gap: 10px; margin-bottom: 14px; }
+  .big-num { font-size: 48px !important; }
+  .section-title-text { font-size: 18px; }
+  .section-desc { font-size: 11px; }
+
+  /* ── CARDS: force single column ── */
+  .cards.two   { grid-template-columns: 1fr !important; }
+  .cards.three { grid-template-columns: 1fr !important; }
+
+  /* ── OVERVIEW GRID: 2 cols ── */
+  .overview-grid { grid-template-columns: 1fr 1fr !important; gap: 8px; }
+  .ov-num { font-size: 28px; }
+  .ov-sub { display: none; }
+
+  /* ── TABLES: horizontal scroll ── */
+  .tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 14px; }
+  .tbl { font-size: 11px; margin-bottom: 0; min-width: 420px; }
+  .tbl th { font-size: 8px; padding: 6px 8px; }
+  .tbl td { padding: 5px 8px; }
+
+  /* ── DEFINITION LIST: stack ── */
+  .def-item { grid-template-columns: 1fr !important; gap: 4px; }
+  .def-term { font-size: 12px; }
+
+  /* ── FORMULA ── */
+  .formula { font-size: 11px; padding: 8px 10px; overflow-x: auto; }
+
+  /* ── CARDS ── */
+  .card { padding: 11px 12px; }
+  .card-name { font-size: 13px; }
+  .note { font-size: 11px; }
+  .example { font-size: 11px; padding: 8px 10px; }
+
+  /* ── NAV BOTTOM (prev/next) ── */
+  .nav-bottom { margin-top: 20px; padding-top: 12px; flex-direction: column; gap: 8px; }
+  .nav-btn { font-size: 9px; padding: 8px 10px; justify-content: center; }
+  .nav-btn span:not(.arrow) { display: none; }
+
+  /* ── ALERTS ── */
+  .alert { font-size: 11px; padding: 8px 10px; }
+
+  /* ── SUB-TITLE ── */
+  .sub-title { font-size: 8px; margin: 14px 0 8px; }
+
+  /* ── FOOTER ── */
+  .page-footer { flex-direction: column; gap: 2px; font-size: 8px; }
+  .page-footer span:last-child { display: none; }
 }
 
-/* ── MAIN ── */
-.main {
-  flex: 1;
-  padding: 32px 36px;
-  max-width: 780px;
-}
-
-/* ── PAGE HEADER ── */
+/* ════════════════════════════════════
+   SHARED STYLES (all sizes)
+════════════════════════════════════ */
 .page-header {
   border-top: 3px solid var(--ink);
   border-bottom: 1px solid var(--rule);
-  padding: 18px 0 14px;
-  margin-bottom: 28px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  padding: 18px 0 14px; margin-bottom: 28px;
+  display: flex; justify-content: space-between; align-items: flex-end;
 }
-.page-header h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 26px;
-  font-weight: 700;
-  line-height: 1.1;
-}
+.page-header h1 { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; line-height: 1.1; }
 .page-header h1 em { font-style: italic; color: var(--gold); }
-.page-header .meta {
-  text-align: right;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 9px;
-  color: var(--ink3);
-  line-height: 2;
-}
+.page-header .meta { text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--ink3); line-height: 2; }
 
-/* ── SECTIONS ── */
 .section { display: none; }
-.section.active { display: block; animation: fadein 0.25s ease; }
-@keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.section.active { display: block; animation: fadein 0.2s ease; }
+@keyframes fadein { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-.section-hero {
-  display: flex;
-  align-items: baseline;
-  gap: 14px;
-  margin-bottom: 24px;
-}
-.big-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 72px;
-  font-weight: 700;
-  color: var(--rule);
-  line-height: 1;
-  flex-shrink: 0;
-  user-select: none;
-}
-.section-info {}
-.section-tag {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--ink3);
-  margin-bottom: 4px;
-}
-.section-title-text {
-  font-family: 'Playfair Display', serif;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--ink);
-  line-height: 1.2;
-}
-.section-desc {
-  font-size: 12px;
-  color: var(--ink3);
-  margin-top: 4px;
-  line-height: 1.5;
-}
-.freq-badge {
-  display: inline-block;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 9px;
-  padding: 2px 8px;
-  border-radius: 2px;
-  margin-top: 6px;
-  font-weight: 500;
-}
+.section-hero { display: flex; align-items: baseline; gap: 14px; margin-bottom: 24px; }
+.big-num { font-family: 'Playfair Display', serif; font-size: 72px; font-weight: 700; color: var(--rule); line-height: 1; flex-shrink: 0; user-select: none; }
+.section-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink3); margin-bottom: 4px; }
+.section-title-text { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--ink); line-height: 1.2; }
+.section-desc { font-size: 12px; color: var(--ink3); margin-top: 4px; line-height: 1.5; }
+.freq-badge { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 9px; padding: 2px 8px; border-radius: 2px; margin-top: 6px; font-weight: 500; }
 .freq-3 { background: #fde8cc; color: var(--orange); }
 .freq-2 { background: var(--blue-lt); color: var(--blue); }
 .freq-1 { background: var(--green-lt); color: var(--green); }
 
-/* ── CARDS ── */
 .cards { display: grid; gap: 12px; margin-bottom: 18px; }
 .cards.two { grid-template-columns: 1fr 1fr; }
 .cards.three { grid-template-columns: 1fr 1fr 1fr; }
 .cards.one { grid-template-columns: 1fr; }
 
-.card {
-  border: 0.5px solid var(--rule);
-  border-radius: 3px;
-  padding: 14px 16px;
-  background: white;
-}
+.card { border: 0.5px solid var(--rule); border-radius: 3px; padding: 14px 16px; background: white; }
 .card.blue   { border-left: 3px solid var(--blue);   background: var(--blue-lt); }
 .card.green  { border-left: 3px solid var(--green);  background: var(--green-lt); }
 .card.purple { border-left: 3px solid var(--purple); background: var(--purple-lt); }
@@ -219,14 +243,7 @@ body {
 .card.rose   { border-left: 3px solid var(--rose);   background: var(--rose-lt); }
 .card.dark   { background: var(--ink); color: rgba(255,255,255,0.9); border: none; }
 
-.card-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-bottom: 5px;
-}
+.card-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px; }
 .card.blue   .card-label { color: var(--blue); }
 .card.green  .card-label { color: var(--green); }
 .card.purple .card-label { color: var(--purple); }
@@ -236,130 +253,35 @@ body {
 .card.teal   .card-label { color: var(--teal); }
 .card.rose   .card-label { color: var(--rose); }
 .card.dark   .card-label { color: rgba(255,200,80,0.8); }
-
-.card-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--ink);
-  margin-bottom: 8px;
-  line-height: 1.3;
-}
+.card-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 8px; line-height: 1.3; }
 .card.dark .card-name { color: white; }
 
-/* ── FORMULA ── */
-.formula {
-  background: var(--ink);
-  color: #f0ead8;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
-  padding: 9px 13px;
-  border-radius: 2px;
-  margin: 8px 0;
-  line-height: 2;
-}
+.formula { background: var(--ink); color: #f0ead8; font-family: 'IBM Plex Mono', monospace; font-size: 12px; padding: 9px 13px; border-radius: 2px; margin: 8px 0; line-height: 2; }
 .formula .var { color: #f5c842; }
 .formula .op  { color: #7ec8e3; }
 .formula .cmt { color: #666; font-size: 10px; }
 .formula .hi  { color: #a8f0a0; }
-
-.frac {
-  display: inline-block;
-  vertical-align: middle;
-  text-align: center;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
-  color: #f5c842;
-  line-height: 1.2;
-  margin: 0 2px;
-}
+.frac { display: inline-block; vertical-align: middle; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #f5c842; line-height: 1.2; margin: 0 2px; }
 .frac .num { display: block; border-bottom: 1px solid #f5c842; padding: 0 3px; }
 .frac .den { display: block; padding: 0 3px; }
 
-.note {
-  font-size: 11px;
-  color: var(--ink2);
-  line-height: 1.55;
-  margin-top: 6px;
-}
+.note { font-size: 11px; color: var(--ink2); line-height: 1.55; margin-top: 6px; }
 .note strong { font-weight: 600; color: var(--ink); }
 
-/* ── EXAMPLE ── */
-.example {
-  background: var(--cream);
-  border: 0.5px solid var(--rule);
-  border-radius: 2px;
-  padding: 10px 13px;
-  font-size: 11.5px;
-  color: var(--ink2);
-  margin-top: 8px;
-}
-.example-title {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 8px;
-  font-weight: 500;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--ink3);
-  margin-bottom: 4px;
-}
+.example { background: var(--cream); border: 0.5px solid var(--rule); border-radius: 2px; padding: 10px 13px; font-size: 11.5px; color: var(--ink2); margin-top: 8px; }
+.example-title { font-family: 'IBM Plex Mono', monospace; font-size: 8px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink3); margin-bottom: 4px; }
 .example .key { color: var(--ink); font-weight: 600; }
 
-/* ── TABLE ── */
-.tbl {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 12px;
-  margin-bottom: 18px;
-}
-.tbl th {
-  background: var(--ink);
-  color: #f0ead8;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  padding: 8px 10px;
-  text-align: left;
-  font-weight: 500;
-}
-.tbl td {
-  padding: 7px 10px;
-  border-bottom: 0.5px solid var(--rule);
-  vertical-align: top;
-  color: var(--ink2);
-}
+.tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 18px; }
+.tbl { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 380px; }
+.tbl th { background: var(--ink); color: #f0ead8; font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 8px 10px; text-align: left; font-weight: 500; }
+.tbl td { padding: 7px 10px; border-bottom: 0.5px solid var(--rule); vertical-align: top; color: var(--ink2); }
 .tbl tr:last-child td { border-bottom: none; }
 .tbl tr:nth-child(even) td { background: var(--cream); }
-.tbl td:first-child {
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  font-style: italic;
-  color: var(--ink);
-  font-size: 12px;
-}
-.mono {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10.5px;
-  background: var(--ink);
-  color: #f5c842;
-  padding: 2px 6px;
-  border-radius: 2px;
-  display: inline-block;
-  margin: 2px 0;
-}
+.tbl td:first-child { font-family: 'Playfair Display', serif; font-weight: 700; font-style: italic; color: var(--ink); font-size: 12px; }
+.mono { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; background: var(--ink); color: #f5c842; padding: 2px 6px; border-radius: 2px; display: inline-block; margin: 2px 0; }
 
-/* ── ALERT ── */
-.alert {
-  border: 1px solid;
-  padding: 10px 13px;
-  border-radius: 2px;
-  font-size: 11.5px;
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  margin-bottom: 8px;
-}
+.alert { border: 1px solid; padding: 10px 13px; border-radius: 2px; font-size: 11.5px; display: flex; gap: 10px; align-items: flex-start; margin-bottom: 8px; }
 .alert.red    { border-color: var(--red);    color: var(--red);    background: #fdf0f0; }
 .alert.gold   { border-color: var(--gold);   color: var(--orange); background: var(--gold-lt); }
 .alert.blue   { border-color: var(--blue);   color: var(--blue);   background: var(--blue-lt); }
@@ -367,204 +289,47 @@ body {
 .alert-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; font-style: normal; }
 .alert strong { font-weight: 600; }
 
-/* ── STEP ROW ── */
-.step-row {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  margin-bottom: 10px;
-}
-.step-circle {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: var(--ink);
-  color: var(--gold);
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
+.step-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
+.step-circle { width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: var(--gold); font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
 .step-content { flex: 1; }
 .step-title { font-weight: 600; font-size: 12.5px; color: var(--ink); margin-bottom: 2px; }
 .step-body { font-size: 12px; color: var(--ink2); line-height: 1.5; }
 
-/* ── SECTION DIVIDER ── */
-.sub-title {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--ink3);
-  border-bottom: 1px solid var(--rule);
-  padding-bottom: 5px;
-  margin: 20px 0 12px;
-}
+.sub-title { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink3); border-bottom: 1px solid var(--rule); padding-bottom: 5px; margin: 20px 0 12px; }
 
-/* ── DEFINITION LIST ── */
 .def-list { margin-bottom: 14px; }
-.def-item {
-  border-bottom: 0.5px solid var(--rule);
-  padding: 10px 0;
-  display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 12px;
-}
+.def-item { border-bottom: 0.5px solid var(--rule); padding: 10px 0; display: grid; grid-template-columns: 170px 1fr; gap: 12px; }
 .def-item:last-child { border-bottom: none; }
-.def-term {
-  font-family: 'Playfair Display', serif;
-  font-size: 13px;
-  font-weight: 700;
-  font-style: italic;
-  color: var(--ink);
-  line-height: 1.3;
-}
+.def-term { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; font-style: italic; color: var(--ink); line-height: 1.3; }
 .def-body { font-size: 12px; color: var(--ink2); line-height: 1.55; }
-.def-body .mono2 {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  background: var(--ink);
-  color: #f5c842;
-  padding: 1px 5px;
-  border-radius: 2px;
-  display: inline-block;
-  margin: 2px 0;
-}
+.def-body .mono2 { font-family: 'IBM Plex Mono', monospace; font-size: 10px; background: var(--ink); color: #f5c842; padding: 1px 5px; border-radius: 2px; display: inline-block; margin: 2px 0; }
 
-/* ── NUMBERS TIMELINE ── */
-.timeline {
-  display: flex;
-  align-items: flex-start;
-  gap: 0;
-  margin: 12px 0;
-  overflow-x: auto;
-}
-.tl-item {
-  flex: 1;
-  text-align: center;
-  position: relative;
-}
-.tl-item::after {
-  content: '';
-  position: absolute;
-  top: 14px;
-  left: 50%;
-  right: -50%;
-  height: 1px;
-  background: var(--rule);
-}
+.timeline { display: flex; align-items: flex-start; gap: 0; margin: 12px 0; overflow-x: auto; }
+.tl-item { flex: 1; text-align: center; position: relative; }
+.tl-item::after { content: ''; position: absolute; top: 14px; left: 50%; right: -50%; height: 1px; background: var(--rule); }
 .tl-item:last-child::after { display: none; }
-.tl-dot {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--ink);
-  color: var(--gold);
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 6px;
-  position: relative;
-  z-index: 1;
-}
+.tl-dot { width: 28px; height: 28px; border-radius: 50%; background: var(--ink); color: var(--gold); font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; position: relative; z-index: 1; }
 .tl-dot.hi { background: var(--gold); color: var(--ink); }
 .tl-label { font-size: 10px; color: var(--ink3); line-height: 1.3; }
 .tl-val { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ink2); margin-top: 2px; }
 
-/* ── NAV BOTTOM ── */
-.nav-bottom {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 32px;
-  padding-top: 16px;
-  border-top: 1px solid var(--rule);
-}
-.nav-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  padding: 8px 14px;
-  border: 0.5px solid var(--rule);
-  border-radius: 2px;
-  background: white;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  color: var(--ink3);
-  transition: all 0.15s;
-}
+.nav-bottom { display: flex; justify-content: space-between; margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--rule); }
+.nav-btn { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 8px 14px; border: 0.5px solid var(--rule); border-radius: 2px; background: white; font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ink3); transition: all 0.15s; }
 .nav-btn:hover { background: var(--ink); color: var(--gold); border-color: var(--ink); }
 .nav-btn .arrow { font-size: 14px; }
 
-/* ── FOOTER ── */
-.page-footer {
-  margin-top: 24px;
-  padding-top: 10px;
-  border-top: 1px solid var(--rule);
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 9px;
-  color: var(--ink3);
-  letter-spacing: 1px;
-  display: flex;
-  justify-content: space-between;
-}
+.page-footer { margin-top: 24px; padding-top: 10px; border-top: 1px solid var(--rule); font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--ink3); letter-spacing: 1px; display: flex; justify-content: space-between; }
 
-/* ── OVERVIEW GRID ── */
-.overview-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin-bottom: 24px;
-}
-.ov-card {
-  border: 0.5px solid var(--rule);
-  border-radius: 3px;
-  padding: 14px 12px;
-  background: white;
-  cursor: pointer;
-  transition: all 0.15s;
-  text-align: center;
-}
+.overview-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 24px; }
+.ov-card { border: 0.5px solid var(--rule); border-radius: 3px; padding: 12px 10px; background: white; cursor: pointer; transition: all 0.15s; text-align: center; }
 .ov-card:hover { border-color: var(--ink); background: var(--cream); transform: translateY(-2px); }
-.ov-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--rule);
-  line-height: 1;
-  margin-bottom: 6px;
-  transition: color 0.15s;
-}
+.ov-num { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--rule); line-height: 1; margin-bottom: 5px; transition: color 0.15s; }
 .ov-card:hover .ov-num { color: var(--gold); }
-.ov-name {
-  font-size: 10.5px;
-  font-weight: 600;
-  color: var(--ink2);
-  line-height: 1.3;
-  margin-bottom: 4px;
-}
+.ov-name { font-size: 10.5px; font-weight: 600; color: var(--ink2); line-height: 1.3; margin-bottom: 3px; }
 .ov-sub { font-size: 9.5px; color: var(--ink3); line-height: 1.3; }
-.ov-stars { color: var(--gold); font-size: 10px; margin-top: 5px; }
+.ov-stars { color: var(--gold); font-size: 10px; margin-top: 4px; }
 
-/* ── BADGE ── */
-.badge {
-  display: inline-block;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 8px;
-  padding: 2px 7px;
-  border-radius: 1px;
-  margin: 2px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
+.badge { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 8px; padding: 2px 7px; border-radius: 1px; margin: 2px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
 .badge.f3 { background: #fde8cc; color: var(--orange); }
 .badge.f2 { background: var(--blue-lt); color: var(--blue); }
 .badge.f1 { background: var(--green-lt); color: var(--green); }
@@ -572,6 +337,19 @@ body {
 </head>
 <body>
 <div class="app">
+
+<!-- ── MOBILE BOTTOM NAV ── -->
+<nav class="mobile-nav" id="mob-nav">
+  <button class="mob-btn active" onclick="show(0)"><span class="mob-num">≡</span><span class="mob-lbl">Accueil</span></button>
+  <button class="mob-btn" onclick="show(1)"><span class="mob-num">1</span><span class="mob-lbl">Valeur</span></button>
+  <button class="mob-btn" onclick="show(2)"><span class="mob-num">2</span><span class="mob-lbl">Invest.</span></button>
+  <button class="mob-btn" onclick="show(3)"><span class="mob-num">3</span><span class="mob-lbl">Budget</span></button>
+  <button class="mob-btn" onclick="show(4)"><span class="mob-num">4</span><span class="mob-lbl">Plan</span></button>
+  <button class="mob-btn" onclick="show(5)"><span class="mob-num">5</span><span class="mob-lbl">BFRE</span></button>
+  <button class="mob-btn" onclick="show(6)"><span class="mob-num">6</span><span class="mob-lbl">Emprunt</span></button>
+  <button class="mob-btn" onclick="show(7)"><span class="mob-num">7</span><span class="mob-lbl">Actions</span></button>
+  <button class="mob-btn" onclick="show(8)"><span class="mob-num">8</span><span class="mob-lbl">Déf.</span></button>
+</nav>
 
 <!-- ── SIDEBAR ── -->
 <nav class="sidebar">
@@ -840,7 +618,7 @@ body {
     <div class="sub-title">Construction du tableau des flux de trésorerie économiques</div>
     <div class="alert gold"><em class="alert-icon">💡</em><div><strong>Méthode en 6 lignes :</strong> CA → −Charges variables → −Charges fixes (hors DA) → −Dotations aux amortissements = Résultat d'exploitation → ×(1−IS) → +DA = CAF − Variation BFRE ± Acquisition/Cession</div></div>
 
-    <table class="tbl">
+    <div class="tbl-wrap"><table class="tbl">
       <tr><th>Ligne</th><th>Calcul</th><th>Remarque clé</th></tr>
       <tr><td>Chiffre d'affaires</td><td><span class="mono">Donné</span></td><td>Hors taxes (HT)</td></tr>
       <tr><td>− Charges variables</td><td><span class="mono">CA × taux CV</span></td><td>Ex : CA × 20 %</td></tr>
@@ -852,7 +630,7 @@ body {
       <tr><td>− Variation du BFRE</td><td><span class="mono">BFRE(n) − BFRE(n−1)</span></td><td>Augmentation = emploi ; récupération en fin de projet</td></tr>
       <tr><td>− Acquisition d'immobilisation</td><td><span class="mono">Coût d'acq. en t=0</span></td><td>Au début uniquement</td></tr>
       <tr><td>+ Cession nette d'IS</td><td><span class="mono">Prix cession − IS × PV</span></td><td>En dernière année</td></tr>
-    </table>
+    </table></div>
 
     <div class="sub-title">Calcul du BFRE lié au projet</div>
     <div class="cards two">
@@ -912,13 +690,13 @@ body {
     </div>
 
     <div class="sub-title">Relation entre VAN et TIR — à retenir absolument</div>
-    <table class="tbl">
+    <div class="tbl-wrap"><table class="tbl">
       <tr><th>Situation</th><th>VAN à t %</th><th>TIR par rapport à t</th><th>Décision</th></tr>
       <tr><td>Projet très rentable</td><td>Fortement positive</td><td>TIR ≫ t</td><td>Accepter ✓</td></tr>
       <tr><td>Projet rentable</td><td>Positive</td><td>TIR &gt; t</td><td>Accepter ✓</td></tr>
       <tr><td>Rentabilité nulle</td><td>Nulle</td><td>TIR = t</td><td>Indifférent</td></tr>
       <tr><td>Projet non rentable</td><td>Négative</td><td>TIR &lt; t</td><td>Refuser ✗</td></tr>
-    </table>
+    </table></div>
 
     <div class="nav-bottom">
       <div class="nav-btn" onclick="show(1)"><span class="arrow">←</span><span>Dossier 1 — Valeur & Temps</span></div>
@@ -946,14 +724,14 @@ body {
 
     <div class="sub-title">Étape 1 — Budget de TVA</div>
     <div class="alert gold"><em class="alert-icon">💡</em><div>La TVA est payée le <strong>20 du mois suivant</strong> la période (sauf crédit de TVA qui se reporte). Le budget de TVA permet de calculer la TVA à décaisser qui apparaîtra dans le budget des décaissements.</div></div>
-    <table class="tbl">
+    <div class="tbl-wrap"><table class="tbl">
       <tr><th>Ligne</th><th>Calcul</th><th>Remarque</th></tr>
       <tr><td>TVA collectée</td><td><span class="mono">CA HT × taux TVA</span></td><td>TVA sur ventes (20 % en général)</td></tr>
       <tr><td>− TVA déductible achats</td><td><span class="mono">Achats HT × taux TVA</span></td><td>TVA sur achats marchandises</td></tr>
       <tr><td>− TVA déductible immobilisations</td><td><span class="mono">Invest. HT × taux TVA</span></td><td>Seulement en cas d'acquisition</td></tr>
       <tr><td>− Créance fiscale (crédit de TVA)</td><td><span class="mono">Report mois précédent</span></td><td>Si TVA à payer &lt; 0 le mois précédent</td></tr>
       <tr><td>= TVA à payer (ou crédit de TVA)</td><td><span class="mono">Collectée − Déductibles</span></td><td>Décaissé le 20 du mois suivant</td></tr>
-    </table>
+    </table></div>
 
     <div class="sub-title">Étape 2 — Budget des encaissements</div>
     <div class="cards one">
@@ -987,14 +765,14 @@ body {
     </div>
 
     <div class="sub-title">Étape 4 — Budget de trésorerie final</div>
-    <table class="tbl">
+    <div class="tbl-wrap"><table class="tbl">
       <tr><th>Ligne</th><th>Calcul</th></tr>
       <tr><td>Total encaissements</td><td><span class="mono">Somme budget encaissements</span></td></tr>
       <tr><td>− Total décaissements</td><td><span class="mono">Somme budget décaissements</span></td></tr>
       <tr><td>= Variation mensuelle de trésorerie</td><td><span class="mono">Encaissements − Décaissements</span></td></tr>
       <tr><td>+ Solde initial de trésorerie</td><td><span class="mono">Solde final du mois précédent</span></td></tr>
       <tr><td>= Solde final de trésorerie</td><td><span class="mono">Variation + Solde initial</span></td></tr>
-    </table>
+    </table></div>
 
     <div class="sub-title">Commentaire du budget — toujours demandé</div>
     <div class="cards two">
@@ -1011,11 +789,11 @@ body {
     </div>
 
     <div class="sub-title">Budget de trésorerie vs Plan de trésorerie</div>
-    <table class="tbl">
+    <div class="tbl-wrap"><table class="tbl">
       <tr><th>Document</th><th>Contenu</th><th>Différence clé</th></tr>
       <tr><td>Budget de trésorerie</td><td>Activité + investissement + financement à LT</td><td>Ne tient pas compte des placements/crédits CT</td></tr>
       <tr><td>Plan de trésorerie</td><td>Budget + placements CT + crédits CT</td><td>Optimise le solde final (action sur le CT)</td></tr>
-    </table>
+    </table></div>
 
     <div class="nav-bottom">
       <div class="nav-btn" onclick="show(2)"><span class="arrow">←</span><span>Dossier 2 — Choix d'investissement</span></div>
@@ -1043,7 +821,7 @@ body {
 
     <div class="sub-title">Calcul de la CAF (Capacité d'Autofinancement)</div>
     <div class="alert gold"><em class="alert-icon">💡</em><div><strong>La CAF s'obtient à partir du résultat net :</strong> il faut d'abord calculer le résultat courant avant IS, puis après IS, puis ajouter les dotations aux amortissements (charges non décaissées).</div></div>
-    <table class="tbl">
+    <div class="tbl-wrap"><table class="tbl">
       <tr><th>Ligne du compte de résultat</th><th>Calcul</th></tr>
       <tr><td>Chiffre d'affaires</td><td>Donné</td></tr>
       <tr><td>− Charges variables d'exploitation</td><td>Données</td></tr>
@@ -1053,7 +831,7 @@ body {
       <tr><td>= Résultat courant avant IS</td><td>Somme algébrique</td></tr>
       <tr><td>Résultat courant après IS</td><td><span class="mono">RCAI × (1 − 25 %)</span></td></tr>
       <tr><td><strong>CAF = Résultat net + DA</strong></td><td><span class="mono">Résultat après IS + DA</span></td></tr>
-    </table>
+    </table></div>
 
     <div class="sub-title">Structure du plan de financement</div>
     <div class="cards two">
@@ -1084,14 +862,14 @@ body {
     <div class="alert red"><em class="alert-icon">⚠</em><div><strong>Pièges classiques :</strong> (1) Les charges d'intérêts sont <em>dans la CAF</em> (déjà déduites du résultat), pas dans les emplois. (2) Les dividendes sont des <em>emplois</em>, jamais des ressources. (3) Le BFRE est <em>récupéré</em> (ressource) uniquement en fin de projet.</div></div>
 
     <div class="sub-title">Calcul des soldes</div>
-    <table class="tbl">
+    <div class="tbl-wrap"><table class="tbl">
       <tr><th>Ligne</th><th>Calcul</th></tr>
       <tr><td>Total ressources</td><td>Somme de toutes les ressources</td></tr>
       <tr><td>− Total emplois</td><td>Somme de tous les emplois</td></tr>
       <tr><td>= Variation de trésorerie</td><td>Ressources − Emplois</td></tr>
       <tr><td>+ Solde initial</td><td>Solde final de la période précédente (0 en t=0)</td></tr>
       <tr><td>= Solde final</td><td>Variation + Solde initial</td></tr>
-    </table>
+    </table></div>
 
     <div class="sub-title">Commentaire du plan — toujours demandé</div>
     <div class="cards two">
@@ -1171,14 +949,14 @@ body {
     </div>
 
     <div class="sub-title">Tableau récapitulatif du BFRE normatif</div>
-    <table class="tbl">
+    <div class="tbl-wrap"><table class="tbl">
       <tr><th>Poste</th><th>Délai</th><th>Coefficient de structure</th><th>Besoin ou Dégagement</th></tr>
       <tr><td>Stocks de marchandises</td><td>Délai stockage</td><td><span class="mono">Achats HT / CA HT</span></td><td>Besoin</td></tr>
       <tr><td>Créances clients</td><td>Délai règlement client</td><td><span class="mono">Ventes à crédit TTC / CA HT</span></td><td>Besoin</td></tr>
       <tr><td>TVA déductible</td><td>Délai déclaration TVA</td><td><span class="mono">Achats HT × TVA% / CA HT</span></td><td>Besoin</td></tr>
       <tr><td>Dettes fournisseurs</td><td>Délai règlement fourn.</td><td><span class="mono">Achats à crédit TTC / CA HT</span></td><td>Dégagement</td></tr>
       <tr><td>TVA collectée</td><td>Délai déclaration TVA</td><td><span class="mono">taux TVA (ex : 0,20)</span></td><td>Dégagement</td></tr>
-    </table>
+    </table></div>
 
     <div class="alert red"><em class="alert-icon">⚠</em><div><strong>Pièges classiques :</strong> (1) Les créances clients et les dettes fournisseurs sont en <em>TTC</em>. (2) Les stocks sont en <em>HT</em>. (3) Si une partie seulement est à crédit, multiplier le coefficient par ce pourcentage. (4) Charges mixtes TTC/HT : séparer la partie soumise à TVA de la partie non soumise.</div></div>
 
@@ -1327,11 +1105,11 @@ body {
     </div>
 
     <div class="sub-title">Marchés primaire et secondaire</div>
-    <table class="tbl">
+    <div class="tbl-wrap"><table class="tbl">
       <tr><th>Marché</th><th>Définition</th><th>Qui échange ?</th></tr>
       <tr><td>Primaire</td><td>"Marché du neuf" — émission de nouvelles obligations/actions</td><td>Entreprise émettrice ↔ Nouveaux souscripteurs</td></tr>
       <tr><td>Secondaire</td><td>"Marché de l'occasion" — revente de titres déjà émis</td><td>Investisseurs entre eux (entreprise absente)</td></tr>
-    </table>
+    </table></div>
 
     <div class="nav-bottom">
       <div class="nav-btn" onclick="show(6)"><span class="arrow">←</span><span>Dossier 6 — Emprunt & Financement</span></div>
@@ -1451,9 +1229,17 @@ function show(n) {
     const s = document.getElementById('s' + i);
     if (s) s.classList.toggle('active', i === n);
   }
+  // Desktop sidebar
   document.querySelectorAll('.nav-item').forEach((el, i) => {
     el.classList.toggle('active', i === n);
   });
+  // Mobile bottom nav
+  document.querySelectorAll('.mob-btn').forEach((el, i) => {
+    el.classList.toggle('active', i === n);
+  });
+  // Scroll to top — account for mobile (scroll main, not window)
+  const main = document.querySelector('.main');
+  if (main) main.scrollTo({ top: 0, behavior: 'smooth' });
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 document.querySelectorAll('.nav-item, .ov-card').forEach(el => {
