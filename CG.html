@@ -86,17 +86,42 @@
   }
 
   /* NAV INDEX */
-  .nav-index {
-    background: var(--surface);
-    padding: 24px 40px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+  .nav-wrapper {
     position: sticky;
     top: 0;
     z-index: 100;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
     backdrop-filter: blur(10px);
+  }
+  .nav-toggle {
+    display: none;
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 14px 20px;
+    cursor: pointer;
+    text-align: left;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-toggle .arrow {
+    margin-left: auto;
+    transition: transform 0.25s;
+    font-size: 14px;
+  }
+  .nav-toggle.open .arrow { transform: rotate(180deg); }
+
+  .nav-index {
+    padding: 16px 40px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
   }
   .nav-index a {
     font-family: 'JetBrains Mono', monospace;
@@ -110,7 +135,7 @@
     text-decoration: none;
     transition: all 0.2s;
   }
-  .nav-index a:hover { color: var(--text); border-color: rgba(255,255,255,0.3); }
+  .nav-index a:hover, .nav-index a:active { color: var(--text); border-color: rgba(255,255,255,0.3); }
 
   /* MAIN LAYOUT */
   .container { max-width: 1100px; margin: 0 auto; padding: 40px; }
@@ -118,7 +143,7 @@
   /* SECTION */
   .section {
     margin-bottom: 60px;
-    scroll-margin-top: 80px;
+    scroll-margin-top: 56px;
   }
   .section-header {
     display: flex;
@@ -335,10 +360,30 @@
   }
 
   @media (max-width: 700px) {
-    .hero { padding: 40px 20px; }
-    .container { padding: 24px 20px; }
-    .nav-index { padding: 14px 20px; }
+    .hero { padding: 28px 16px 24px; }
+    .hero h1 { font-size: 1.8rem; }
+    .hero-sub { font-size: 13px; }
+    .hero-tag { font-size: 10px; margin-bottom: 12px; }
+    .container { padding: 20px 14px; }
+
+    /* Nav mobile : bouton toggle visible, liens cachés par défaut */
+    .nav-toggle { display: flex; }
+    .nav-index {
+      padding: 0 14px 14px;
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .nav-index.open { display: flex; }
+    .nav-index a { font-size: 12px; padding: 8px 14px; }
+
     .cards-grid { grid-template-columns: 1fr; }
+    .section h2 { font-size: 1.25rem; }
+    .formula { font-size: 11.5px; padding: 10px 12px; }
+    .fiche-table { font-size: 12px; }
+    .card { padding: 16px 14px; }
+
+    footer { padding: 16px 14px; font-size: 11px; }
   }
 </style>
 </head>
@@ -350,18 +395,50 @@
   <p class="hero-sub">Fiche de révision complète — Formules, méthodes &amp; notions clés · Sessions 2023–2025</p>
 </div>
 
-<nav class="nav-index">
-  <a href="#ecarts">Écarts</a>
-  <a href="#ventes">Budget ventes</a>
-  <a href="#tresorerie">Trésorerie</a>
-  <a href="#stocks">Stocks Wilson</a>
-  <a href="#contrainte">Contrainte</a>
-  <a href="#seuil">Seuil rentabilité</a>
-  <a href="#masse">Masse salariale</a>
-  <a href="#charges">Charges indirectes</a>
-  <a href="#cible">Coût cible</a>
-  <a href="#methode">Méthode rédaction</a>
-</nav>
+<div class="nav-wrapper">
+  <button class="nav-toggle" id="navToggle" onclick="toggleNav()">
+    <span>📚 Navigation</span>
+    <span class="arrow">▾</span>
+  </button>
+  <nav class="nav-index" id="navIndex">
+    <a href="#ecarts" onclick="closeNav()">Écarts</a>
+    <a href="#ventes" onclick="closeNav()">Budget ventes</a>
+    <a href="#tresorerie" onclick="closeNav()">Trésorerie</a>
+    <a href="#stocks" onclick="closeNav()">Stocks Wilson</a>
+    <a href="#contrainte" onclick="closeNav()">Contrainte</a>
+    <a href="#seuil" onclick="closeNav()">Seuil rentabilité</a>
+    <a href="#masse" onclick="closeNav()">Masse salariale</a>
+    <a href="#charges" onclick="closeNav()">Charges indirectes</a>
+    <a href="#cible" onclick="closeNav()">Coût cible</a>
+    <a href="#methode" onclick="closeNav()">Méthode rédaction</a>
+  </nav>
+</div>
+
+<script>
+  function toggleNav() {
+    const nav = document.getElementById('navIndex');
+    const btn = document.getElementById('navToggle');
+    nav.classList.toggle('open');
+    btn.classList.toggle('open');
+  }
+  function closeNav() {
+    const nav = document.getElementById('navIndex');
+    const btn = document.getElementById('navToggle');
+    nav.classList.remove('open');
+    btn.classList.remove('open');
+  }
+  // On desktop: always show nav
+  function checkWidth() {
+    const nav = document.getElementById('navIndex');
+    if (window.innerWidth > 700) {
+      nav.style.display = 'flex';
+    } else {
+      nav.style.display = '';
+    }
+  }
+  window.addEventListener('resize', checkWidth);
+  checkWidth();
+</script>
 
 <div class="container">
 
