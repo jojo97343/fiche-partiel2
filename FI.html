@@ -2,345 +2,260 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fiche Complète UE 445 – Finance d'Entreprise</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>UE 445 – Finance d'Entreprise</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
+/* ════════════════════════════════════════
+   VARIABLES
+════════════════════════════════════════ */
 :root {
-  --ink: #1a1814; --ink2: #3d3a33; --ink3: #6b6760;
-  --paper: #faf8f3; --cream: #f2ede3; --rule: #d8d0c0;
-  --gold: #b8860b; --gold-lt: #fdf3d0;
-  --red: #9b2c2c; --blue: #1a3a5c; --blue-lt: #deeaf5;
-  --green: #1e4d2b; --green-lt: #ddf0e4;
-  --purple: #3b2070; --purple-lt: #ece6f8;
-  --orange: #7a3300; --orange-lt: #fde8cc;
-  --teal: #0f4c4c; --teal-lt: #d4f0ee;
-  --rose: #7a1f3d; --rose-lt: #fde8ef;
-  --nav-h: 56px;
+  --ink:#1a1814; --ink2:#3d3a33; --ink3:#6b6760;
+  --paper:#faf8f3; --cream:#f2ede3; --rule:#d8d0c0;
+  --gold:#b8860b; --gold-lt:#fdf3d0;
+  --red:#9b2c2c; --blue:#1a3a5c; --blue-lt:#deeaf5;
+  --green:#1e4d2b; --green-lt:#ddf0e4;
+  --purple:#3b2070; --purple-lt:#ece6f8;
+  --orange:#7a3300; --orange-lt:#fde8cc;
+  --teal:#0f4c4c; --teal-lt:#d4f0ee;
+  --rose:#7a1f3d; --rose-lt:#fde8ef;
+  --nav-h:58px;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
 
-html, body { height: 100%; }
-body {
-  background: var(--paper);
-  color: var(--ink);
-  font-family: 'Source Sans 3', sans-serif;
-  font-weight: 300;
-  font-size: 13px;
-  line-height: 1.6;
+/* ════════════════════════════════════════
+   BASE = MOBILE FIRST
+════════════════════════════════════════ */
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:'Source Sans 3',sans-serif;
+  font-weight:300;font-size:14px;line-height:1.6;
 }
 
-/* ════════════════════════════════════
-   DESKTOP LAYOUT  (≥ 640px)
-════════════════════════════════════ */
-.app { display: flex; min-height: 100vh; }
+/* ── APP SHELL ── */
+.app{display:flex;flex-direction:column;min-height:100vh;}
 
-.sidebar {
-  width: 196px;
-  flex-shrink: 0;
-  background: var(--ink);
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  padding: 20px 0;
+/* sidebar hidden on mobile */
+.sidebar{display:none;}
+
+/* main content */
+.main{
+  flex:1;
+  padding:14px 14px calc(var(--nav-h) + 16px + env(safe-area-inset-bottom,0px));
+  width:100%;
 }
-.sidebar-title {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
-  padding: 0 16px 14px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  margin-bottom: 10px;
+
+/* ── MOBILE BOTTOM NAV ── */
+.mobile-nav{
+  display:flex;
+  position:fixed;
+  bottom:0;left:0;right:0;
+  height:calc(var(--nav-h) + env(safe-area-inset-bottom,0px));
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  background:var(--ink);
+  border-top:1px solid rgba(255,255,255,0.1);
+  z-index:200;
+  align-items:stretch;
+  overflow:hidden;
 }
-.nav-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 9px 16px; cursor: pointer;
-  transition: background 0.15s;
-  border-left: 3px solid transparent;
-  text-decoration: none;
+.mob-btn{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  cursor:pointer;gap:3px;border:none;background:transparent;
+  color:rgba(255,255,255,0.38);
+  transition:background .12s,color .12s;
+  padding:4px 1px;min-width:0;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
 }
-.nav-item:hover { background: rgba(255,255,255,0.06); }
-.nav-item.active { background: rgba(255,255,255,0.1); border-left-color: var(--gold); }
-.nav-num {
-  font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700;
-  color: rgba(255,255,255,0.25); width: 22px; flex-shrink: 0;
-  transition: color 0.15s; line-height: 1;
+.mob-btn.active{color:var(--gold);background:rgba(255,255,255,0.07);}
+.mob-btn:active{background:rgba(255,255,255,0.14);}
+.mob-num{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;line-height:1;}
+.mob-lbl{font-family:'IBM Plex Mono',monospace;font-size:7.5px;letter-spacing:.3px;line-height:1;
+  text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
+
+/* ── PAGE HEADER (mobile) ── */
+.page-header{
+  border-top:3px solid var(--ink);border-bottom:1px solid var(--rule);
+  padding:10px 0 8px;margin-bottom:16px;
+  display:flex;flex-direction:column;gap:2px;
 }
-.nav-item.active .nav-num, .nav-item:hover .nav-num { color: var(--gold); }
-.nav-label {
-  font-size: 11px; font-weight: 400;
-  color: rgba(255,255,255,0.55); line-height: 1.3; transition: color 0.15s;
-}
-.nav-item.active .nav-label, .nav-item:hover .nav-label { color: rgba(255,255,255,0.9); }
-.nav-freq { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 8px; color: var(--gold); opacity: 0.7; }
+.page-header h1{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;line-height:1.1;}
+.page-header h1 em{font-style:italic;color:var(--gold);}
+.page-header .meta{display:none;}
+.ph-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:3px;}
 
-/* Mobile bottom nav — hidden on desktop */
-.mobile-nav { display: none; }
+/* ── SECTIONS ── */
+.section{display:none;}
+.section.active{display:block;animation:fadein .2s ease;}
+@keyframes fadein{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
 
-.main { flex: 1; padding: 28px 32px; max-width: 780px; }
+/* ── SECTION HERO ── */
+.section-hero{display:flex;align-items:baseline;gap:10px;margin-bottom:16px;}
+.big-num{font-family:'Playfair Display',serif;font-size:52px;font-weight:700;color:var(--rule);line-height:1;flex-shrink:0;user-select:none;}
+.section-tag{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);margin-bottom:3px;}
+.section-title-text{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--ink);line-height:1.2;}
+.section-desc{font-size:11.5px;color:var(--ink3);margin-top:3px;line-height:1.5;}
+.freq-badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9px;padding:2px 8px;border-radius:2px;margin-top:5px;font-weight:500;}
+.freq-3{background:#fde8cc;color:var(--orange);}
+.freq-2{background:var(--blue-lt);color:var(--blue);}
 
-/* ════════════════════════════════════
-   MOBILE LAYOUT  (< 640px)
-════════════════════════════════════ */
-@media (max-width: 639px) {
-  .app { flex-direction: column; }
+/* ── SUB-TITLE ── */
+.sub-title{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);border-bottom:1px solid var(--rule);padding-bottom:4px;margin:16px 0 10px;}
 
-  /* Hide desktop sidebar */
-  .sidebar { display: none; }
+/* ── CARDS ── */
+.cards{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:14px;}
+.card{border:.5px solid var(--rule);border-radius:4px;padding:12px 13px;background:white;}
+.card.blue  {border-left:3px solid var(--blue);  background:var(--blue-lt);}
+.card.green {border-left:3px solid var(--green); background:var(--green-lt);}
+.card.purple{border-left:3px solid var(--purple);background:var(--purple-lt);}
+.card.orange{border-left:3px solid var(--orange);background:var(--orange-lt);}
+.card.red   {border-left:3px solid var(--red);   background:#fdf0f0;}
+.card.gold  {border-left:3px solid var(--gold);  background:var(--gold-lt);}
+.card.teal  {border-left:3px solid var(--teal);  background:var(--teal-lt);}
+.card.rose  {border-left:3px solid var(--rose);  background:var(--rose-lt);}
+.card.dark  {background:var(--ink);color:rgba(255,255,255,.9);border:none;}
+.card-label{font-family:'IBM Plex Mono',monospace;font-size:8.5px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;}
+.card.blue  .card-label{color:var(--blue);}
+.card.green .card-label{color:var(--green);}
+.card.purple.card-label,.card.purple .card-label{color:var(--purple);}
+.card.orange .card-label{color:var(--orange);}
+.card.red   .card-label{color:var(--red);}
+.card.gold  .card-label{color:var(--gold);}
+.card.teal  .card-label{color:var(--teal);}
+.card.rose  .card-label{color:var(--rose);}
+.card.dark  .card-label{color:rgba(255,200,80,.8);}
+.card-name{font-family:'Playfair Display',serif;font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:7px;line-height:1.3;}
+.card.dark .card-name{color:white;}
 
-  /* Scrollable content, leaves room for bottom bar */
-  .main {
-    padding: 14px 14px calc(var(--nav-h) + 14px);
-    max-width: 100%;
-    width: 100%;
+/* ── FORMULA ── */
+.formula{background:var(--ink);color:#f0ead8;font-family:'IBM Plex Mono',monospace;font-size:11.5px;padding:8px 11px;border-radius:3px;margin:7px 0;line-height:2;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.formula .var{color:#f5c842;}.formula .op{color:#7ec8e3;}.formula .cmt{color:#666;font-size:10px;}.formula .hi{color:#a8f0a0;}
+.frac{display:inline-block;vertical-align:middle;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#f5c842;line-height:1.2;margin:0 2px;}
+.frac .num{display:block;border-bottom:1px solid #f5c842;padding:0 3px;}
+.frac .den{display:block;padding:0 3px;}
+
+/* ── NOTE ── */
+.note{font-size:11.5px;color:var(--ink2);line-height:1.55;margin-top:5px;}
+.note strong{font-weight:600;color:var(--ink);}
+
+/* ── EXAMPLE ── */
+.example{background:var(--cream);border:.5px solid var(--rule);border-radius:3px;padding:8px 11px;font-size:11px;color:var(--ink2);margin-top:7px;}
+.example-title{font-family:'IBM Plex Mono',monospace;font-size:8px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:3px;}
+.example .key{color:var(--ink);font-weight:600;}
+
+/* ── TABLES ── */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:14px;border-radius:3px;}
+.tbl{width:100%;border-collapse:collapse;font-size:11.5px;min-width:340px;}
+.tbl th{background:var(--ink);color:#f0ead8;font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.8px;text-transform:uppercase;padding:7px 9px;text-align:left;font-weight:500;}
+.tbl td{padding:6px 9px;border-bottom:.5px solid var(--rule);vertical-align:top;color:var(--ink2);}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:nth-child(even) td{background:var(--cream);}
+.tbl td:first-child{font-family:'Playfair Display',serif;font-weight:700;font-style:italic;color:var(--ink);font-size:11.5px;}
+.mono{font-family:'IBM Plex Mono',monospace;font-size:10px;background:var(--ink);color:#f5c842;padding:2px 5px;border-radius:2px;display:inline-block;margin:2px 0;}
+
+/* ── ALERTS ── */
+.alert{border:1px solid;padding:9px 11px;border-radius:3px;font-size:11.5px;display:flex;gap:9px;align-items:flex-start;margin-bottom:8px;}
+.alert.red  {border-color:var(--red);  color:var(--red);  background:#fdf0f0;}
+.alert.gold {border-color:var(--gold); color:var(--orange);background:var(--gold-lt);}
+.alert.blue {border-color:var(--blue); color:var(--blue); background:var(--blue-lt);}
+.alert.green{border-color:var(--green);color:var(--green);background:var(--green-lt);}
+.alert-icon{font-size:14px;flex-shrink:0;margin-top:1px;font-style:normal;}
+.alert strong{font-weight:600;}
+
+/* ── OVERVIEW GRID ── */
+.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px;}
+.ov-card{border:.5px solid var(--rule);border-radius:4px;padding:12px 10px;background:white;cursor:pointer;text-align:center;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
+.ov-card:active{background:var(--cream);}
+.ov-num{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--rule);line-height:1;margin-bottom:4px;}
+.ov-card:active .ov-num{color:var(--gold);}
+.ov-name{font-size:11px;font-weight:600;color:var(--ink2);line-height:1.3;margin-bottom:3px;}
+.ov-sub{display:none;}
+.ov-stars{color:var(--gold);font-size:10px;margin-top:3px;}
+
+/* ── DEFINITION LIST ── */
+.def-list{margin-bottom:14px;}
+.def-item{border-bottom:.5px solid var(--rule);padding:10px 0;display:flex;flex-direction:column;gap:4px;}
+.def-item:last-child{border-bottom:none;}
+.def-term{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;font-style:italic;color:var(--ink);line-height:1.3;}
+.def-body{font-size:12px;color:var(--ink2);line-height:1.55;}
+.def-body .mono2{font-family:'IBM Plex Mono',monospace;font-size:9.5px;background:var(--ink);color:#f5c842;padding:1px 5px;border-radius:2px;display:inline-block;margin:2px 0;}
+
+/* ── NAV BOTTOM (prev/next) ── */
+.nav-bottom{display:flex;justify-content:space-between;gap:8px;margin-top:20px;padding-top:14px;border-top:1px solid var(--rule);}
+.nav-btn{display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;padding:10px 14px;border:.5px solid var(--rule);border-radius:3px;background:white;font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--ink3);transition:all .15s;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
+.nav-btn:active{background:var(--ink);color:var(--gold);border-color:var(--ink);}
+.nav-btn .arrow{font-size:15px;}
+.nav-btn .label{display:none;}
+
+/* ── PAGE FOOTER ── */
+.page-footer{margin-top:18px;padding-top:9px;border-top:1px solid var(--rule);font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--ink3);letter-spacing:.8px;}
+
+/* ════════════════════════════════════════
+   DESKTOP LAYOUT  (≥ 769px)
+════════════════════════════════════════ */
+@media(min-width:769px){
+  .app{flex-direction:row;}
+  .mobile-nav{display:none;}
+  .sidebar{
+    display:flex;flex-direction:column;
+    width:196px;flex-shrink:0;
+    background:var(--ink);
+    position:sticky;top:0;height:100vh;
+    overflow-y:auto;padding:20px 0;
   }
+  .sidebar-title{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.35);padding:0 16px 14px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:10px;}
+  .nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;transition:background .15s;border-left:3px solid transparent;text-decoration:none;}
+  .nav-item:hover{background:rgba(255,255,255,.06);}
+  .nav-item.active{background:rgba(255,255,255,.1);border-left-color:var(--gold);}
+  .nav-num{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:rgba(255,255,255,.25);width:22px;flex-shrink:0;transition:color .15s;line-height:1;}
+  .nav-item.active .nav-num,.nav-item:hover .nav-num{color:var(--gold);}
+  .nav-label{font-size:11px;font-weight:400;color:rgba(255,255,255,.55);line-height:1.3;transition:color .15s;}
+  .nav-item.active .nav-label,.nav-item:hover .nav-label{color:rgba(255,255,255,.9);}
+  .nav-freq{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--gold);opacity:.7;}
 
-  /* ── MOBILE BOTTOM NAV BAR ── */
-  .mobile-nav {
-    display: flex;
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    height: var(--nav-h);
-    background: var(--ink);
-    border-top: 1px solid rgba(255,255,255,0.1);
-    z-index: 100;
-    align-items: stretch;
-    overflow: hidden;
-  }
-  .mob-btn {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    gap: 2px;
-    border: none;
-    background: transparent;
-    color: rgba(255,255,255,0.4);
-    transition: background 0.15s, color 0.15s;
-    padding: 4px 2px;
-    min-width: 0;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .mob-btn.active { color: var(--gold); background: rgba(255,255,255,0.07); }
-  .mob-btn:active { background: rgba(255,255,255,0.12); }
-  .mob-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 16px; font-weight: 700; line-height: 1;
-  }
-  .mob-lbl {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 7px; letter-spacing: 0.5px; line-height: 1;
-    text-align: center; white-space: nowrap; overflow: hidden;
-    text-overflow: ellipsis; max-width: 100%;
-  }
+  .main{padding:28px 32px;max-width:780px;}
 
-  /* ── COMPACT PAGE HEADER ── */
-  .page-header {
-    padding: 10px 0 8px;
-    margin-bottom: 14px;
-    flex-direction: column;
-    gap: 2px;
-    align-items: flex-start;
-  }
-  .page-header h1 { font-size: 18px; }
-  .page-header .meta { display: none; }
+  .page-header{flex-direction:row;justify-content:space-between;align-items:flex-end;padding:18px 0 14px;margin-bottom:28px;}
+  .page-header h1{font-size:26px;}
+  .page-header .meta{display:block;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--ink3);line-height:2;}
 
-  /* ── SECTION HERO ── */
-  .section-hero { gap: 10px; margin-bottom: 14px; }
-  .big-num { font-size: 48px !important; }
-  .section-title-text { font-size: 18px; }
-  .section-desc { font-size: 11px; }
+  .section-hero{gap:14px;margin-bottom:24px;}
+  .big-num{font-size:72px;}
+  .section-title-text{font-size:22px;}
+  .section-desc{font-size:12px;}
 
-  /* ── CARDS: force single column ── */
-  .cards.two   { grid-template-columns: 1fr !important; }
-  .cards.three { grid-template-columns: 1fr !important; }
+  .cards.two{grid-template-columns:1fr 1fr;}
+  .cards.three{grid-template-columns:1fr 1fr 1fr;}
 
-  /* ── OVERVIEW GRID: 2 cols ── */
-  .overview-grid { grid-template-columns: 1fr 1fr !important; gap: 8px; }
-  .ov-num { font-size: 28px; }
-  .ov-sub { display: none; }
+  .overview-grid{grid-template-columns:repeat(4,1fr);}
+  .ov-num{font-size:36px;}
+  .ov-sub{display:block;font-size:9.5px;color:var(--ink3);line-height:1.3;}
 
-  /* ── TABLES: horizontal scroll ── */
-  .tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 14px; }
-  .tbl { font-size: 11px; margin-bottom: 0; min-width: 420px; }
-  .tbl th { font-size: 8px; padding: 6px 8px; }
-  .tbl td { padding: 5px 8px; }
+  .def-item{flex-direction:row;grid-template-columns:170px 1fr;gap:12px;}
+  .def-term{min-width:160px;max-width:160px;}
 
-  /* ── DEFINITION LIST: stack ── */
-  .def-item { grid-template-columns: 1fr !important; gap: 4px; }
-  .def-term { font-size: 12px; }
+  .sub-title{font-size:9px;margin:20px 0 12px;}
+  .nav-btn .label{display:inline;}
+  .nav-btn:hover{background:var(--ink);color:var(--gold);border-color:var(--ink);}
 
-  /* ── FORMULA ── */
-  .formula { font-size: 11px; padding: 8px 10px; overflow-x: auto; }
+  .page-footer{display:flex;justify-content:space-between;font-size:9px;}
 
-  /* ── CARDS ── */
-  .card { padding: 11px 12px; }
-  .card-name { font-size: 13px; }
-  .note { font-size: 11px; }
-  .example { font-size: 11px; padding: 8px 10px; }
-
-  /* ── NAV BOTTOM (prev/next) ── */
-  .nav-bottom { margin-top: 20px; padding-top: 12px; flex-direction: column; gap: 8px; }
-  .nav-btn { font-size: 9px; padding: 8px 10px; justify-content: center; }
-  .nav-btn span:not(.arrow) { display: none; }
-
-  /* ── ALERTS ── */
-  .alert { font-size: 11px; padding: 8px 10px; }
-
-  /* ── SUB-TITLE ── */
-  .sub-title { font-size: 8px; margin: 14px 0 8px; }
-
-  /* ── FOOTER ── */
-  .page-footer { flex-direction: column; gap: 2px; font-size: 8px; }
-  .page-footer span:last-child { display: none; }
+  .formula{font-size:12px;}
+  .note{font-size:11px;}
+  .example{font-size:11.5px;}
+  .tbl{font-size:12px;}
+  .tbl th{font-size:9px;}
+  .alert{font-size:11.5px;}
 }
-
-/* ════════════════════════════════════
-   SHARED STYLES (all sizes)
-════════════════════════════════════ */
-.page-header {
-  border-top: 3px solid var(--ink);
-  border-bottom: 1px solid var(--rule);
-  padding: 18px 0 14px; margin-bottom: 28px;
-  display: flex; justify-content: space-between; align-items: flex-end;
-}
-.page-header h1 { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; line-height: 1.1; }
-.page-header h1 em { font-style: italic; color: var(--gold); }
-.page-header .meta { text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--ink3); line-height: 2; }
-
-.section { display: none; }
-.section.active { display: block; animation: fadein 0.2s ease; }
-@keyframes fadein { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-
-.section-hero { display: flex; align-items: baseline; gap: 14px; margin-bottom: 24px; }
-.big-num { font-family: 'Playfair Display', serif; font-size: 72px; font-weight: 700; color: var(--rule); line-height: 1; flex-shrink: 0; user-select: none; }
-.section-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink3); margin-bottom: 4px; }
-.section-title-text { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--ink); line-height: 1.2; }
-.section-desc { font-size: 12px; color: var(--ink3); margin-top: 4px; line-height: 1.5; }
-.freq-badge { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 9px; padding: 2px 8px; border-radius: 2px; margin-top: 6px; font-weight: 500; }
-.freq-3 { background: #fde8cc; color: var(--orange); }
-.freq-2 { background: var(--blue-lt); color: var(--blue); }
-.freq-1 { background: var(--green-lt); color: var(--green); }
-
-.cards { display: grid; gap: 12px; margin-bottom: 18px; }
-.cards.two { grid-template-columns: 1fr 1fr; }
-.cards.three { grid-template-columns: 1fr 1fr 1fr; }
-.cards.one { grid-template-columns: 1fr; }
-
-.card { border: 0.5px solid var(--rule); border-radius: 3px; padding: 14px 16px; background: white; }
-.card.blue   { border-left: 3px solid var(--blue);   background: var(--blue-lt); }
-.card.green  { border-left: 3px solid var(--green);  background: var(--green-lt); }
-.card.purple { border-left: 3px solid var(--purple); background: var(--purple-lt); }
-.card.orange { border-left: 3px solid var(--orange); background: var(--orange-lt); }
-.card.red    { border-left: 3px solid var(--red);    background: #fdf0f0; }
-.card.gold   { border-left: 3px solid var(--gold);   background: var(--gold-lt); }
-.card.teal   { border-left: 3px solid var(--teal);   background: var(--teal-lt); }
-.card.rose   { border-left: 3px solid var(--rose);   background: var(--rose-lt); }
-.card.dark   { background: var(--ink); color: rgba(255,255,255,0.9); border: none; }
-
-.card-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px; }
-.card.blue   .card-label { color: var(--blue); }
-.card.green  .card-label { color: var(--green); }
-.card.purple .card-label { color: var(--purple); }
-.card.orange .card-label { color: var(--orange); }
-.card.red    .card-label { color: var(--red); }
-.card.gold   .card-label { color: var(--gold); }
-.card.teal   .card-label { color: var(--teal); }
-.card.rose   .card-label { color: var(--rose); }
-.card.dark   .card-label { color: rgba(255,200,80,0.8); }
-.card-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 8px; line-height: 1.3; }
-.card.dark .card-name { color: white; }
-
-.formula { background: var(--ink); color: #f0ead8; font-family: 'IBM Plex Mono', monospace; font-size: 12px; padding: 9px 13px; border-radius: 2px; margin: 8px 0; line-height: 2; }
-.formula .var { color: #f5c842; }
-.formula .op  { color: #7ec8e3; }
-.formula .cmt { color: #666; font-size: 10px; }
-.formula .hi  { color: #a8f0a0; }
-.frac { display: inline-block; vertical-align: middle; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #f5c842; line-height: 1.2; margin: 0 2px; }
-.frac .num { display: block; border-bottom: 1px solid #f5c842; padding: 0 3px; }
-.frac .den { display: block; padding: 0 3px; }
-
-.note { font-size: 11px; color: var(--ink2); line-height: 1.55; margin-top: 6px; }
-.note strong { font-weight: 600; color: var(--ink); }
-
-.example { background: var(--cream); border: 0.5px solid var(--rule); border-radius: 2px; padding: 10px 13px; font-size: 11.5px; color: var(--ink2); margin-top: 8px; }
-.example-title { font-family: 'IBM Plex Mono', monospace; font-size: 8px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink3); margin-bottom: 4px; }
-.example .key { color: var(--ink); font-weight: 600; }
-
-.tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 18px; }
-.tbl { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 380px; }
-.tbl th { background: var(--ink); color: #f0ead8; font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 8px 10px; text-align: left; font-weight: 500; }
-.tbl td { padding: 7px 10px; border-bottom: 0.5px solid var(--rule); vertical-align: top; color: var(--ink2); }
-.tbl tr:last-child td { border-bottom: none; }
-.tbl tr:nth-child(even) td { background: var(--cream); }
-.tbl td:first-child { font-family: 'Playfair Display', serif; font-weight: 700; font-style: italic; color: var(--ink); font-size: 12px; }
-.mono { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; background: var(--ink); color: #f5c842; padding: 2px 6px; border-radius: 2px; display: inline-block; margin: 2px 0; }
-
-.alert { border: 1px solid; padding: 10px 13px; border-radius: 2px; font-size: 11.5px; display: flex; gap: 10px; align-items: flex-start; margin-bottom: 8px; }
-.alert.red    { border-color: var(--red);    color: var(--red);    background: #fdf0f0; }
-.alert.gold   { border-color: var(--gold);   color: var(--orange); background: var(--gold-lt); }
-.alert.blue   { border-color: var(--blue);   color: var(--blue);   background: var(--blue-lt); }
-.alert.green  { border-color: var(--green);  color: var(--green);  background: var(--green-lt); }
-.alert-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; font-style: normal; }
-.alert strong { font-weight: 600; }
-
-.step-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
-.step-circle { width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: var(--gold); font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
-.step-content { flex: 1; }
-.step-title { font-weight: 600; font-size: 12.5px; color: var(--ink); margin-bottom: 2px; }
-.step-body { font-size: 12px; color: var(--ink2); line-height: 1.5; }
-
-.sub-title { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink3); border-bottom: 1px solid var(--rule); padding-bottom: 5px; margin: 20px 0 12px; }
-
-.def-list { margin-bottom: 14px; }
-.def-item { border-bottom: 0.5px solid var(--rule); padding: 10px 0; display: grid; grid-template-columns: 170px 1fr; gap: 12px; }
-.def-item:last-child { border-bottom: none; }
-.def-term { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; font-style: italic; color: var(--ink); line-height: 1.3; }
-.def-body { font-size: 12px; color: var(--ink2); line-height: 1.55; }
-.def-body .mono2 { font-family: 'IBM Plex Mono', monospace; font-size: 10px; background: var(--ink); color: #f5c842; padding: 1px 5px; border-radius: 2px; display: inline-block; margin: 2px 0; }
-
-.timeline { display: flex; align-items: flex-start; gap: 0; margin: 12px 0; overflow-x: auto; }
-.tl-item { flex: 1; text-align: center; position: relative; }
-.tl-item::after { content: ''; position: absolute; top: 14px; left: 50%; right: -50%; height: 1px; background: var(--rule); }
-.tl-item:last-child::after { display: none; }
-.tl-dot { width: 28px; height: 28px; border-radius: 50%; background: var(--ink); color: var(--gold); font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; position: relative; z-index: 1; }
-.tl-dot.hi { background: var(--gold); color: var(--ink); }
-.tl-label { font-size: 10px; color: var(--ink3); line-height: 1.3; }
-.tl-val { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ink2); margin-top: 2px; }
-
-.nav-bottom { display: flex; justify-content: space-between; margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--rule); }
-.nav-btn { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 8px 14px; border: 0.5px solid var(--rule); border-radius: 2px; background: white; font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ink3); transition: all 0.15s; }
-.nav-btn:hover { background: var(--ink); color: var(--gold); border-color: var(--ink); }
-.nav-btn .arrow { font-size: 14px; }
-
-.page-footer { margin-top: 24px; padding-top: 10px; border-top: 1px solid var(--rule); font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--ink3); letter-spacing: 1px; display: flex; justify-content: space-between; }
-
-.overview-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 24px; }
-.ov-card { border: 0.5px solid var(--rule); border-radius: 3px; padding: 12px 10px; background: white; cursor: pointer; transition: all 0.15s; text-align: center; }
-.ov-card:hover { border-color: var(--ink); background: var(--cream); transform: translateY(-2px); }
-.ov-num { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--rule); line-height: 1; margin-bottom: 5px; transition: color 0.15s; }
-.ov-card:hover .ov-num { color: var(--gold); }
-.ov-name { font-size: 10.5px; font-weight: 600; color: var(--ink2); line-height: 1.3; margin-bottom: 3px; }
-.ov-sub { font-size: 9.5px; color: var(--ink3); line-height: 1.3; }
-.ov-stars { color: var(--gold); font-size: 10px; margin-top: 4px; }
-
-.badge { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 8px; padding: 2px 7px; border-radius: 1px; margin: 2px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
-.badge.f3 { background: #fde8cc; color: var(--orange); }
-.badge.f2 { background: var(--blue-lt); color: var(--blue); }
-.badge.f1 { background: var(--green-lt); color: var(--green); }
 </style>
 </head>
 <body>
 <div class="app">
 
 <!-- ── MOBILE BOTTOM NAV ── -->
-<nav class="mobile-nav" id="mob-nav">
-  <button class="mob-btn active" onclick="show(0)"><span class="mob-num">≡</span><span class="mob-lbl">Accueil</span></button>
+<nav class="mobile-nav">
+  <button class="mob-btn active" onclick="show(0)"><span class="mob-num">≡</span><span class="mob-lbl">Menu</span></button>
   <button class="mob-btn" onclick="show(1)"><span class="mob-num">1</span><span class="mob-lbl">Valeur</span></button>
   <button class="mob-btn" onclick="show(2)"><span class="mob-num">2</span><span class="mob-lbl">Invest.</span></button>
   <button class="mob-btn" onclick="show(3)"><span class="mob-num">3</span><span class="mob-lbl">Budget</span></button>
@@ -351,157 +266,86 @@ body {
   <button class="mob-btn" onclick="show(8)"><span class="mob-num">8</span><span class="mob-lbl">Déf.</span></button>
 </nav>
 
-<!-- ── SIDEBAR ── -->
+<!-- ── DESKTOP SIDEBAR ── -->
 <nav class="sidebar">
   <div class="sidebar-title">UE 445 · Finance</div>
   <a class="nav-item active" onclick="show(0)" href="#">
-    <span class="nav-num">≡</span>
-    <span class="nav-label">Vue d'ensemble</span>
+    <span class="nav-num">≡</span><span class="nav-label">Vue d'ensemble</span>
   </a>
   <a class="nav-item" onclick="show(1)" href="#">
-    <span class="nav-num">1</span>
-    <span class="nav-label">Valeur &amp; Temps</span>
-    <span class="nav-freq">★★★</span>
+    <span class="nav-num">1</span><span class="nav-label">Valeur &amp; Temps</span><span class="nav-freq">★★★</span>
   </a>
   <a class="nav-item" onclick="show(2)" href="#">
-    <span class="nav-num">2</span>
-    <span class="nav-label">Choix d'invest.</span>
-    <span class="nav-freq">★★★</span>
+    <span class="nav-num">2</span><span class="nav-label">Choix d'invest.</span><span class="nav-freq">★★★</span>
   </a>
   <a class="nav-item" onclick="show(3)" href="#">
-    <span class="nav-num">3</span>
-    <span class="nav-label">Budget trésorie</span>
-    <span class="nav-freq">★★★</span>
+    <span class="nav-num">3</span><span class="nav-label">Budget trésorerie</span><span class="nav-freq">★★★</span>
   </a>
   <a class="nav-item" onclick="show(4)" href="#">
-    <span class="nav-num">4</span>
-    <span class="nav-label">Plan financem.</span>
-    <span class="nav-freq">★★★</span>
+    <span class="nav-num">4</span><span class="nav-label">Plan financement</span><span class="nav-freq">★★★</span>
   </a>
   <a class="nav-item" onclick="show(5)" href="#">
-    <span class="nav-num">5</span>
-    <span class="nav-label">BFRE Normatif</span>
-    <span class="nav-freq">★★★</span>
+    <span class="nav-num">5</span><span class="nav-label">BFRE Normatif</span><span class="nav-freq">★★★</span>
   </a>
   <a class="nav-item" onclick="show(6)" href="#">
-    <span class="nav-num">6</span>
-    <span class="nav-label">Emprunt &amp; Fin.</span>
-    <span class="nav-freq">★★★</span>
+    <span class="nav-num">6</span><span class="nav-label">Emprunt &amp; Fin.</span><span class="nav-freq">★★★</span>
   </a>
   <a class="nav-item" onclick="show(7)" href="#">
-    <span class="nav-num">7</span>
-    <span class="nav-label">Actions &amp; Marchés</span>
-    <span class="nav-freq">★★</span>
+    <span class="nav-num">7</span><span class="nav-label">Actions &amp; Marchés</span><span class="nav-freq">★★</span>
   </a>
   <a class="nav-item" onclick="show(8)" href="#">
-    <span class="nav-num">8</span>
-    <span class="nav-label">Définitions clés</span>
-    <span class="nav-freq">★★★</span>
+    <span class="nav-num">8</span><span class="nav-label">Définitions clés</span><span class="nav-freq">★★★</span>
   </a>
 </nav>
 
-<!-- ── MAIN ── -->
+<!-- ── MAIN CONTENT ── -->
 <main class="main">
 
-  <!-- PAGE HEADER -->
   <div class="page-header">
     <div>
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ink3);text-transform:uppercase;margin-bottom:5px">UE 445 · Finance d'Entreprise · INTEC · CNAM</div>
+      <div class="ph-label">UE 445 · Finance d'Entreprise · INTEC</div>
       <h1>Fiche <em>complète</em> de révision</h1>
     </div>
-    <div class="meta">
-      8 dossiers couverts<br>
-      Examens 2023–2025<br>
-      Cliquer sur un numéro →
-    </div>
+    <div class="meta">8 dossiers · Examens 2023–2025<br>Cliquer sur un numéro →</div>
   </div>
 
-  <!-- ══ SECTION 0 — OVERVIEW ══ -->
+  <!-- ══ 0 — OVERVIEW ══ -->
   <div id="s0" class="section active">
     <div class="section-hero">
-      <div class="big-num" style="color:var(--ink);font-size:48px">UE<br>445</div>
-      <div class="section-info">
+      <div class="big-num" style="color:var(--ink);font-size:44px">UE<br>445</div>
+      <div>
         <div class="section-tag">Vue d'ensemble</div>
-        <div class="section-title-text">Tous les dossiers d'un coup d'œil</div>
-        <div class="section-desc">Clique sur un numéro pour ouvrir la fiche complète du dossier.</div>
+        <div class="section-title-text">Tous les dossiers</div>
+        <div class="section-desc">Tape un numéro pour ouvrir la fiche.</div>
       </div>
     </div>
-
     <div class="overview-grid">
-      <div class="ov-card" onclick="show(1)">
-        <div class="ov-num">1</div>
-        <div class="ov-name">Valeur &amp; Temps</div>
-        <div class="ov-sub">Actualisation, capitalisation, annuités, taux</div>
-        <div class="ov-stars">★★★</div>
-      </div>
-      <div class="ov-card" onclick="show(2)">
-        <div class="ov-num">2</div>
-        <div class="ov-name">Choix d'invest.</div>
-        <div class="ov-sub">Flux éco., VAN, TIR, délai récupération</div>
-        <div class="ov-stars">★★★</div>
-      </div>
-      <div class="ov-card" onclick="show(3)">
-        <div class="ov-num">3</div>
-        <div class="ov-name">Budget trésorerie</div>
-        <div class="ov-sub">TVA, encaissements, décaissements, soldes</div>
-        <div class="ov-stars">★★★</div>
-      </div>
-      <div class="ov-card" onclick="show(4)">
-        <div class="ov-num">4</div>
-        <div class="ov-name">Plan financement</div>
-        <div class="ov-sub">CAF, ressources, emplois, solde pluriannuel</div>
-        <div class="ov-stars">★★★</div>
-      </div>
-      <div class="ov-card" onclick="show(5)">
-        <div class="ov-num">5</div>
-        <div class="ov-name">BFRE Normatif</div>
-        <div class="ov-sub">Délais, coefficients, jours de CA HT</div>
-        <div class="ov-stars">★★★</div>
-      </div>
-      <div class="ov-card" onclick="show(6)">
-        <div class="ov-num">6</div>
-        <div class="ov-name">Emprunt &amp; Fin.</div>
-        <div class="ov-sub">Tableau amort., coût revient, obligataire</div>
-        <div class="ov-stars">★★★</div>
-      </div>
-      <div class="ov-card" onclick="show(7)">
-        <div class="ov-num">7</div>
-        <div class="ov-name">Actions &amp; Marchés</div>
-        <div class="ov-sub">Rentabilité, risque, obligations, marchés</div>
-        <div class="ov-stars">★★</div>
-      </div>
-      <div class="ov-card" onclick="show(8)">
-        <div class="ov-num">8</div>
-        <div class="ov-name">Définitions clés</div>
-        <div class="ov-sub">CMPC, CAF, escompte, budget vs plan</div>
-        <div class="ov-stars">★★★</div>
-      </div>
+      <div class="ov-card" onclick="show(1)"><div class="ov-num">1</div><div class="ov-name">Valeur &amp; Temps</div><div class="ov-sub">Actualisation, capitalisation, annuités, taux</div><div class="ov-stars">★★★</div></div>
+      <div class="ov-card" onclick="show(2)"><div class="ov-num">2</div><div class="ov-name">Choix d'invest.</div><div class="ov-sub">Flux éco., VAN, TIR, délai récupération</div><div class="ov-stars">★★★</div></div>
+      <div class="ov-card" onclick="show(3)"><div class="ov-num">3</div><div class="ov-name">Budget trésorerie</div><div class="ov-sub">TVA, encaissements, décaissements, soldes</div><div class="ov-stars">★★★</div></div>
+      <div class="ov-card" onclick="show(4)"><div class="ov-num">4</div><div class="ov-name">Plan financement</div><div class="ov-sub">CAF, ressources, emplois, solde pluriannuel</div><div class="ov-stars">★★★</div></div>
+      <div class="ov-card" onclick="show(5)"><div class="ov-num">5</div><div class="ov-name">BFRE Normatif</div><div class="ov-sub">Délais, coefficients, jours de CA HT</div><div class="ov-stars">★★★</div></div>
+      <div class="ov-card" onclick="show(6)"><div class="ov-num">6</div><div class="ov-name">Emprunt &amp; Fin.</div><div class="ov-sub">Tableau amort., coût revient, obligataire</div><div class="ov-stars">★★★</div></div>
+      <div class="ov-card" onclick="show(7)"><div class="ov-num">7</div><div class="ov-name">Actions &amp; Marchés</div><div class="ov-sub">Rentabilité, risque, obligations, marchés</div><div class="ov-stars">★★</div></div>
+      <div class="ov-card" onclick="show(8)"><div class="ov-num">8</div><div class="ov-name">Définitions clés</div><div class="ov-sub">CMPC, CAF, escompte, budget vs plan</div><div class="ov-stars">★★★</div></div>
     </div>
-
     <div class="sub-title">Principe de l'épreuve</div>
-    <div class="alert gold">
-      <em class="alert-icon">💡</em>
-      <div><strong>À l'examen, poser la formule suffit pour avoir les points.</strong> Tu n'as pas de calculatrice pour la plupart des questions — l'examinateur veut voir que tu maîtrises les formules et leur logique, pas que tu calcules le résultat final.</div>
-    </div>
-    <div class="alert blue">
-      <em class="alert-icon">📋</em>
-      <div><strong>Structure typique de l'épreuve :</strong> 3h — 4 à 5 dossiers — environ 30 à 41 points. Les dossiers 1 (valeur&amp;temps) et 2 (choix d'investissement) sont présents dans 100 % des examens. Le budget de trésorerie prend de plus en plus d'importance (2024).</div>
-    </div>
+    <div class="alert gold"><em class="alert-icon">💡</em><div><strong>Poser la formule suffit pour avoir les points.</strong> L'examinateur veut voir que tu maîtrises les formules et leur logique — pas forcément le résultat chiffré.</div></div>
+    <div class="alert blue"><em class="alert-icon">📋</em><div><strong>Structure typique :</strong> 3h — 4 à 5 dossiers — 30 à 41 points. Les dossiers 1 (valeur&amp;temps) et 2 (investissement) sont présents dans 100 % des examens.</div></div>
   </div>
 
-  <!-- ══ SECTION 1 — VALEUR ET TEMPS ══ -->
+  <!-- ══ 1 — VALEUR ET TEMPS ══ -->
   <div id="s1" class="section">
     <div class="section-hero">
       <div class="big-num">1</div>
-      <div class="section-info">
+      <div>
         <div class="section-tag">Dossier 1</div>
         <div class="section-title-text">La Valeur et le Temps</div>
-        <div class="section-desc">Présent dans 100 % des examens. Souvent un exercice entier de 5 à 10 points.</div>
+        <div class="section-desc">100 % des examens. Souvent 5 à 10 points.</div>
         <span class="freq-badge freq-3">★★★ Toujours au programme</span>
       </div>
     </div>
-
-    <div class="alert gold"><em class="alert-icon">⚠</em><div><strong>Principe central :</strong> 1 € aujourd'hui vaut plus qu'1 € demain. Actualiser = ramener vers aujourd'hui (÷). Capitaliser = projeter vers le futur (×).</div></div>
+    <div class="alert gold"><em class="alert-icon">⚠</em><div><strong>Principe :</strong> 1 € aujourd'hui &gt; 1 € demain. Actualiser = diviser. Capitaliser = multiplier.</div></div>
 
     <div class="sub-title">Les deux briques fondamentales</div>
     <div class="cards two">
@@ -509,15 +353,15 @@ body {
         <div class="card-label">Actualisation ★★★</div>
         <div class="card-name">Valeur Actuelle d'un flux unique</div>
         <div class="formula"><span class="var">VA</span> <span class="op">=</span> <span class="var">C</span> <span class="op">÷</span> (1 <span class="op">+</span> <span class="var">i</span>)<sup><span class="var">n</span></sup></div>
-        <div class="note"><strong>C</strong> = flux futur · <strong>i</strong> = taux annuel · <strong>n</strong> = nb années<br>On <em>divise</em> par le facteur d'actualisation.</div>
+        <div class="note"><strong>C</strong> = flux futur · <strong>i</strong> = taux · <strong>n</strong> = années</div>
         <div class="example"><div class="example-title">Exemple exam</div>VA de <span class="key">3 000 €</span> dans <span class="key">3 ans</span> à <span class="key">5 %</span><br>VA = 3 000 ÷ 1,05³</div>
       </div>
       <div class="card green">
         <div class="card-label">Capitalisation ★★★</div>
         <div class="card-name">Valeur Future d'un capital</div>
         <div class="formula"><span class="var">VF</span> <span class="op">=</span> <span class="var">C</span> <span class="op">×</span> (1 <span class="op">+</span> <span class="var">i</span>)<sup><span class="var">n</span></sup></div>
-        <div class="note">On <em>multiplie</em> par le facteur de capitalisation.<br><strong>Piège :</strong> si placé dans k ans → capitalise n−k années seulement.</div>
-        <div class="example"><div class="example-title">Exemple exam</div>VF dans <span class="key">3 ans</span> de <span class="key">2 000 €</span> placés dans <span class="key">1 an</span> à <span class="key">1 %</span><br>VF = 2 000 × 1,01² &nbsp;(2 ans, pas 3 !)</div>
+        <div class="note"><strong>Piège :</strong> si placé dans k ans → capitalise seulement n−k années.</div>
+        <div class="example"><div class="example-title">Exemple exam</div>VF dans <span class="key">3 ans</span> de <span class="key">2 000 €</span> placés dans <span class="key">1 an</span> à <span class="key">1 %</span><br>VF = 2 000 × 1,01² (2 ans, pas 3 !)</div>
       </div>
     </div>
 
@@ -527,528 +371,442 @@ body {
         <div class="card-label">Annuités fin de période ★★★</div>
         <div class="card-name">VA — 1er versement dans 1 an</div>
         <div class="formula"><span class="var">VA</span> <span class="op">=</span> <span class="var">a</span> <span class="op">×</span> <span class="frac"><span class="num">1 − (1+<span class="var">i</span>)<sup>−<span class="var">n</span></sup></span><span class="den"><span class="var">i</span></span></span></div>
-        <div class="note"><strong>a</strong> = annuité · <strong>n</strong> = nb versements<br>Le facteur entre crochets = <em>facteur d'actualisation des annuités</em>.</div>
-        <div class="example"><div class="example-title">Exemple exam</div><span class="key">10 annuités</span> de <span class="key">1 000 €</span> fin de période à <span class="key">2 %</span><br>VA = 1 000 × (1 − 1,02⁻¹⁰) ÷ 0,02</div>
+        <div class="example"><div class="example-title">Exemple exam</div><span class="key">10 annuités</span> de <span class="key">1 000 €</span> fin période à <span class="key">2 %</span><br>VA = 1 000 × (1−1,02⁻¹⁰) ÷ 0,02</div>
       </div>
       <div class="card purple">
         <div class="card-label">Annuités début de période ★★★</div>
         <div class="card-name">VA — 1er versement immédiat</div>
         <div class="formula"><span class="var">VA</span> <span class="op">=</span> <span class="var">a</span> <span class="op">+</span> <span class="var">a</span> <span class="op">×</span> <span class="frac"><span class="num">1 − (1+<span class="var">i</span>)<sup>−(<span class="var">n</span>−1)</sup></span><span class="den"><span class="var">i</span></span></span></div>
-        <div class="note">Le 1er versement est encaissé <em>maintenant</em> (pas actualisé).<br>Les <strong>n − 1</strong> versements suivants sont actualisés.</div>
-        <div class="example"><div class="example-title">Exemple exam</div><span class="key">10 loyers</span> de <span class="key">10 000 €</span> début de période à <span class="key">1 %</span><br>VA = 10 000 + 10 000 × (1−1,01⁻⁹) ÷ 0,01</div>
+        <div class="note">1er versement = maintenant (pas actualisé). Les n−1 suivants sont actualisés.</div>
+        <div class="example"><div class="example-title">Exemple exam</div><span class="key">10 loyers</span> de <span class="key">10 000 €</span> début période à <span class="key">1 %</span><br>VA = 10 000 + 10 000 × (1−1,01⁻⁹) ÷ 0,01</div>
       </div>
       <div class="card orange">
         <div class="card-label">Rente perpétuelle ★★★</div>
-        <div class="card-name">Durée infinie (fin de période)</div>
-        <div class="formula"><span class="var">VA</span> <span class="op">=</span> <span class="frac"><span class="num"><span class="var">a</span></span><span class="den"><span class="var">i</span></span></span> &nbsp;<span class="cmt">// quand n → ∞</span></div>
-        <div class="note">Formule très simple et <strong>toujours demandée</strong> à l'examen !</div>
-        <div class="example"><div class="example-title">Exemple exam</div>Rente annuelle de <span class="key">5 000 €</span> à durée infinie à <span class="key">1 %</span><br>VA = 5 000 ÷ 0,01 = <span class="key">500 000 €</span></div>
+        <div class="card-name">Durée infinie</div>
+        <div class="formula"><span class="var">VA</span> <span class="op">=</span> <span class="frac"><span class="num"><span class="var">a</span></span><span class="den"><span class="var">i</span></span></span> <span class="cmt">// quand n → ∞</span></div>
+        <div class="note"><strong>Toujours demandée à l'examen !</strong></div>
+        <div class="example"><div class="example-title">Exemple exam</div>Rente de <span class="key">5 000 €</span> infinie à <span class="key">1 %</span><br>VA = 5 000 ÷ 0,01 = <span class="key">500 000 €</span></div>
       </div>
       <div class="card green">
         <div class="card-label">VF d'annuités capitalisées ★★</div>
         <div class="card-name">Capitaliser des annuités jusqu'à T</div>
         <div class="formula"><span class="var">VF</span> <span class="op">=</span> <span class="var">a</span> <span class="op">×</span> <span class="frac"><span class="num">(1+<span class="var">i</span>)<sup><span class="var">n</span></sup> − 1</span><span class="den"><span class="var">i</span></span></span></div>
-        <div class="note">Si les annuités commencent dans k ans, ajouter ×(1+i)^(k−1) à l'extérieur.</div>
+        <div class="note">Si annuités commencent dans k ans → multiplier par (1+i)^(k−1).</div>
         <div class="example"><div class="example-title">Exemple exam</div>VF dans 6 ans de <span class="key">4 annuités</span> de <span class="key">10 000 €</span> — 1er dans 2 ans à <span class="key">4 %</span><br>VF = 10 000 × (1,04⁴−1)/0,04 × 1,04</div>
       </div>
     </div>
 
     <div class="sub-title">Taux proportionnel vs taux équivalent</div>
-    <div class="alert red"><em class="alert-icon">⚠</em><div><strong>Piège classique !</strong> Taux proportionnel = division simple (court terme, intérêts simples). Taux équivalent = racine n-ième (long terme, intérêts composés). Ne jamais les confondre.</div></div>
+    <div class="alert red"><em class="alert-icon">⚠</em><div><strong>Piège classique !</strong> Proportionnel = division simple (court terme). Équivalent = racine (long terme). Ne jamais confondre.</div></div>
     <div class="cards two">
       <div class="card red">
         <div class="card-label">Taux proportionnel ★★★</div>
         <div class="card-name">Division simple — court terme</div>
-        <div class="formula"><span class="var">t<sub>prop</sub></span> <span class="op">=</span> <span class="frac"><span class="num">Taux annuel</span><span class="den">Nb sous-périodes</span></span><br><span class="cmt">// Mensuel = i/12 · Semestriel = i/2</span></div>
-        <div class="note">Sert pour les flux à court terme avec la formule d'<strong>intérêts simples</strong> :</div>
+        <div class="formula"><span class="var">t<sub>prop</sub></span> <span class="op">=</span> <span class="frac"><span class="num">i annuel</span><span class="den">n sous-périodes</span></span><br><span class="cmt">// Mensuel = i/12 · Semestriel = i/2</span></div>
+        <div class="note">Formule intérêts simples :</div>
         <div class="formula"><span class="var">VA</span> <span class="op">=</span> <span class="frac"><span class="num"><span class="var">C</span></span><span class="den">1 + <span class="var">n</span> <span class="op">×</span> <span class="var">t<sub>prop</sub></span></span></span></div>
-        <div class="example"><div class="example-title">Exemple exam</div>VA de <span class="key">500 €</span> dans <span class="key">3 mois</span> au taux annuel <span class="key">6 %</span><br>t = 6%/12 = 0,5% → VA = 500/(1+3×0,005)</div>
+        <div class="example"><div class="example-title">Exemple exam</div>VA de <span class="key">500 €</span> dans <span class="key">3 mois</span> à <span class="key">6 %</span> annuel<br>t = 6%/12 = 0,5% → VA = 500/(1+3×0,005)</div>
       </div>
       <div class="card gold">
         <div class="card-label">Taux équivalent ★★★</div>
         <div class="card-name">Racine n-ième — long terme</div>
         <div class="formula"><span class="var">t<sub>éq</sub></span> <span class="op">=</span> (1 <span class="op">+</span> <span class="var">i</span>)<sup>1/<span class="var">n</span></sup> <span class="op">−</span> 1<br><span class="cmt">// Mensuel = (1+i)^(1/12)−1</span></div>
-        <div class="note">Garantit la même valorisation sur toute la période.</div>
         <div class="example"><div class="example-title">Exemple exam</div>Taux équivalent mensuel du taux annuel <span class="key">6 %</span><br>t = 1,06^(1/12) − 1</div>
       </div>
     </div>
 
-    <div class="sub-title">Flux multiples et cas spéciaux</div>
+    <div class="sub-title">Flux multiples et statistiques</div>
     <div class="cards two">
       <div class="card teal">
         <div class="card-label">Flux disparates ★★</div>
-        <div class="card-name">Somme de flux individuels différents</div>
-        <div class="formula"><span class="var">VA</span> <span class="op">=</span> <span class="frac"><span class="num"><span class="var">C</span><sub>1</sub></span><span class="den">(1+i)¹</span></span><span class="op"> + </span><span class="frac"><span class="num"><span class="var">C</span><sub>2</sub></span><span class="den">(1+i)²</span></span><span class="op"> + </span><span class="frac"><span class="num"><span class="var">C</span><sub>3</sub></span><span class="den">(1+i)³</span></span></div>
-        <div class="note">Pas de formule compacte → actualiser <em>chaque flux séparément</em> puis additionner.</div>
-        <div class="example"><div class="example-title">Exemple exam</div><span class="key">5 000 €</span> dans 1 an + <span class="key">2 000 €</span> dans 2 ans + <span class="key">3 000 €</span> dans 3 ans à <span class="key">5 %</span><br>VA = 5000/1,05 + 2000/1,05² + 3000/1,05³</div>
+        <div class="card-name">Somme de flux individuels</div>
+        <div class="formula"><span class="var">VA</span> <span class="op">=</span> <span class="frac"><span class="num"><span class="var">C</span><sub>1</sub></span><span class="den">(1+i)¹</span></span><span class="op">+</span><span class="frac"><span class="num"><span class="var">C</span><sub>2</sub></span><span class="den">(1+i)²</span></span><span class="op">+</span><span class="frac"><span class="num"><span class="var">C</span><sub>3</sub></span><span class="den">(1+i)³</span></span></div>
+        <div class="note">Actualiser chaque flux séparément puis additionner.</div>
       </div>
       <div class="card rose">
         <div class="card-label">Statistiques action ★★</div>
         <div class="card-name">Moyenne et écart-type</div>
-        <div class="formula"><span class="var">r̄</span> <span class="op">=</span> <span class="frac"><span class="num">r₁ + r₂ + ··· + rₙ</span><span class="den">n</span></span><br><span class="var">σ</span> <span class="op">=</span> √ <span class="frac"><span class="num">Σ (rᵢ − r̄)²</span><span class="den">n &nbsp;<span class="cmt">(ou n−1 si échantillon)</span></span></span></div>
-        <div class="example"><div class="example-title">Exemple exam</div>Rentabilités : <span class="key">3%, 2%, 10%</span><br>r̄ = (0,03+0,02+0,10)/3 = 5%<br>σ = √[(0,03−0,05)²+(0,02−0,05)²+(0,10−0,05)²]/3</div>
+        <div class="formula"><span class="var">r̄</span> <span class="op">=</span> <span class="frac"><span class="num">Σ rᵢ</span><span class="den">n</span></span><br><span class="var">σ</span> <span class="op">=</span> √ <span class="frac"><span class="num">Σ (rᵢ − r̄)²</span><span class="den">n <span class="cmt">(ou n−1)</span></span></span></div>
+        <div class="example"><div class="example-title">Exemple exam</div>r: <span class="key">3%, 2%, 10%</span> → r̄ = 5%<br>σ = √[(0,03−0,05)²+…]/3</div>
       </div>
     </div>
 
     <div class="sub-title">Les 5 pièges à l'examen</div>
     <div class="alert red"><em class="alert-icon">①</em><div><strong>Flux placé dans k ans.</strong> VF dans 3 ans d'un flux placé dans 1 an = C × (1+i)² (2 ans, pas 3).</div></div>
     <div class="alert red"><em class="alert-icon">②</em><div><strong>Début vs fin de période.</strong> Début = 1er versement immédiat (non actualisé) + (n−1) actualisés.</div></div>
-    <div class="alert red"><em class="alert-icon">③</em><div><strong>Taux proportionnel ≠ équivalent.</strong> Court terme → proportionnel + intérêts simples. Long terme → équivalent + intérêts composés.</div></div>
-    <div class="alert red"><em class="alert-icon">④</em><div><strong>Délai fin de mois.</strong> "30 jours fin de mois" → délai moyen = 30/2 + 30 = 45 jours.</div></div>
-    <div class="alert red"><em class="alert-icon">⑤</em><div><strong>Écart-type.</strong> Préciser si on divise par n (population) ou n−1 (échantillon) — les deux sont acceptés si explicité.</div></div>
+    <div class="alert red"><em class="alert-icon">③</em><div><strong>Proportionnel ≠ équivalent.</strong> Court terme → proportionnel + intérêts simples. Long terme → équivalent + intérêts composés.</div></div>
+    <div class="alert red"><em class="alert-icon">④</em><div><strong>Délai fin de mois.</strong> "30 jours fin de mois" → délai moyen = 30/2 + 30 = <strong>45 jours</strong>.</div></div>
+    <div class="alert red"><em class="alert-icon">⑤</em><div><strong>Écart-type.</strong> Préciser si population (÷n) ou échantillon (÷n−1).</div></div>
 
     <div class="nav-bottom">
       <div></div>
-      <div class="nav-btn" onclick="show(2)"><span>Dossier 2 — Choix d'investissement</span><span class="arrow">→</span></div>
+      <div class="nav-btn" onclick="show(2)"><span class="arrow">→</span><span class="label">&nbsp;Dossier 2 — Investissement</span></div>
     </div>
   </div>
 
-  <!-- ══ SECTION 2 — CHOIX D'INVESTISSEMENT ══ -->
+  <!-- ══ 2 — CHOIX D'INVESTISSEMENT ══ -->
   <div id="s2" class="section">
     <div class="section-hero">
       <div class="big-num">2</div>
-      <div class="section-info">
+      <div>
         <div class="section-tag">Dossier 2</div>
         <div class="section-title-text">Le Choix d'Investissement</div>
-        <div class="section-desc">Cœur de l'épreuve. Tableau des flux + VAN + TIR présents dans 100 % des examens.</div>
+        <div class="section-desc">Tableau des flux + VAN + TIR — 100 % des examens.</div>
         <span class="freq-badge freq-3">★★★ Toujours au programme</span>
       </div>
     </div>
+    <div class="alert gold"><em class="alert-icon">💡</em><div><strong>Méthode :</strong> CA → −CV → −CF hors DA → −DA = REX → ×(1−IS) → +DA = CAF → −ΔBFRE ± Acquisition/Cession</div></div>
 
-    <div class="sub-title">Construction du tableau des flux de trésorerie économiques</div>
-    <div class="alert gold"><em class="alert-icon">💡</em><div><strong>Méthode en 6 lignes :</strong> CA → −Charges variables → −Charges fixes (hors DA) → −Dotations aux amortissements = Résultat d'exploitation → ×(1−IS) → +DA = CAF − Variation BFRE ± Acquisition/Cession</div></div>
-
+    <div class="sub-title">Tableau des flux de trésorerie économiques</div>
     <div class="tbl-wrap"><table class="tbl">
-      <tr><th>Ligne</th><th>Calcul</th><th>Remarque clé</th></tr>
-      <tr><td>Chiffre d'affaires</td><td><span class="mono">Donné</span></td><td>Hors taxes (HT)</td></tr>
+      <tr><th>Ligne</th><th>Calcul</th><th>Remarque</th></tr>
+      <tr><td>Chiffre d'affaires</td><td><span class="mono">Donné</span></td><td>HT</td></tr>
       <tr><td>− Charges variables</td><td><span class="mono">CA × taux CV</span></td><td>Ex : CA × 20 %</td></tr>
-      <tr><td>− Charges fixes (hors DA)</td><td><span class="mono">Donné</span></td><td>Ne pas inclure les DA ici</td></tr>
-      <tr><td>− Dotations aux amortissements</td><td><span class="mono">Coût acq. ÷ durée</span></td><td>Amortissement linéaire</td></tr>
-      <tr><td>= Résultat d'exploitation (REX)</td><td><span class="mono">CA−CV−CF−DA</span></td><td>Peut être nul en année 1</td></tr>
+      <tr><td>− Charges fixes (hors DA)</td><td><span class="mono">Donné</span></td><td>Ne pas inclure les DA</td></tr>
+      <tr><td>− Dotations aux amortissements</td><td><span class="mono">Coût ÷ durée</span></td><td>Amortissement linéaire</td></tr>
+      <tr><td>= Résultat d'exploitation</td><td><span class="mono">CA−CV−CF−DA</span></td><td>Peut être nul an 1</td></tr>
       <tr><td>REX net d'IS</td><td><span class="mono">REX × (1−25%)</span></td><td>IS = 25 % en général</td></tr>
-      <tr><td>CAF d'exploitation</td><td><span class="mono">REX net d'IS + DA</span></td><td>On ré-ajoute les DA (non décaissées)</td></tr>
-      <tr><td>− Variation du BFRE</td><td><span class="mono">BFRE(n) − BFRE(n−1)</span></td><td>Augmentation = emploi ; récupération en fin de projet</td></tr>
-      <tr><td>− Acquisition d'immobilisation</td><td><span class="mono">Coût d'acq. en t=0</span></td><td>Au début uniquement</td></tr>
-      <tr><td>+ Cession nette d'IS</td><td><span class="mono">Prix cession − IS × PV</span></td><td>En dernière année</td></tr>
+      <tr><td>CAF d'exploitation</td><td><span class="mono">REX net + DA</span></td><td>On ré-ajoute les DA</td></tr>
+      <tr><td>− Variation BFRE</td><td><span class="mono">BFRE(n) − BFRE(n−1)</span></td><td>Récupération en fin de projet</td></tr>
+      <tr><td>− Acquisition</td><td><span class="mono">Coût d'acq. en t=0</span></td><td>Début uniquement</td></tr>
+      <tr><td>+ Cession nette d'IS</td><td><span class="mono">Prix − IS × PV</span></td><td>Dernière année</td></tr>
     </table></div>
 
-    <div class="sub-title">Calcul du BFRE lié au projet</div>
+    <div class="sub-title">BFRE lié au projet</div>
     <div class="cards two">
       <div class="card blue">
         <div class="card-label">BFRE normatif ★★★</div>
-        <div class="card-name">BFRE = CA × délai en jours ÷ 360</div>
-        <div class="formula"><span class="var">BFRE</span> <span class="op">=</span> <span class="var">CA<sub>HT</sub></span> <span class="op">×</span> <span class="frac"><span class="num">Délai (jours)</span><span class="den">360</span></span></div>
-        <div class="note">Exemple : délai de 36 jours → BFRE = CA × 36/360 = CA × 10 %<br><strong>Variation</strong> d'une année à l'autre = augmentation (−) ou récupération (+)</div>
+        <div class="card-name">BFRE = CA × délai ÷ 360</div>
+        <div class="formula"><span class="var">BFRE</span> <span class="op">=</span> <span class="var">CA<sub>HT</sub></span> <span class="op">×</span> <span class="frac"><span class="num">Délai (j)</span><span class="den">360</span></span></div>
+        <div class="note">Ex: délai 36j → BFRE = CA × 10 %</div>
       </div>
       <div class="card green">
-        <div class="card-label">Cession d'immobilisation ★★</div>
-        <div class="card-name">Valeur nette comptable &amp; plus-value</div>
-        <div class="formula"><span class="var">VNC</span> <span class="op">=</span> Coût acq. <span class="op">−</span> DA cumulées<br><span class="var">PV</span> <span class="op">=</span> Prix cession <span class="op">−</span> VNC<br><span class="var">Cession nette d'IS</span> <span class="op">=</span> Prix <span class="op">−</span> IS <span class="op">×</span> PV</div>
-        <div class="note">Si VNC = 0 (bien totalement amorti) → IS sur la totalité du prix de cession.</div>
+        <div class="card-label">Cession ★★</div>
+        <div class="card-name">VNC et plus-value</div>
+        <div class="formula"><span class="var">VNC</span> <span class="op">=</span> Coût <span class="op">−</span> DA cumulées<br><span class="var">PV</span> <span class="op">=</span> Prix <span class="op">−</span> VNC<br><span class="var">Net d'IS</span> <span class="op">=</span> Prix <span class="op">−</span> IS<span class="op">×</span>PV</div>
+        <div class="note">Si VNC = 0 → IS sur la totalité du prix.</div>
       </div>
     </div>
 
     <div class="sub-title">Critères de décision</div>
     <div class="cards two">
       <div class="card blue">
-        <div class="card-label">VAN — Valeur Actuelle Nette ★★★</div>
-        <div class="card-name">Critère principal de rentabilité</div>
-        <div class="formula"><span class="var">VAN</span> <span class="op">=</span> <span class="op">−</span>I<sub>0</sub> <span class="op">+</span> <span class="frac"><span class="num">F<sub>1</sub></span><span class="den">(1+t)¹</span></span><span class="op"> + </span><span class="frac"><span class="num">F<sub>2</sub></span><span class="den">(1+t)²</span></span><span class="op"> + ··· + </span><span class="frac"><span class="num">F<sub>n</sub></span><span class="den">(1+t)ⁿ</span></span></div>
-        <div class="note">
-          <strong>VAN &gt; 0 :</strong> projet rentable, créateur de valeur ✓<br>
-          <strong>VAN = 0 :</strong> projet couvre exactement le coût des ressources<br>
-          <strong>VAN &lt; 0 :</strong> projet détruit de la valeur ✗<br>
-          Le taux t = coût du capital (CMPC)
-        </div>
+        <div class="card-label">VAN ★★★</div>
+        <div class="card-name">Valeur Actuelle Nette</div>
+        <div class="formula"><span class="var">VAN</span> <span class="op">=</span> <span class="op">−</span>I<sub>0</sub> <span class="op">+</span> Σ <span class="frac"><span class="num">F<sub>k</sub></span><span class="den">(1+t)ᵏ</span></span></div>
+        <div class="note"><strong>VAN &gt; 0 :</strong> créateur de valeur ✓<br><strong>VAN &lt; 0 :</strong> détruit de la valeur ✗<br>t = coût du capital (CMPC)</div>
       </div>
       <div class="card purple">
-        <div class="card-label">TIR — Taux Interne de Rendement ★★★</div>
-        <div class="card-name">Taux qui annule la VAN</div>
-        <div class="formula"><span class="cmt">// Trouver r tel que :</span><br><span class="var">VAN(r)</span> <span class="op">=</span> 0<br><span class="op">−</span>I<sub>0</sub> <span class="op">+</span> <span class="frac"><span class="num">F<sub>1</sub></span><span class="den">(1+r)¹</span></span><span class="op"> + ··· + </span><span class="frac"><span class="num">F<sub>n</sub></span><span class="den">(1+r)ⁿ</span></span><span class="op"> = </span>0</div>
-        <div class="note">
-          <strong>TIR &gt; coût du capital :</strong> projet rentable ✓<br>
-          <strong>VAN &gt; 0 ⟺ TIR &gt; t</strong> (relation fondamentale)<br>
-          Si VAN à 10 % est positive → TIR &gt; 10 %
-        </div>
+        <div class="card-label">TIR ★★★</div>
+        <div class="card-name">Taux Interne de Rendement</div>
+        <div class="formula"><span class="cmt">// Trouver r tel que VAN(r) = 0</span><br><span class="op">−</span>I<sub>0</sub> <span class="op">+</span> Σ <span class="frac"><span class="num">F<sub>k</sub></span><span class="den">(1+r)ᵏ</span></span> <span class="op">=</span> 0</div>
+        <div class="note"><strong>VAN &gt; 0 ⟺ TIR &gt; t</strong><br>Si VAN à 10 % positive → TIR &gt; 10 %</div>
       </div>
       <div class="card orange">
         <div class="card-label">Délai de récupération ★★★</div>
         <div class="card-name">Mesure de risque / liquidité</div>
-        <div class="formula"><span class="cmt">// Trouver k tel que :</span><br>Cumul flux actualisés(k) <span class="op">≥</span> I<sub>0</sub><br><br><span class="var">DR</span> <span class="op">=</span> k <span class="op">−</span> 1 <span class="op">+</span> <span class="frac"><span class="num">I<sub>0</sub> <span class="op">−</span> Cumul(k−1)</span><span class="den">F<sub>k</sub> actualisé</span></span></div>
-        <div class="note">
-          Plus le délai est <strong>court</strong>, moins le risque est élevé.<br>
-          Comparer au seuil d'acceptabilité de l'entreprise.<br>
-          Peut être demandé non actualisé → même logique sans actualiser.
-        </div>
+        <div class="formula"><span class="var">DR</span> <span class="op">=</span> k<span class="op">−</span>1 <span class="op">+</span> <span class="frac"><span class="num">I<sub>0</sub> <span class="op">−</span> Cumul(k−1)</span><span class="den">F<sub>k</sub> actualisé</span></span></div>
+        <div class="note">Plus court = moins risqué. Comparer au seuil de l'entreprise.</div>
       </div>
       <div class="card teal">
         <div class="card-label">Indice de profitabilité ★</div>
-        <div class="card-name">Comparaison de projets de tailles différentes</div>
+        <div class="card-name">Comparer projets de tailles différentes</div>
         <div class="formula"><span class="var">IP</span> <span class="op">=</span> 1 <span class="op">+</span> <span class="frac"><span class="num">VAN</span><span class="den">I<sub>0</sub></span></span></div>
-        <div class="note">Utile quand l'entreprise ne peut pas réaliser tous les projets disponibles. Choisir le <strong>IP le plus élevé</strong>.</div>
+        <div class="note">Choisir le <strong>IP le plus élevé</strong>.</div>
       </div>
     </div>
 
-    <div class="sub-title">Relation entre VAN et TIR — à retenir absolument</div>
+    <div class="sub-title">Relation VAN ↔ TIR</div>
     <div class="tbl-wrap"><table class="tbl">
-      <tr><th>Situation</th><th>VAN à t %</th><th>TIR par rapport à t</th><th>Décision</th></tr>
-      <tr><td>Projet très rentable</td><td>Fortement positive</td><td>TIR ≫ t</td><td>Accepter ✓</td></tr>
-      <tr><td>Projet rentable</td><td>Positive</td><td>TIR &gt; t</td><td>Accepter ✓</td></tr>
-      <tr><td>Rentabilité nulle</td><td>Nulle</td><td>TIR = t</td><td>Indifférent</td></tr>
-      <tr><td>Projet non rentable</td><td>Négative</td><td>TIR &lt; t</td><td>Refuser ✗</td></tr>
+      <tr><th>Situation</th><th>VAN à t %</th><th>TIR vs t</th><th>Décision</th></tr>
+      <tr><td>Très rentable</td><td>Fortement positive</td><td>TIR ≫ t</td><td>Accepter ✓</td></tr>
+      <tr><td>Rentable</td><td>Positive</td><td>TIR &gt; t</td><td>Accepter ✓</td></tr>
+      <tr><td>Nul</td><td>Nulle</td><td>TIR = t</td><td>Indifférent</td></tr>
+      <tr><td>Non rentable</td><td>Négative</td><td>TIR &lt; t</td><td>Refuser ✗</td></tr>
     </table></div>
 
     <div class="nav-bottom">
-      <div class="nav-btn" onclick="show(1)"><span class="arrow">←</span><span>Dossier 1 — Valeur & Temps</span></div>
-      <div class="nav-btn" onclick="show(3)"><span>Dossier 3 — Budget de trésorerie</span><span class="arrow">→</span></div>
+      <div class="nav-btn" onclick="show(1)"><span class="arrow">←</span></div>
+      <div class="nav-btn" onclick="show(3)"><span class="arrow">→</span><span class="label">&nbsp;Dossier 3 — Budget</span></div>
     </div>
   </div>
 
-  <!-- ══ SECTION 3 — BUDGET DE TRÉSORERIE ══ -->
+  <!-- ══ 3 — BUDGET DE TRÉSORERIE ══ -->
   <div id="s3" class="section">
     <div class="section-hero">
       <div class="big-num">3</div>
-      <div class="section-info">
+      <div>
         <div class="section-tag">Dossier 3</div>
         <div class="section-title-text">Le Budget de Trésorerie</div>
-        <div class="section-desc">Très présent depuis 2024. Le budget de TVA est souvent le sous-exercice le plus piégeux.</div>
+        <div class="section-desc">Très présent depuis 2024. Budget de TVA = piège classique.</div>
         <span class="freq-badge freq-3">★★★ Toujours au programme</span>
       </div>
     </div>
 
-    <div class="sub-title">Définition</div>
-    <div class="card dark" style="margin-bottom:16px">
+    <div class="sub-title">Définition à retenir</div>
+    <div class="card dark" style="margin-bottom:14px">
       <div class="card-label">À retenir mot pour mot</div>
-      <div style="font-size:13px;line-height:1.7;color:rgba(255,255,255,0.9)">Un <strong style="color:#f5c842">budget de trésorerie</strong> est un <em>document prévisionnel plurimensuel</em> qui, à partir des informations prévisionnelles sur l'activité, les investissements et les financements, permet d'établir le <em>solde final mensuel de trésorerie</em>. Il ne prend pas encore en compte les placements et crédits à court terme.</div>
+      <div style="font-size:12.5px;line-height:1.7;color:rgba(255,255,255,.9)">Un <strong style="color:#f5c842">budget de trésorerie</strong> est un document prévisionnel <em>plurimensuel</em> qui permet d'établir le solde final mensuel de trésorerie. Il ne prend <strong style="color:#f5c842">pas encore en compte</strong> les placements et crédits à court terme.</div>
     </div>
 
     <div class="sub-title">Étape 1 — Budget de TVA</div>
-    <div class="alert gold"><em class="alert-icon">💡</em><div>La TVA est payée le <strong>20 du mois suivant</strong> la période (sauf crédit de TVA qui se reporte). Le budget de TVA permet de calculer la TVA à décaisser qui apparaîtra dans le budget des décaissements.</div></div>
+    <div class="alert gold"><em class="alert-icon">💡</em><div>TVA payée le <strong>20 du mois suivant</strong>. Un crédit de TVA se reporte au mois suivant.</div></div>
     <div class="tbl-wrap"><table class="tbl">
-      <tr><th>Ligne</th><th>Calcul</th><th>Remarque</th></tr>
-      <tr><td>TVA collectée</td><td><span class="mono">CA HT × taux TVA</span></td><td>TVA sur ventes (20 % en général)</td></tr>
-      <tr><td>− TVA déductible achats</td><td><span class="mono">Achats HT × taux TVA</span></td><td>TVA sur achats marchandises</td></tr>
-      <tr><td>− TVA déductible immobilisations</td><td><span class="mono">Invest. HT × taux TVA</span></td><td>Seulement en cas d'acquisition</td></tr>
-      <tr><td>− Créance fiscale (crédit de TVA)</td><td><span class="mono">Report mois précédent</span></td><td>Si TVA à payer &lt; 0 le mois précédent</td></tr>
-      <tr><td>= TVA à payer (ou crédit de TVA)</td><td><span class="mono">Collectée − Déductibles</span></td><td>Décaissé le 20 du mois suivant</td></tr>
+      <tr><th>Ligne</th><th>Calcul</th><th>Note</th></tr>
+      <tr><td>TVA collectée</td><td><span class="mono">CA HT × taux TVA</span></td><td>20 % en général</td></tr>
+      <tr><td>− TVA déductible achats</td><td><span class="mono">Achats HT × TVA</span></td><td>Sur marchandises</td></tr>
+      <tr><td>− TVA déductible immo.</td><td><span class="mono">Invest. HT × TVA</span></td><td>Si acquisition</td></tr>
+      <tr><td>− Créance fiscale reportée</td><td><span class="mono">Crédit mois précédent</span></td><td>Si crédit de TVA</td></tr>
+      <tr><td>= TVA à payer</td><td><span class="mono">Collectée − Déductibles</span></td><td>Décaissé le 20 mois+1</td></tr>
     </table></div>
 
-    <div class="sub-title">Étape 2 — Budget des encaissements</div>
-    <div class="cards one">
-      <div class="card blue">
-        <div class="card-label">Encaissements ★★★</div>
-        <div class="card-name">Sources d'entrées de trésorerie</div>
-        <div class="formula"><span class="cmt">// Encaissements = ventes TTC décalées selon délai client</span><br><span class="var">Encaissé(m)</span> <span class="op">=</span> Ventes TTC(m<span class="op">−</span>délai) <span class="op">+</span> Créances initiales + Autres</div>
-        <div class="note">
-          <strong>Ventes TTC encaissées :</strong> Ventes HT × (1 + TVA) selon les modalités de règlement (au comptant, à 30j, à 60j…)<br>
-          <strong>Créances initiales :</strong> du bilan d'ouverture — encaissées selon leur échéance<br>
-          <strong>Autres :</strong> augmentation de capital, nouvel emprunt
-        </div>
+    <div class="sub-title">Étape 2 — Encaissements</div>
+    <div class="card blue" style="margin-bottom:12px">
+      <div class="card-label">Sources d'entrées ★★★</div>
+      <div class="note" style="margin-top:0">
+        <strong>Ventes TTC encaissées :</strong> Ventes HT × (1+TVA) selon délai client<br>
+        <strong>Créances initiales :</strong> du bilan d'ouverture selon échéance<br>
+        <strong>Autres :</strong> augmentation de capital, nouvel emprunt
       </div>
     </div>
 
-    <div class="sub-title">Étape 3 — Budget des décaissements</div>
-    <div class="cards one">
-      <div class="card purple">
-        <div class="card-label">Décaissements ★★★</div>
-        <div class="card-name">Sources de sorties de trésorerie</div>
-        <div class="formula"><span class="cmt">// Décaissements = achats TTC + charges + TVA + IS + remboursements</span></div>
-        <div class="note">
-          <strong>Achats TTC à crédit :</strong> décalés selon délai fournisseur<br>
-          <strong>Charges externes TTC :</strong> selon leurs modalités (comptant ou crédit)<br>
-          <strong>Charges de personnel :</strong> du mois en cours (pas de TVA)<br>
-          <strong>TVA à décaisser :</strong> du mois précédent (payée le 20)<br>
-          <strong>IS à décaisser :</strong> acomptes ou solde<br>
-          <strong>Dettes initiales fournisseurs :</strong> du bilan d'ouverture
-        </div>
+    <div class="sub-title">Étape 3 — Décaissements</div>
+    <div class="card purple" style="margin-bottom:12px">
+      <div class="card-label">Sources de sorties ★★★</div>
+      <div class="note" style="margin-top:0">
+        <strong>Achats TTC :</strong> décalés selon délai fournisseur<br>
+        <strong>Charges externes TTC :</strong> comptant ou crédit<br>
+        <strong>Personnel :</strong> mois en cours (pas de TVA)<br>
+        <strong>TVA à décaisser :</strong> du mois précédent<br>
+        <strong>Dettes initiales fournisseurs :</strong> du bilan d'ouverture
       </div>
     </div>
 
-    <div class="sub-title">Étape 4 — Budget de trésorerie final</div>
+    <div class="sub-title">Étape 4 — Budget final</div>
     <div class="tbl-wrap"><table class="tbl">
       <tr><th>Ligne</th><th>Calcul</th></tr>
-      <tr><td>Total encaissements</td><td><span class="mono">Somme budget encaissements</span></td></tr>
-      <tr><td>− Total décaissements</td><td><span class="mono">Somme budget décaissements</span></td></tr>
-      <tr><td>= Variation mensuelle de trésorerie</td><td><span class="mono">Encaissements − Décaissements</span></td></tr>
-      <tr><td>+ Solde initial de trésorerie</td><td><span class="mono">Solde final du mois précédent</span></td></tr>
-      <tr><td>= Solde final de trésorerie</td><td><span class="mono">Variation + Solde initial</span></td></tr>
+      <tr><td>Total encaissements</td><td>Somme budget encaissements</td></tr>
+      <tr><td>− Total décaissements</td><td>Somme budget décaissements</td></tr>
+      <tr><td>= Variation mensuelle</td><td>Encaissements − Décaissements</td></tr>
+      <tr><td>+ Solde initial</td><td>Solde final mois précédent</td></tr>
+      <tr><td>= Solde final</td><td>Variation + Solde initial</td></tr>
     </table></div>
 
-    <div class="sub-title">Commentaire du budget — toujours demandé</div>
+    <div class="sub-title">Commentaire — toujours demandé</div>
     <div class="cards two">
-      <div class="card green">
-        <div class="card-label">Budget équilibré ✓</div>
-        <div class="card-name">Soldes finals toujours positifs</div>
-        <div class="note">Le budget est équilibré : les choix d'investissement et de financement ne créent pas de déséquilibre de trésorerie.</div>
-      </div>
-      <div class="card red">
-        <div class="card-label">Budget déséquilibré ✗</div>
-        <div class="card-name">Solde final négatif sur un/plusieurs mois</div>
-        <div class="note">Identifier le mois problématique. Proposer des solutions : anticiper l'emprunt, décaler l'investissement, mobiliser des créances (escompte), négocier les délais fournisseurs.</div>
-      </div>
+      <div class="card green"><div class="card-label">Équilibré ✓</div><div class="note" style="margin-top:0">Soldes finals toujours positifs → choix cohérents.</div></div>
+      <div class="card red"><div class="card-label">Déséquilibré ✗</div><div class="note" style="margin-top:0">Identifier le mois problématique. Solutions : anticiper l'emprunt, escompte, décaler investissement.</div></div>
     </div>
 
-    <div class="sub-title">Budget de trésorerie vs Plan de trésorerie</div>
+    <div class="sub-title">Budget vs Plan de trésorerie</div>
     <div class="tbl-wrap"><table class="tbl">
-      <tr><th>Document</th><th>Contenu</th><th>Différence clé</th></tr>
-      <tr><td>Budget de trésorerie</td><td>Activité + investissement + financement à LT</td><td>Ne tient pas compte des placements/crédits CT</td></tr>
-      <tr><td>Plan de trésorerie</td><td>Budget + placements CT + crédits CT</td><td>Optimise le solde final (action sur le CT)</td></tr>
+      <tr><th>Document</th><th>Différence clé</th></tr>
+      <tr><td>Budget de trésorerie</td><td>Ne tient pas compte des placements/crédits CT</td></tr>
+      <tr><td>Plan de trésorerie</td><td>Intègre placements CT + crédits CT → optimise le solde</td></tr>
     </table></div>
 
     <div class="nav-bottom">
-      <div class="nav-btn" onclick="show(2)"><span class="arrow">←</span><span>Dossier 2 — Choix d'investissement</span></div>
-      <div class="nav-btn" onclick="show(4)"><span>Dossier 4 — Plan de financement</span><span class="arrow">→</span></div>
+      <div class="nav-btn" onclick="show(2)"><span class="arrow">←</span></div>
+      <div class="nav-btn" onclick="show(4)"><span class="arrow">→</span><span class="label">&nbsp;Dossier 4 — Plan</span></div>
     </div>
   </div>
 
-  <!-- ══ SECTION 4 — PLAN DE FINANCEMENT ══ -->
+  <!-- ══ 4 — PLAN DE FINANCEMENT ══ -->
   <div id="s4" class="section">
     <div class="section-hero">
       <div class="big-num">4</div>
-      <div class="section-info">
+      <div>
         <div class="section-tag">Dossier 4</div>
         <div class="section-title-text">Le Plan de Financement</div>
-        <div class="section-desc">Document pluriannuel ressources/emplois. Calcul de la CAF et commentaire toujours demandés.</div>
+        <div class="section-desc">Document pluriannuel. CAF + ressources/emplois + commentaire.</div>
         <span class="freq-badge freq-3">★★★ Toujours au programme</span>
       </div>
     </div>
 
-    <div class="sub-title">Définition</div>
-    <div class="card dark" style="margin-bottom:16px">
-      <div class="card-label">À retenir mot pour mot</div>
-      <div style="font-size:13px;line-height:1.7;color:rgba(255,255,255,0.9)">Un <strong style="color:#f5c842">plan de financement</strong> est un document <em>prévisionnel pluriannuel</em> qui permet, une fois les décisions d'investissement et de financement prises, de vérifier que le <em>solde final de trésorerie est toujours positif</em> à la fin de chaque année.</div>
+    <div class="card dark" style="margin-bottom:14px">
+      <div class="card-label">Définition</div>
+      <div style="font-size:12.5px;line-height:1.7;color:rgba(255,255,255,.9)">Document prévisionnel <em>pluriannuel</em> qui permet de vérifier que le <strong style="color:#f5c842">solde final est toujours positif</strong> à la fin de chaque année.</div>
     </div>
 
-    <div class="sub-title">Calcul de la CAF (Capacité d'Autofinancement)</div>
-    <div class="alert gold"><em class="alert-icon">💡</em><div><strong>La CAF s'obtient à partir du résultat net :</strong> il faut d'abord calculer le résultat courant avant IS, puis après IS, puis ajouter les dotations aux amortissements (charges non décaissées).</div></div>
+    <div class="sub-title">Calcul de la CAF</div>
+    <div class="alert gold"><em class="alert-icon">💡</em><div><strong>CAF = Résultat net + DA.</strong> Calculer d'abord le RCAI, puis après IS, puis ajouter les DA.</div></div>
     <div class="tbl-wrap"><table class="tbl">
-      <tr><th>Ligne du compte de résultat</th><th>Calcul</th></tr>
+      <tr><th>Ligne</th><th>Calcul</th></tr>
       <tr><td>Chiffre d'affaires</td><td>Donné</td></tr>
-      <tr><td>− Charges variables d'exploitation</td><td>Données</td></tr>
-      <tr><td>− Charges fixes d'exploitation (hors DA)</td><td>Données</td></tr>
-      <tr><td>− Dotations aux amortissements</td><td>Coût acquisition ÷ durée</td></tr>
+      <tr><td>− Charges variables</td><td>Données</td></tr>
+      <tr><td>− Charges fixes (hors DA)</td><td>Données</td></tr>
+      <tr><td>− Dotations aux amortissements</td><td>Coût ÷ durée</td></tr>
       <tr><td>− Charges d'intérêts</td><td>Du tableau de remboursement</td></tr>
-      <tr><td>= Résultat courant avant IS</td><td>Somme algébrique</td></tr>
-      <tr><td>Résultat courant après IS</td><td><span class="mono">RCAI × (1 − 25 %)</span></td></tr>
-      <tr><td><strong>CAF = Résultat net + DA</strong></td><td><span class="mono">Résultat après IS + DA</span></td></tr>
+      <tr><td>= RCAI</td><td>Somme algébrique</td></tr>
+      <tr><td>Résultat après IS</td><td><span class="mono">RCAI × (1−25%)</span></td></tr>
+      <tr><td><strong>CAF = Résultat + DA</strong></td><td><span class="mono">Résultat après IS + DA</span></td></tr>
     </table></div>
 
-    <div class="sub-title">Structure du plan de financement</div>
+    <div class="sub-title">Ressources vs Emplois</div>
     <div class="cards two">
       <div class="card green">
         <div class="card-label">Ressources (entrées) ★★★</div>
-        <div class="card-name">Ce qui finance le projet</div>
-        <div class="note" style="margin-top:0">
-          <strong>CAF</strong> de chaque année (calculée ci-dessus)<br>
-          <strong>Augmentation de capital</strong> (si apport des actionnaires)<br>
-          <strong>Nouvel emprunt</strong> (montant reçu en début de projet)<br>
-          <strong>Cessions d'actifs</strong> (produit de cession net d'IS)<br>
-          <strong>Récupération du BFRE</strong> (en fin de projet uniquement)
-        </div>
+        <div class="note" style="margin-top:0"><strong>CAF</strong> de chaque année<br><strong>Augmentation de capital</strong><br><strong>Nouvel emprunt</strong><br><strong>Cessions d'actifs</strong> (net d'IS)<br><strong>Récupération BFRE</strong> (fin projet)</div>
       </div>
       <div class="card red">
         <div class="card-label">Emplois (sorties) ★★★</div>
-        <div class="card-name">Ce que le projet coûte</div>
-        <div class="note" style="margin-top:0">
-          <strong>Acquisition d'immobilisation</strong> (en début, t=0)<br>
-          <strong>Remboursement d'emprunt</strong> (amortissements du tableau)<br>
-          <strong>Augmentation du BFRE</strong> (si croissance du CA)<br>
-          <strong>Dividendes versés</strong> aux actionnaires<br>
-          <strong>Impôt sur les sociétés</strong> (si non déjà dans la CAF)
-        </div>
+        <div class="note" style="margin-top:0"><strong>Acquisition</strong> (début, t=0)<br><strong>Remboursement emprunt</strong><br><strong>Augmentation BFRE</strong><br><strong>Dividendes versés</strong><br><strong>IS</strong> si non dans la CAF</div>
       </div>
     </div>
-
-    <div class="alert red"><em class="alert-icon">⚠</em><div><strong>Pièges classiques :</strong> (1) Les charges d'intérêts sont <em>dans la CAF</em> (déjà déduites du résultat), pas dans les emplois. (2) Les dividendes sont des <em>emplois</em>, jamais des ressources. (3) Le BFRE est <em>récupéré</em> (ressource) uniquement en fin de projet.</div></div>
+    <div class="alert red"><em class="alert-icon">⚠</em><div><strong>Pièges :</strong> (1) Intérêts = dans la CAF, pas dans emplois. (2) Dividendes = emplois. (3) BFRE récupéré = ressource en fin de projet uniquement.</div></div>
 
     <div class="sub-title">Calcul des soldes</div>
     <div class="tbl-wrap"><table class="tbl">
       <tr><th>Ligne</th><th>Calcul</th></tr>
-      <tr><td>Total ressources</td><td>Somme de toutes les ressources</td></tr>
-      <tr><td>− Total emplois</td><td>Somme de tous les emplois</td></tr>
-      <tr><td>= Variation de trésorerie</td><td>Ressources − Emplois</td></tr>
-      <tr><td>+ Solde initial</td><td>Solde final de la période précédente (0 en t=0)</td></tr>
+      <tr><td>Variation de trésorerie</td><td>Ressources − Emplois</td></tr>
+      <tr><td>+ Solde initial</td><td>Solde final période précédente</td></tr>
       <tr><td>= Solde final</td><td>Variation + Solde initial</td></tr>
     </table></div>
 
-    <div class="sub-title">Commentaire du plan — toujours demandé</div>
-    <div class="cards two">
-      <div class="card green">
-        <div class="card-label">Plan équilibré ✓</div>
-        <div class="card-name">Soldes toujours positifs</div>
-        <div class="note">Le solde final est positif chaque année : les choix d'investissement et de financement sont cohérents et ne créent pas de déséquilibre de trésorerie.</div>
-      </div>
-      <div class="card red">
-        <div class="card-label">Plan déséquilibré ✗</div>
-        <div class="card-name">Solde négatif sur une année</div>
-        <div class="note">Identifier l'année problématique. Solutions : augmenter le capital, contracter un emprunt supplémentaire, réduire/décaler les dividendes, retarder un investissement.</div>
-      </div>
-    </div>
-
     <div class="nav-bottom">
-      <div class="nav-btn" onclick="show(3)"><span class="arrow">←</span><span>Dossier 3 — Budget de trésorerie</span></div>
-      <div class="nav-btn" onclick="show(5)"><span>Dossier 5 — BFRE Normatif</span><span class="arrow">→</span></div>
+      <div class="nav-btn" onclick="show(3)"><span class="arrow">←</span></div>
+      <div class="nav-btn" onclick="show(5)"><span class="arrow">→</span><span class="label">&nbsp;Dossier 5 — BFRE</span></div>
     </div>
   </div>
 
-  <!-- ══ SECTION 5 — BFRE NORMATIF ══ -->
+  <!-- ══ 5 — BFRE NORMATIF ══ -->
   <div id="s5" class="section">
     <div class="section-hero">
       <div class="big-num">5</div>
-      <div class="section-info">
+      <div>
         <div class="section-tag">Dossier 5</div>
         <div class="section-title-text">Le BFRE Normatif</div>
-        <div class="section-desc">Calcul du besoin en fonds de roulement d'exploitation en jours de CA HT. Délais et coefficients de structure.</div>
+        <div class="section-desc">Délais et coefficients de structure en jours de CA HT.</div>
         <span class="freq-badge freq-3">★★★ Toujours au programme</span>
       </div>
     </div>
 
-    <div class="sub-title">Pourquoi le BFRE normatif ?</div>
-    <div class="card dark" style="margin-bottom:16px">
-      <div class="card-label">À retenir mot pour mot</div>
-      <div style="font-size:13px;line-height:1.7;color:rgba(255,255,255,0.9)">Le BFRE normatif est utile pour <em>anticiper la variation du BFRE</em> lors d'un projet d'investissement, et donc pour prévoir son financement. En période d'augmentation du CA, le BFRE augmente et <strong style="color:#f5c842">toute augmentation du BFRE réduit la trésorerie</strong>.</div>
+    <div class="card dark" style="margin-bottom:14px">
+      <div class="card-label">Pourquoi ?</div>
+      <div style="font-size:12.5px;line-height:1.7;color:rgba(255,255,255,.9)">Anticiper la variation du BFRE lors d'un projet. <strong style="color:#f5c842">Toute augmentation du BFRE réduit la trésorerie</strong> → besoin à financer.</div>
     </div>
 
     <div class="sub-title">Formule générale</div>
-    <div class="cards one">
-      <div class="card blue">
-        <div class="card-label">BFRE en euros ★★★</div>
-        <div class="card-name">BFRE = CA × BFRE en jours ÷ 360</div>
-        <div class="formula"><span class="var">BFRE</span> (€) <span class="op">=</span> <span class="var">CA<sub>HT</sub></span> <span class="op">×</span> <span class="frac"><span class="num">BFRE (jours)</span><span class="den">360</span></span><br><br><span class="var">BFRE</span> (jours) <span class="op">=</span> Σ Besoins <span class="op">−</span> Σ Dégagements</div>
-        <div class="note">Chaque poste du BFRE est exprimé en jours de CA HT = délai × coefficient de structure.</div>
-      </div>
+    <div class="card blue" style="margin-bottom:12px">
+      <div class="card-label">BFRE en euros ★★★</div>
+      <div class="formula"><span class="var">BFRE</span> (€) <span class="op">=</span> <span class="var">CA<sub>HT</sub></span> <span class="op">×</span> <span class="frac"><span class="num">BFRE (jours)</span><span class="den">360</span></span><br><span class="var">BFRE</span> (j) <span class="op">=</span> Σ Besoins <span class="op">−</span> Σ Dégagements</div>
+      <div class="note">Chaque poste = délai × coefficient de structure</div>
     </div>
 
-    <div class="sub-title">Les deux composantes de chaque poste</div>
+    <div class="sub-title">Délais moyens</div>
     <div class="cards two">
       <div class="card blue">
-        <div class="card-label">Délai moyen (ratio de rotation)</div>
-        <div class="card-name">Durée de détention ou de crédit</div>
+        <div class="card-label">Délai moyen ★★★</div>
         <div class="note" style="margin-top:0">
-          <strong>Stocks :</strong> délai de stockage (donné en jours)<br>
-          <strong>Clients :</strong> délai de règlement clients<br>
-          <strong>Fournisseurs :</strong> délai de règlement fournisseurs<br>
-          <strong>TVA :</strong> délai de déclaration/paiement<br><br>
+          Durée de détention ou de crédit.<br><br>
           <strong>⚠ Délai fin de mois :</strong><br>
-          "30 jours fin de mois" → délai moyen = 30/2 + 30 = <strong>45 jours</strong><br>
-          "Le 20 de chaque mois" → délai moyen = 30/2 + 20 = <strong>35 jours</strong>
+          "30j fin de mois" → 30/2 + 30 = <strong>45j</strong><br>
+          "Le 20 de chaque mois" → 30/2 + 20 = <strong>35j</strong>
         </div>
       </div>
       <div class="card purple">
-        <div class="card-label">Coefficient de structure</div>
-        <div class="card-name">Rapporter la base au CA HT</div>
+        <div class="card-label">Coefficient de structure ★★★</div>
         <div class="formula"><span class="var">Coeff.</span> <span class="op">=</span> <span class="frac"><span class="num">Base TTC ou HT</span><span class="den">CA HT</span></span></div>
-        <div class="note" style="margin-top:4px">
-          <strong>Créances clients TTC :</strong> Ventes à crédit × (1+TVA) / CA HT<br>
-          <strong>Dettes fournisseurs TTC :</strong> Achats à crédit × (1+TVA) / CA HT<br>
-          <strong>TVA collectée :</strong> CA HT × taux TVA / CA HT = taux TVA<br>
-          <strong>TVA déductible :</strong> Achats × taux TVA / CA HT<br>
-          <strong>Stocks :</strong> Achats HT / CA HT (pas de TVA)
+        <div class="note">
+          Clients TTC : Ventes crédit×(1+TVA) / CA HT<br>
+          Fournisseurs TTC : Achats crédit×(1+TVA) / CA HT<br>
+          TVA collectée : taux TVA (ex : 0,20)<br>
+          Stocks : Achats HT / CA HT
         </div>
       </div>
     </div>
 
-    <div class="sub-title">Tableau récapitulatif du BFRE normatif</div>
+    <div class="sub-title">Tableau récapitulatif</div>
     <div class="tbl-wrap"><table class="tbl">
-      <tr><th>Poste</th><th>Délai</th><th>Coefficient de structure</th><th>Besoin ou Dégagement</th></tr>
-      <tr><td>Stocks de marchandises</td><td>Délai stockage</td><td><span class="mono">Achats HT / CA HT</span></td><td>Besoin</td></tr>
-      <tr><td>Créances clients</td><td>Délai règlement client</td><td><span class="mono">Ventes à crédit TTC / CA HT</span></td><td>Besoin</td></tr>
-      <tr><td>TVA déductible</td><td>Délai déclaration TVA</td><td><span class="mono">Achats HT × TVA% / CA HT</span></td><td>Besoin</td></tr>
-      <tr><td>Dettes fournisseurs</td><td>Délai règlement fourn.</td><td><span class="mono">Achats à crédit TTC / CA HT</span></td><td>Dégagement</td></tr>
-      <tr><td>TVA collectée</td><td>Délai déclaration TVA</td><td><span class="mono">taux TVA (ex : 0,20)</span></td><td>Dégagement</td></tr>
+      <tr><th>Poste</th><th>Coefficient</th><th>Type</th></tr>
+      <tr><td>Stocks</td><td><span class="mono">Achats HT / CA HT</span></td><td>Besoin</td></tr>
+      <tr><td>Créances clients</td><td><span class="mono">Ventes TTC×% crédit / CA HT</span></td><td>Besoin</td></tr>
+      <tr><td>TVA déductible</td><td><span class="mono">Achats HT × TVA% / CA HT</span></td><td>Besoin</td></tr>
+      <tr><td>Dettes fournisseurs</td><td><span class="mono">Achats TTC×% crédit / CA HT</span></td><td>Dégagement</td></tr>
+      <tr><td>TVA collectée</td><td><span class="mono">taux TVA (ex : 0,20)</span></td><td>Dégagement</td></tr>
     </table></div>
-
-    <div class="alert red"><em class="alert-icon">⚠</em><div><strong>Pièges classiques :</strong> (1) Les créances clients et les dettes fournisseurs sont en <em>TTC</em>. (2) Les stocks sont en <em>HT</em>. (3) Si une partie seulement est à crédit, multiplier le coefficient par ce pourcentage. (4) Charges mixtes TTC/HT : séparer la partie soumise à TVA de la partie non soumise.</div></div>
+    <div class="alert red"><em class="alert-icon">⚠</em><div><strong>Pièges :</strong> Clients et fournisseurs en TTC. Stocks en HT. Charges mixtes : séparer la part soumise à TVA.</div></div>
 
     <div class="nav-bottom">
-      <div class="nav-btn" onclick="show(4)"><span class="arrow">←</span><span>Dossier 4 — Plan de financement</span></div>
-      <div class="nav-btn" onclick="show(6)"><span>Dossier 6 — Emprunt & Financement</span><span class="arrow">→</span></div>
+      <div class="nav-btn" onclick="show(4)"><span class="arrow">←</span></div>
+      <div class="nav-btn" onclick="show(6)"><span class="arrow">→</span><span class="label">&nbsp;Dossier 6 — Emprunt</span></div>
     </div>
   </div>
 
-  <!-- ══ SECTION 6 — EMPRUNT ══ -->
+  <!-- ══ 6 — EMPRUNT ══ -->
   <div id="s6" class="section">
     <div class="section-hero">
       <div class="big-num">6</div>
-      <div class="section-info">
+      <div>
         <div class="section-tag">Dossier 6</div>
         <div class="section-title-text">L'Emprunt et le Financement</div>
-        <div class="section-desc">Tableaux d'amortissement, coût de revient net d'IS, emprunt obligataire avec frais et primes.</div>
+        <div class="section-desc">Tableaux d'amortissement, coût de revient net d'IS, emprunt obligataire.</div>
         <span class="freq-badge freq-3">★★★ Très présent</span>
       </div>
     </div>
 
-    <div class="sub-title">Tableau d'amortissement — les deux modes</div>
+    <div class="sub-title">Tableau d'amortissement</div>
     <div class="cards two">
       <div class="card blue">
         <div class="card-label">Amortissement constant ★★★</div>
-        <div class="card-name">Même amortissement chaque année</div>
-        <div class="formula"><span class="var">Amortissement</span> <span class="op">=</span> <span class="frac"><span class="num">K</span><span class="den">n</span></span><br><span class="var">Intérêts</span> <span class="op">=</span> <span class="var">CRD</span> <span class="op">×</span> <span class="var">i</span><br><span class="var">Annuité</span> <span class="op">=</span> Intérêts <span class="op">+</span> Amortissement</div>
-        <div class="note"><strong>Annuités décroissantes</strong> car les intérêts baissent avec le CRD.<br>Coût total en € plus faible qu'in fine.</div>
-        <div class="example"><div class="example-title">Exemple exam</div>Emprunt <span class="key">100 000 €</span> sur <span class="key">5 ans</span> à <span class="key">2 %</span><br>Amort. constant = 100 000/5 = 20 000/an<br>Intérêts an 2 = (100 000 − 20 000) × 2 % = 1 600 €</div>
+        <div class="card-name">Même amortissement chaque an</div>
+        <div class="formula"><span class="var">Amort.</span> <span class="op">=</span> <span class="frac"><span class="num">K</span><span class="den">n</span></span><br><span class="var">Intérêts</span> <span class="op">=</span> CRD <span class="op">×</span> <span class="var">i</span><br><span class="var">Annuité</span> <span class="op">=</span> Int. <span class="op">+</span> Amort.</div>
+        <div class="note">Annuités décroissantes. Coût € plus faible qu'in fine.</div>
+        <div class="example"><div class="example-title">Exemple exam</div>K=<span class="key">100 000</span>, 5 ans, 2 %<br>Amort. = 20 000/an<br>Int. an 2 = (100 000−20 000)×2% = 1 600 €</div>
       </div>
       <div class="card purple">
         <div class="card-label">Annuité constante ★★</div>
-        <div class="card-name">Même annuité chaque année</div>
+        <div class="card-name">Même annuité chaque an</div>
         <div class="formula"><span class="var">a</span> <span class="op">=</span> <span class="var">K</span> <span class="op">×</span> <span class="frac"><span class="num"><span class="var">i</span></span><span class="den">1 <span class="op">−</span> (1+<span class="var">i</span>)<sup>−<span class="var">n</span></sup></span></span></div>
-        <div class="note"><strong>Annuités constantes</strong>, mais la part des intérêts diminue chaque année.<br>Capital restant dû : différence entre CRD et amortissement.</div>
-        <div class="example"><div class="example-title">Exemple exam</div>Capital emprunté si <span class="key">annuité 20 000 €</span>, <span class="key">5 ans</span>, <span class="key">4 %</span><br>K = 20 000 × (1−1,04⁻⁵)/0,04</div>
+        <div class="example"><div class="example-title">Exemple exam</div>Capital si annuité <span class="key">20 000 €</span>, 5 ans, 4 %<br>K = 20 000 × (1−1,04⁻⁵)/0,04</div>
       </div>
     </div>
 
     <div class="sub-title">Emprunt in fine ★★</div>
-    <div class="card teal" style="margin-bottom:16px">
-      <div class="card-label">Remboursement en une seule fois à la fin</div>
-      <div class="card-name">Capital remboursé uniquement à la dernière échéance</div>
-      <div class="formula"><span class="var">Intérêts</span> <span class="op">=</span> K <span class="op">×</span> <span class="var">i</span> &nbsp;<span class="cmt">// Identique chaque année</span><br><span class="var">Annuité(n)</span> <span class="op">=</span> K <span class="op">×</span> <span class="var">i</span> <span class="op">+</span> K &nbsp;<span class="cmt">// Dernière année uniquement</span></div>
-      <div class="note">Annuités identiques (seulement intérêts) sauf la dernière = intérêts + capital total. Coût total en € plus élevé qu'avec amortissement constant.</div>
+    <div class="card teal" style="margin-bottom:12px">
+      <div class="card-label">Capital remboursé uniquement à la fin</div>
+      <div class="formula"><span class="var">Intérêts</span> <span class="op">=</span> K <span class="op">×</span> <span class="var">i</span> <span class="cmt">// Chaque année (identiques)</span><br><span class="var">Annuité(n)</span> <span class="op">=</span> K<span class="op">×</span><span class="var">i</span> <span class="op">+</span> K <span class="cmt">// Dernière année seulement</span></div>
+      <div class="note">Coût total en € plus élevé qu'amortissement constant.</div>
     </div>
 
     <div class="sub-title">Coût de revient de l'emprunt</div>
     <div class="cards two">
       <div class="card green">
         <div class="card-label">Sans frais ★★★</div>
-        <div class="card-name">Coût de revient net d'IS</div>
-        <div class="formula"><span class="var">Coût net d'IS</span> <span class="op">=</span> <span class="var">i</span> <span class="op">×</span> (1 <span class="op">−</span> IS)<br><span class="cmt">// Ex : 4 % × (1 − 25 %) = 3 %</span></div>
-        <div class="note">Les intérêts sont fiscalement déductibles → IS réduit le coût réel de l'emprunt.</div>
+        <div class="formula"><span class="var">Coût net d'IS</span> <span class="op">=</span> <span class="var">i</span> <span class="op">×</span> (1<span class="op">−</span>IS)<br><span class="cmt">// Ex : 4% × 75% = 3%</span></div>
+        <div class="note">Les intérêts sont déductibles → IS réduit le coût réel.</div>
       </div>
       <div class="card orange">
         <div class="card-label">Avec frais d'émission ★★</div>
-        <div class="card-name">TIR des flux de l'emprunt</div>
-        <div class="formula"><span class="var">K net</span> <span class="op">−</span> frais <span class="op">=</span> Σ <span class="frac"><span class="num">Flux net d'IS</span><span class="den">(1+r)ᵏ</span></span><br><span class="cmt">// Trouver r = coût de revient net d'IS</span></div>
-        <div class="note">Les frais augmentent le coût, mais l'économie d'IS sur les frais réduit cet impact.<br><strong>Coût avec frais &gt; coût sans frais</strong>.</div>
+        <div class="formula"><span class="cmt">// Trouver r tel que :</span><br>K net <span class="op">=</span> Σ <span class="frac"><span class="num">Flux net d'IS</span><span class="den">(1+r)ᵏ</span></span></div>
+        <div class="note">Frais augmentent le coût mais économie d'IS sur frais le réduit.<br><strong>Coût avec frais &gt; coût sans frais</strong>.</div>
       </div>
     </div>
 
     <div class="sub-title">Emprunt obligataire ★★</div>
-    <div class="cards one">
-      <div class="card rose">
-        <div class="card-label">Spécificités de l'emprunt obligataire</div>
-        <div class="card-name">Coupon, prime de remboursement, frais de dossier</div>
-        <div class="formula"><span class="var">Coupon</span> <span class="op">=</span> Nominal <span class="op">×</span> Taux facial<br><span class="var">Prime de rembours.</span> <span class="op">=</span> Prix rembours. <span class="op">−</span> Prix émission<br><span class="var">DA prime</span> <span class="op">=</span> Prime <span class="op">÷</span> Durée de l'emprunt</div>
-        <div class="note">
-          <strong>Émission :</strong> Nb obligations × Prix d'émission − Frais de dossier<br>
-          <strong>Chaque année :</strong> − Coupons + Économie d'IS (sur coupons + DA prime)<br>
-          <strong>Dernière année :</strong> − Remboursement (Nb obligations × Prix remboursement)<br>
-          <strong>Économie d'IS :</strong> (Coupon + DA prime de rembours. + évent. DA frais) × 25 %
-        </div>
+    <div class="card rose">
+      <div class="card-label">Coupon, prime de remboursement, frais</div>
+      <div class="formula"><span class="var">Coupon</span> <span class="op">=</span> Nominal <span class="op">×</span> Taux facial<br><span class="var">Prime rembours.</span> <span class="op">=</span> Prix rembours. <span class="op">−</span> Prix émission<br><span class="var">DA prime</span> <span class="op">=</span> Prime <span class="op">÷</span> Durée</div>
+      <div class="note">
+        <strong>Économie d'IS :</strong> (Coupon + DA prime + DA frais) × 25 %<br>
+        <strong>Coût net d'IS &lt; coût brut</strong> car économies d'IS réduisent la charge.
       </div>
     </div>
 
     <div class="nav-bottom">
-      <div class="nav-btn" onclick="show(5)"><span class="arrow">←</span><span>Dossier 5 — BFRE Normatif</span></div>
-      <div class="nav-btn" onclick="show(7)"><span>Dossier 7 — Actions & Marchés</span><span class="arrow">→</span></div>
+      <div class="nav-btn" onclick="show(5)"><span class="arrow">←</span></div>
+      <div class="nav-btn" onclick="show(7)"><span class="arrow">→</span><span class="label">&nbsp;Dossier 7 — Actions</span></div>
     </div>
   </div>
 
-  <!-- ══ SECTION 7 — ACTIONS ET MARCHÉS ══ -->
+  <!-- ══ 7 — ACTIONS & MARCHÉS ══ -->
   <div id="s7" class="section">
     <div class="section-hero">
       <div class="big-num">7</div>
-      <div class="section-info">
+      <div>
         <div class="section-tag">Dossier 7</div>
         <div class="section-title-text">Actions &amp; Marchés Financiers</div>
-        <div class="section-desc">Rentabilité, risque, portefeuille, obligations. Souvent dans les "questions diverses".</div>
+        <div class="section-desc">Rentabilité, risque, obligations. Souvent dans les questions diverses.</div>
         <span class="freq-badge freq-2">★★ Fréquent</span>
       </div>
     </div>
@@ -1056,91 +814,76 @@ body {
     <div class="sub-title">Rentabilité d'une action</div>
     <div class="cards two">
       <div class="card blue">
-        <div class="card-label">Rentabilité sur une période ★★</div>
-        <div class="card-name">Plus-value + dividende</div>
+        <div class="card-label">Rentabilité ★★</div>
         <div class="formula"><span class="var">r</span> <span class="op">=</span> <span class="frac"><span class="num">(P<sub>fin</sub> <span class="op">−</span> P<sub>début</sub>) <span class="op">+</span> D</span><span class="den">P<sub>début</sub></span></span></div>
-        <div class="note">
-          <strong>Rentabilité négative</strong> = la moins-value est supérieure au dividende versé.<br>
-          <strong>P</strong> = cours de l'action · <strong>D</strong> = dividende
-        </div>
+        <div class="note"><strong>Rentabilité négative</strong> = moins-value &gt; dividende.<br>P = cours · D = dividende</div>
       </div>
       <div class="card purple">
         <div class="card-label">Moyenne et écart-type ★★</div>
-        <div class="card-name">Rentabilité moyenne et risque</div>
-        <div class="formula"><span class="var">r̄</span> <span class="op">=</span> <span class="frac"><span class="num">Σ rᵢ</span><span class="den">n</span></span><br><span class="var">σ</span> <span class="op">=</span> √ <span class="frac"><span class="num">Σ (rᵢ <span class="op">−</span> r̄)²</span><span class="den">n</span></span></div>
-        <div class="note">Préciser si population (÷n) ou échantillon (÷n−1).</div>
-        <div class="example"><div class="example-title">Exemple exam</div>Rentabilités : <span class="key">5%, −2%, 7%, 4%, −1%, 11%</span><br>r̄ = (5−2+7+4−1+11)/6 = 24/6 = <span class="key">4 %</span></div>
+        <div class="formula"><span class="var">r̄</span> <span class="op">=</span> <span class="frac"><span class="num">Σ rᵢ</span><span class="den">n</span></span> &nbsp;&nbsp; <span class="var">σ</span> <span class="op">=</span> √<span class="frac"><span class="num">Σ(rᵢ−r̄)²</span><span class="den">n</span></span></div>
+        <div class="example"><div class="example-title">Exemple exam</div>r: <span class="key">5%,−2%,7%,4%,−1%,11%</span><br>r̄ = 24%/6 = <span class="key">4 %</span></div>
       </div>
     </div>
 
     <div class="sub-title">Diversification du portefeuille</div>
-    <div class="card green" style="margin-bottom:16px">
-      <div class="card-label">Principe fondamental ★</div>
-      <div class="card-name">Ne pas mettre tous ses œufs dans le même panier</div>
-      <div class="note" style="margin-top:0">
-        Pour améliorer la rentabilité tout en réduisant le risque : investir dans <strong>au moins 2 titres</strong> avec un <strong>coefficient de corrélation proche de −1</strong>.<br>
-        Corrélation = −1 → variations exactement inverses → risque global minimum.<br>
-        La rentabilité moyenne du portefeuille = moyenne pondérée des rentabilités des titres.
-      </div>
+    <div class="card green" style="margin-bottom:12px">
+      <div class="card-label">Principe ★</div>
+      <div class="note" style="margin-top:0">Investir dans ≥2 titres avec <strong>coefficient de corrélation proche de −1</strong>.<br>Corrélation = −1 → variations inverses → risque minimum.</div>
     </div>
 
-    <div class="sub-title">Les obligations</div>
+    <div class="sub-title">Obligations</div>
     <div class="cards two">
       <div class="card blue">
-        <div class="card-label">Définitions clés ★★★</div>
-        <div class="card-name">Obligation = titre de créance</div>
+        <div class="card-label">Définitions ★★★</div>
         <div class="note" style="margin-top:0">
-          <strong>Obligation :</strong> titre de créance donnant droit à une rémunération périodique (le <em>coupon</em>) et à un remboursement.<br>
+          <strong>Obligation :</strong> titre de créance, coupon + remboursement.<br>
           <strong>Coupon :</strong> Nominal × Taux facial<br>
-          <strong>Coupon couru :</strong> intérêts dus entre la dernière date de versement et la date du calcul.<br>
-          <strong>Valeur d'une obligation :</strong> VA des coupons futurs + VA du remboursement.
+          <strong>Coupon couru :</strong> intérêts dus depuis le dernier versement.<br>
+          <strong>Valeur :</strong> VA coupons + VA remboursement.
         </div>
       </div>
       <div class="card red">
         <div class="card-label">Risque de taux ★★</div>
-        <div class="card-name">Relation taux de marché / valeur obligation</div>
-        <div class="formula"><span class="cmt">// Relation inverse fondamentale :</span><br>Taux marché ↑ &nbsp;<span class="op">→</span>&nbsp; Valeur obligation ↓<br>Taux marché ↓ &nbsp;<span class="op">→</span>&nbsp; Valeur obligation ↑</div>
-        <div class="note">Cette relation s'appelle le <strong>risque de taux</strong>. C'est une question de cours très classique.</div>
+        <div class="formula"><span class="cmt">// Relation inverse :</span><br>Taux marché ↑ → Valeur obligation ↓<br>Taux marché ↓ → Valeur obligation ↑</div>
+        <div class="note">S'appelle le <strong>risque de taux</strong>. Question classique.</div>
       </div>
     </div>
 
     <div class="sub-title">Marchés primaire et secondaire</div>
     <div class="tbl-wrap"><table class="tbl">
-      <tr><th>Marché</th><th>Définition</th><th>Qui échange ?</th></tr>
-      <tr><td>Primaire</td><td>"Marché du neuf" — émission de nouvelles obligations/actions</td><td>Entreprise émettrice ↔ Nouveaux souscripteurs</td></tr>
-      <tr><td>Secondaire</td><td>"Marché de l'occasion" — revente de titres déjà émis</td><td>Investisseurs entre eux (entreprise absente)</td></tr>
+      <tr><th>Marché</th><th>Définition</th></tr>
+      <tr><td>Primaire</td><td>"Marché du neuf" — émission nouvelle. Entreprise ↔ souscripteurs.</td></tr>
+      <tr><td>Secondaire</td><td>"Marché de l'occasion" — revente de titres. Investisseurs entre eux.</td></tr>
     </table></div>
 
     <div class="nav-bottom">
-      <div class="nav-btn" onclick="show(6)"><span class="arrow">←</span><span>Dossier 6 — Emprunt & Financement</span></div>
-      <div class="nav-btn" onclick="show(8)"><span>Dossier 8 — Définitions clés</span><span class="arrow">→</span></div>
+      <div class="nav-btn" onclick="show(6)"><span class="arrow">←</span></div>
+      <div class="nav-btn" onclick="show(8)"><span class="arrow">→</span><span class="label">&nbsp;Dossier 8 — Définitions</span></div>
     </div>
   </div>
 
-  <!-- ══ SECTION 8 — DÉFINITIONS ══ -->
+  <!-- ══ 8 — DÉFINITIONS ══ -->
   <div id="s8" class="section">
     <div class="section-hero">
       <div class="big-num">8</div>
-      <div class="section-info">
+      <div>
         <div class="section-tag">Dossier 8</div>
         <div class="section-title-text">Définitions &amp; Questions de cours</div>
-        <div class="section-desc">Souvent 6 à 8 points gratuits si bien préparés. Apprendre les formulations précises.</div>
-        <span class="freq-badge freq-3">★★★ Points faciles à aller chercher</span>
+        <div class="section-desc">6 à 8 points faciles si bien préparés.</div>
+        <span class="freq-badge freq-3">★★★ Points gratuits</span>
       </div>
     </div>
-
-    <div class="alert gold"><em class="alert-icon">💡</em><div>Les questions de cours valent souvent <strong>1 point par réponse</strong>. Des réponses courtes et précises suffisent — inutile de trop développer. Mémorise les définitions ci-dessous.</div></div>
+    <div class="alert gold"><em class="alert-icon">💡</em><div>1 point par réponse. Réponses courtes et précises. Mémorise les formulations ci-dessous.</div></div>
 
     <div class="sub-title">Définitions à apprendre par cœur</div>
-
     <div class="def-list">
       <div class="def-item">
         <div class="def-term">Coût du capital (CMPC)</div>
-        <div class="def-body">Moyenne pondérée du coût des ressources (capitaux propres + dettes financières), pondérées par leur poids dans la structure financière. Utilisé comme taux d'actualisation pour évaluer la rentabilité d'un projet.<br><span class="mono2">CMPC = Kcp × CP/(CP+DF) + Kd×(1−IS) × DF/(CP+DF)</span></div>
+        <div class="def-body">Moyenne pondérée du coût des ressources (CP + DF), pondérées par leur poids dans la structure financière. Utilisé comme taux d'actualisation.<br><span class="mono2">CMPC = Kcp×CP/(CP+DF) + Kd×(1−IS)×DF/(CP+DF)</span></div>
       </div>
       <div class="def-item">
         <div class="def-term">Coût des capitaux propres</div>
-        <div class="def-body">La rémunération attendue par les actionnaires en contrepartie de leur investissement dans l'entreprise.</div>
+        <div class="def-body">Rémunération attendue par les actionnaires en contrepartie de leur investissement.</div>
       </div>
       <div class="def-item">
         <div class="def-term">CAF d'exploitation</div>
@@ -1148,19 +891,19 @@ body {
       </div>
       <div class="def-item">
         <div class="def-term">Budget de trésorerie</div>
-        <div class="def-body">Document prévisionnel plurimensuel qui, à partir des informations prévisionnelles sur l'activité, les investissements et les financements, permet d'établir le solde final mensuel de trésorerie. <strong>Ne prend pas encore en compte</strong> les placements et crédits à court terme.</div>
+        <div class="def-body">Document prévisionnel plurimensuel permettant d'établir le solde final mensuel. <strong>Ne prend pas encore en compte</strong> les placements et crédits à court terme.</div>
       </div>
       <div class="def-item">
         <div class="def-term">Plan de trésorerie</div>
-        <div class="def-body">Optimisation du budget de trésorerie : intègre, au-delà du budget de trésorerie, les conséquences des <strong>placements et des crédits à court terme</strong>.</div>
+        <div class="def-body">Intègre, au-delà du budget de trésorerie, les <strong>placements et crédits à court terme</strong>.</div>
       </div>
       <div class="def-item">
         <div class="def-term">Plan de financement</div>
-        <div class="def-body">Document prévisionnel pluriannuel qui permet, une fois les décisions d'investissement et de financement prises, de vérifier que le solde final de trésorerie est toujours positif à la fin de chaque année.</div>
+        <div class="def-body">Document prévisionnel pluriannuel qui permet de vérifier que le <strong>solde final est toujours positif</strong> à la fin de chaque année.</div>
       </div>
       <div class="def-item">
         <div class="def-term">Une action</div>
-        <div class="def-body">Titre de propriété donnant droit, généralement, à un <strong>droit de vote</strong> en assemblée générale et à un <strong>droit au résultat</strong> (le dividende).</div>
+        <div class="def-body">Titre de propriété donnant droit à un <strong>droit de vote</strong> et à un <strong>droit au résultat</strong> (le dividende).</div>
       </div>
       <div class="def-item">
         <div class="def-term">Une obligation</div>
@@ -1168,57 +911,35 @@ body {
       </div>
       <div class="def-item">
         <div class="def-term">Un coupon couru</div>
-        <div class="def-body">Valeur des intérêts dus sur des obligations entre la <strong>dernière date de versement des intérêts</strong> et la <strong>date du calcul</strong>.</div>
+        <div class="def-body">Valeur des intérêts dus entre la <strong>dernière date de versement</strong> et la <strong>date du calcul</strong>.</div>
       </div>
       <div class="def-item">
         <div class="def-term">Remise à l'escompte</div>
-        <div class="def-body">Opération par laquelle une entreprise en <strong>difficulté de trésorerie à court terme</strong> anticipe l'encaissement d'un effet de commerce auprès d'une banque. Elle reçoit le montant de l'effet diminué des intérêts et frais bancaires.</div>
+        <div class="def-body">En <strong>difficulté de trésorerie CT</strong>, l'entreprise anticipe l'encaissement d'un effet de commerce auprès d'une banque, en échange d'intérêts et frais.</div>
       </div>
       <div class="def-item">
         <div class="def-term">Risque de taux</div>
-        <div class="def-body">Relation inverse entre le taux de rendement du marché obligataire et la valeur d'une obligation : <strong>si le taux augmente, la valeur de l'obligation diminue</strong>.</div>
+        <div class="def-body">Relation inverse entre taux de marché obligataire et valeur d'une obligation : <strong>taux ↑ → valeur obligation ↓</strong>.</div>
       </div>
     </div>
 
-    <div class="sub-title">Questions de raisonnement — réponses types</div>
-
-    <div class="cards one">
-      <div class="card gold">
-        <div class="card-label">Pourquoi les capitaux investis &gt; coût d'acquisition ?</div>
-        <div class="note" style="margin-top:0">Car au-delà de l'acquisition, l'entreprise doit financer l'<strong>augmentation initiale du BFRE</strong>. Toute augmentation du chiffre d'affaires entraîne une augmentation du BFRE, qui doit être financée.</div>
-      </div>
-    </div>
-    <div class="cards one">
-      <div class="card teal">
-        <div class="card-label">Pourquoi le flux de la dernière année est souvent le plus élevé ?</div>
-        <div class="note" style="margin-top:0">Car il intègre : (1) la <strong>récupération finale du BFRE</strong> (le BFRE est "libéré" en fin de projet) et (2) la <strong>cession éventuelle de l'immobilisation</strong> nette d'IS sur la plus-value.</div>
-      </div>
-    </div>
-    <div class="cards one">
-      <div class="card blue">
-        <div class="card-label">Comment choisir entre actions et compte bloqué ?</div>
-        <div class="note" style="margin-top:0">Arbitrer entre <strong>rentabilité et risque</strong>. Plus la rentabilité est élevée, plus le risque l'est aussi. Le choix dépend de l'<strong>aversion au risque</strong> de l'investisseur : averse au risque → compte bloqué (plus sûr, moins rentable) ; peu averse → actions (plus rentables, plus risquées).</div>
-      </div>
-    </div>
-    <div class="cards one">
-      <div class="card green">
-        <div class="card-label">À quoi sert l'indice de profitabilité ?</div>
-        <div class="note" style="margin-top:0">Il permet de <strong>comparer la rentabilité entre des projets de taille différente</strong> lorsque l'entreprise ne peut pas tous les mettre en place. Choisir le projet avec l'indice le plus élevé : IP = 1 + VAN/I₀.</div>
-      </div>
+    <div class="sub-title">Questions de raisonnement</div>
+    <div class="cards">
+      <div class="card gold"><div class="card-label">Capitaux investis &gt; coût acquisition ?</div><div class="note" style="margin-top:0">Car l'entreprise doit aussi financer l'<strong>augmentation initiale du BFRE</strong>.</div></div>
+      <div class="card teal"><div class="card-label">Flux dernière année &gt; autres flux ?</div><div class="note" style="margin-top:0">Car il intègre la <strong>récupération du BFRE</strong> et la <strong>cession éventuelle</strong> nette d'IS.</div></div>
+      <div class="card blue"><div class="card-label">Actions vs compte bloqué ?</div><div class="note" style="margin-top:0">Arbitrer <strong>rentabilité / risque</strong>. Averse au risque → compte bloqué. Peu averse → actions.</div></div>
+      <div class="card green"><div class="card-label">Indice de profitabilité ?</div><div class="note" style="margin-top:0">Compare projets de <strong>tailles différentes</strong>. Choisir IP le plus élevé : IP = 1 + VAN/I₀.</div></div>
     </div>
 
     <div class="nav-bottom">
-      <div class="nav-btn" onclick="show(7)"><span class="arrow">←</span><span>Dossier 7 — Actions & Marchés</span></div>
-      <div class="nav-btn" onclick="show(0)"><span>Vue d'ensemble</span><span class="arrow">→</span></div>
+      <div class="nav-btn" onclick="show(7)"><span class="arrow">←</span></div>
+      <div class="nav-btn" onclick="show(0)"><span class="arrow">↑</span><span class="label">&nbsp;Vue d'ensemble</span></div>
     </div>
   </div>
 
-  <!-- PAGE FOOTER -->
   <div class="page-footer">
-    <span>UE 445 · Finance d'Entreprise · INTEC · CNAM</span>
-    <span>Fiche complète — 8 dossiers · Examens 2023–2025</span>
+    <span>UE 445 · Finance d'Entreprise · INTEC · CNAM · 8 dossiers · Examens 2023–2025</span>
   </div>
-
 </main>
 </div>
 
@@ -1229,18 +950,10 @@ function show(n) {
     const s = document.getElementById('s' + i);
     if (s) s.classList.toggle('active', i === n);
   }
-  // Desktop sidebar
-  document.querySelectorAll('.nav-item').forEach((el, i) => {
-    el.classList.toggle('active', i === n);
-  });
-  // Mobile bottom nav
-  document.querySelectorAll('.mob-btn').forEach((el, i) => {
-    el.classList.toggle('active', i === n);
-  });
-  // Scroll to top — account for mobile (scroll main, not window)
-  const main = document.querySelector('.main');
-  if (main) main.scrollTo({ top: 0, behavior: 'smooth' });
+  document.querySelectorAll('.nav-item').forEach((el, i) => el.classList.toggle('active', i === n));
+  document.querySelectorAll('.mob-btn').forEach((el, i) => el.classList.toggle('active', i === n));
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.querySelector('.main').scrollTop = 0;
 }
 document.querySelectorAll('.nav-item, .ov-card').forEach(el => {
   el.addEventListener('click', e => e.preventDefault());
