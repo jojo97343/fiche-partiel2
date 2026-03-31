@@ -42,7 +42,7 @@ body{
 /* main content */
 .main{
   flex:1;
-  padding:14px 14px calc(var(--nav-h) + 16px + env(safe-area-inset-bottom,0px));
+  padding:calc(var(--nav-h) + 14px + env(safe-area-inset-top,0px)) 14px 24px;
   width:100%;
 }
 
@@ -50,11 +50,11 @@ body{
 .mobile-nav{
   display:flex;
   position:fixed;
-  bottom:0;left:0;right:0;
-  height:calc(var(--nav-h) + env(safe-area-inset-bottom,0px));
-  padding-bottom:env(safe-area-inset-bottom,0px);
+  top:0;left:0;right:0;
+  height:calc(var(--nav-h) + env(safe-area-inset-top,0px));
+  padding-top:env(safe-area-inset-top,0px);
   background:var(--ink);
-  border-top:1px solid rgba(255,255,255,0.1);
+  border-bottom:1px solid rgba(255,255,255,0.1);
   z-index:200;
   align-items:stretch;
   overflow:hidden;
