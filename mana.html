@@ -431,33 +431,49 @@
     margin-top: 20px;
   }
 
-  /* ===================== PRINT ===================== */
-  @media print {
-    .sticky-nav { display: none; }
-    body { font-size: 12px; background: white; }
-    .header { background: var(--ink) !important; -webkit-print-color-adjust: exact; padding: 16px; }
-    .container { padding: 10px; }
-    .section-title { margin: 16px 0 8px; }
-    .grid-2, .grid-3 { gap: 6px; }
-    a { text-decoration: none; }
+  /* ===================== PDF BUTTON ===================== */
+  .pdf-fab {
+    position: fixed;
+    bottom: 20px;
+    right: 16px;
+    z-index: 200;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 28px;
+    padding: 12px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(200,75,49,0.45);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .pdf-fab:hover { background: #b03a22; box-shadow: 0 6px 24px rgba(200,75,49,0.55); }
+  .pdf-fab:active { transform: scale(0.96); }
+  .pdf-fab:disabled { background: #999; box-shadow: none; cursor: default; transform: none; }
+  .pdf-fab svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .pdf-spinner {
+    display: inline-block;
+    width: 14px; height: 14px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    flex-shrink: 0;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  @media(max-width:480px) {
+    .pdf-fab { bottom: 14px; right: 12px; padding: 11px 16px; font-size: 12.5px; }
   }
 
-  /* ===================== MOBILE SPECIFICS ===================== */
-  @media(max-width:480px) {
-    .header { padding: 18px 14px 14px; }
-    .header h1 { font-size: 22px; }
-    .header-sub { display: none; }
-    .container { padding: 14px 10px 32px; }
-    .section-title { font-size: 17px; margin: 24px 0 12px; }
-    .card { padding: 12px 13px; }
-    .card-full { padding: 13px; }
-    .def { font-size: 12.5px; padding: 9px 11px; }
-    ul.clean li { font-size: 12.5px; }
-    td, th { padding: 6px 8px; font-size: 12px; }
-    .innov-card { padding: 10px; }
-    .innov-card h4 { font-size: 12px; }
-    .innov-card p { font-size: 11.5px; }
-  }
+  /* Elements that should NOT appear in the PDF */
+  .no-pdf { }
 </style>
 </head>
 <body>
@@ -492,6 +508,17 @@
   </div>
 </nav>
 
+<!-- FLOATING PDF BUTTON (excluded from PDF via JS) -->
+<button class="pdf-fab no-pdf" id="pdfBtn">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 16V4M12 16l-4-4M12 16l4-4"/>
+    <path d="M4 20h16"/>
+  </svg>
+  Télécharger PDF
+</button>
+
+<!-- PDF CONTENT START -->
+<div id="pdfContent">
 <div class="container">
 
 <!-- ====================== SECTION 1 : FONCTION RH ====================== -->
@@ -1704,16 +1731,22 @@
 </div>
 
 </div><!-- end container -->
+</div><!-- end pdfContent -->
 
-<div class="footer">
+<div class="footer no-pdf">
   Fiche de révision UE 444 – Management · CNAM INTEC · Basée sur les corrigés 2023–2025 (sessions normale &amp; rattrapage), le cours RH &amp; GPEC, et le cours Comportements organisationnels
 </div>
 
+<!-- html2pdf library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 <script>
 (function(){
+  /* ============================================================
+     1. STICKY NAV — height offset + active highlight + autoscroll
+  ============================================================ */
   var nav = document.getElementById('stickyNav');
 
-  // Set CSS variable for nav height (used by scroll-margin-top)
   function setNavH() {
     var h = nav ? nav.offsetHeight : 0;
     document.documentElement.style.setProperty('--nav-h', h + 'px');
@@ -1721,7 +1754,6 @@
   setNavH();
   window.addEventListener('resize', setNavH);
 
-  // Active link highlight on scroll
   var links = nav ? nav.querySelectorAll('a') : [];
   var sections = [];
   links.forEach(function(a) {
@@ -1732,35 +1764,24 @@
 
   function onScroll() {
     var navH = nav ? nav.offsetHeight : 0;
-    var scrollY = window.scrollY || window.pageYOffset;
     var current = null;
     sections.forEach(function(s) {
-      if (s.el.getBoundingClientRect().top <= navH + 24) {
-        current = s;
-      }
+      if (s.el.getBoundingClientRect().top <= navH + 24) current = s;
     });
     links.forEach(function(a) { a.classList.remove('active'); });
     if (current) {
       current.a.classList.add('active');
-      // Auto-scroll the nav to keep active link visible
       var aLeft = current.a.offsetLeft;
       var aWidth = current.a.offsetWidth;
-      var navWidth = nav.offsetWidth;
-      var scrollLeft = nav.scrollLeft;
-      if (aLeft < scrollLeft + 20) {
-        nav.scrollLeft = aLeft - 20;
-      } else if (aLeft + aWidth > scrollLeft + navWidth - 20) {
-        nav.scrollLeft = aLeft + aWidth - navWidth + 20;
-      }
+      var navW = nav.offsetWidth;
+      var sl = nav.scrollLeft;
+      if (aLeft < sl + 20) nav.scrollLeft = aLeft - 20;
+      else if (aLeft + aWidth > sl + navW - 20) nav.scrollLeft = aLeft + aWidth - navW + 20;
     }
   }
-
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  // Smooth click — native scroll-behavior:smooth handles it,
-  // but we also prevent the default jump and do it manually
-  // so the offset is respected on all browsers
   links.forEach(function(a) {
     a.addEventListener('click', function(e) {
       e.preventDefault();
@@ -1771,6 +1792,85 @@
       var top = target.getBoundingClientRect().top + window.scrollY - navH - 12;
       window.scrollTo({ top: top, behavior: 'smooth' });
     });
+  });
+
+  /* ============================================================
+     2. PDF DOWNLOAD — html2pdf, full multi-page, no nav/btn
+  ============================================================ */
+  var btn = document.getElementById('pdfBtn');
+  if (!btn) return;
+
+  btn.addEventListener('click', function() {
+    // Show loading state
+    btn.disabled = true;
+    btn.innerHTML = '<span class="pdf-spinner"></span> Génération…';
+
+    // Hide UI elements that shouldn't appear in PDF
+    var toHide = document.querySelectorAll('.no-pdf, .sticky-nav, #pdfBtn');
+    toHide.forEach(function(el) { el.style.visibility = 'hidden'; });
+
+    // Force all grids to single column for PDF readability
+    var style = document.createElement('style');
+    style.id = 'pdf-override';
+    style.textContent = [
+      '.grid-2,.grid-3{grid-template-columns:1fr!important;}',
+      '.innov-grid{grid-template-columns:1fr 1fr!important;}',
+      '.tools-grid{grid-template-columns:1fr 1fr 1fr!important;}',
+      '.steps{grid-template-columns:1fr 1fr!important;}',
+      '.remun-box{grid-template-columns:1fr 1fr!important;}',
+      '.sticky-nav{display:none!important;}',
+      '.no-pdf{display:none!important;}',
+      '.section-title{page-break-before:always;margin-top:16px!important;}',
+      '.section-title:first-of-type{page-break-before:avoid!important;}',
+      '.card,.card-full{page-break-inside:avoid;}',
+      'body{background:white!important;}',
+      '.container{padding:8px 10px!important;}'
+    ].join('');
+    document.head.appendChild(style);
+
+    var content = document.getElementById('pdfContent');
+
+    var opt = {
+      margin:       [10, 8, 10, 8],
+      filename:     'Fiche_UE444_Management.pdf',
+      image:        { type: 'jpeg', quality: 0.93 },
+      html2canvas:  {
+        scale: 2,
+        useCORS: true,
+        letterRendering: true,
+        scrollY: 0,
+        windowWidth: 900
+      },
+      jsPDF: {
+        unit: 'mm',
+        format: 'a4',
+        orientation: 'portrait',
+        compress: true
+      },
+      pagebreak: { mode: ['css', 'legacy'] }
+    };
+
+    html2pdf()
+      .set(opt)
+      .from(content)
+      .save()
+      .then(function() {
+        cleanup();
+      })
+      .catch(function() {
+        cleanup();
+        alert('Erreur lors de la génération. Réessaie.');
+      });
+
+    function cleanup() {
+      // Remove override style
+      var s = document.getElementById('pdf-override');
+      if (s) s.parentNode.removeChild(s);
+      // Restore hidden elements
+      toHide.forEach(function(el) { el.style.visibility = ''; });
+      btn.disabled = false;
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M12 16V4M12 16l-4-4M12 16l4-4"/><path d="M4 20h16"/></svg> Télécharger PDF';
+    }
   });
 })();
 </script>
