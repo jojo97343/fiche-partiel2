@@ -332,6 +332,122 @@ footer {
   border-top: 1px solid var(--ligne);
   letter-spacing: 0.04em;
 }
+
+/* ── BOUTON PDF ── */
+#pdf-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 16px;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--or);
+  color: var(--noir);
+  border: none;
+  border-radius: 28px;
+  padding: 11px 18px;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.82em;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(200,150,62,0.45);
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+
+#pdf-btn:hover {
+  background: var(--or-clair);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(200,150,62,0.55);
+}
+
+#pdf-btn:active { transform: scale(0.97); }
+
+#pdf-btn svg {
+  width: 16px; height: 16px;
+  flex-shrink: 0;
+}
+
+/* ── IMPRESSION / PDF ── */
+@media print {
+  /* Masque tout ce qui n'est pas la fiche */
+  #sticky-nav,
+  #pdf-btn,
+  .scroll-hint {
+    display: none !important;
+  }
+
+  body {
+    padding-top: 0 !important;
+    background: white !important;
+    font-size: 11px;
+    color: #000;
+  }
+
+  .page {
+    padding: 10px 14px 20px !important;
+    max-width: 100% !important;
+  }
+
+  /* Couleurs adaptées à l'impression */
+  .card {
+    border: 1px solid #ccc !important;
+    border-top: 2px solid #888 !important;
+    break-inside: avoid;
+    background: white !important;
+  }
+
+  .card.rouge { border-top-color: #8b1a1a !important; }
+  .card.bleu  { border-top-color: #1a3a5c !important; }
+  .card.vert  { border-top-color: #1a4a2e !important; }
+  .card.noir  { border-top-color: #000 !important; }
+
+  .section { break-inside: avoid; page-break-inside: avoid; }
+
+  .alerte {
+    border-left: 3px solid #888 !important;
+    background: #f9f9f9 !important;
+  }
+
+  .alerte.rouge { border-left-color: #8b1a1a !important; }
+  .alerte.bleu  { border-left-color: #1a3a5c !important; }
+  .alerte.vert  { border-left-color: #1a4a2e !important; }
+
+  .peine {
+    background: #8b1a1a !important;
+    color: white !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .infraction-table thead tr {
+    background: #222 !important;
+    color: white !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .comp-table th {
+    background: #1a3a5c !important;
+    color: white !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .comp-table th:first-child { background: #555 !important; }
+
+  .hl { background: #fdecc8 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .hl-rouge { background: #fde0e0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  a { color: inherit !important; text-decoration: none !important; }
+
+  @page {
+    margin: 1.2cm 1cm;
+    size: A4;
+  }
+}
 </style>
 </head>
 <body>
@@ -938,7 +1054,19 @@ footer {
   <footer>UE 442 – Droit des Sociétés · CNAM-INTEC · Sessions 2023, 2024, 2025</footer>
 </div>
 
+<!-- Bouton PDF flottant -->
+<button id="pdf-btn" title="Télécharger en PDF">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 15V3m0 12-4-4m4 4 4-4"/>
+    <path d="M2 17v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2"/>
+  </svg>
+  Télécharger PDF
+</button>
+
 <script>
+  // PDF print
+  document.getElementById('pdf-btn').addEventListener('click', () => window.print());
+
   // Scroll-spy : active tab follows reading position
   const tabs = document.querySelectorAll('#navTabs .menu-item');
   const sections = Array.from({length: 10}, (_, i) => document.getElementById('s' + (i + 1)));
