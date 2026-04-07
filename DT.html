@@ -921,7 +921,11 @@
 
       const imgW = canvas.width;
       const imgH = canvas.height;
-      const pageHeightPx = Math.floor(imgH * (PDF_W / (imgW / 2)) / PDF_H * 2);
+
+      // px per mm on the canvas (canvas is at scale:2, so divide by 2 for CSS px, then by device ratio)
+      const pxPerMm = imgW / PDF_W;
+      // Height of one A4 page in canvas pixels
+      const pageHeightPx = Math.round(PDF_H * pxPerMm);
 
       const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
 
@@ -937,9 +941,10 @@
         const ctx = pageCanvas.getContext('2d');
         ctx.drawImage(canvas, 0, yOffset, imgW, sliceH, 0, 0, imgW, sliceH);
         const imgData = pageCanvas.toDataURL('image/jpeg', 0.92);
-        const renderedH = sliceH / 2 * (PDF_W / (imgW / 2));
+        // Rendered height in mm proportional to slice
+        const renderedH = (sliceH / pxPerMm);
         pdf.addImage(imgData, 'JPEG', 0, 0, PDF_W, renderedH);
-        yOffset += sliceH;
+        yOffset += pageHeightPx;
         pageNum++;
       }
 
