@@ -883,10 +883,93 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  // PDF download via print dialog
-  document.getElementById('pdfBtn').addEventListener('click', () => {
-    window.print();
+  // ── PDF multi-pages via html2canvas + jsPDF ──
+  document.getElementById('pdfBtn').addEventListener('click', async () => {
+    const btn = document.getElementById('pdfBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;animation:spin 1s linear infinite"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Génération…';
+
+    await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+    await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+
+    const toHide = [
+      document.getElementById('main-nav'),
+      document.getElementById('backTop'),
+      btn,
+      document.querySelector('footer')
+    ];
+    toHide.forEach(el => { if (el) el.style.display = 'none'; });
+    document.body.style.paddingTop = '0';
+
+    try {
+      const { jsPDF } = window.jspdf;
+      const PDF_W = 210;
+      const PDF_H = 297;
+
+      const canvas = await html2canvas(document.body, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#f5f0e8',
+        scrollX: 0,
+        scrollY: 0,
+        windowWidth: document.body.scrollWidth,
+        windowHeight: document.body.scrollHeight,
+        width: document.body.scrollWidth,
+        height: document.body.scrollHeight
+      });
+
+      const imgW = canvas.width;
+      const imgH = canvas.height;
+      const pageHeightPx = Math.floor(imgH * (PDF_W / (imgW / 2)) / PDF_H * 2);
+
+      const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+      let yOffset = 0;
+      let pageNum = 0;
+
+      while (yOffset < imgH) {
+        if (pageNum > 0) pdf.addPage();
+        const sliceH = Math.min(pageHeightPx, imgH - yOffset);
+        const pageCanvas = document.createElement('canvas');
+        pageCanvas.width = imgW;
+        pageCanvas.height = sliceH;
+        const ctx = pageCanvas.getContext('2d');
+        ctx.drawImage(canvas, 0, yOffset, imgW, sliceH, 0, 0, imgW, sliceH);
+        const imgData = pageCanvas.toDataURL('image/jpeg', 0.92);
+        const renderedH = sliceH / 2 * (PDF_W / (imgW / 2));
+        pdf.addImage(imgData, 'JPEG', 0, 0, PDF_W, renderedH);
+        yOffset += sliceH;
+        pageNum++;
+      }
+
+      pdf.save('UE447_Droit_du_Travail.pdf');
+
+    } catch(e) {
+      alert('Erreur lors de la generation du PDF.');
+      console.error(e);
+    }
+
+    toHide.forEach(el => { if (el) el.style.display = ''; });
+    document.body.style.paddingTop = '';
+    btn.disabled = false;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg> PDF';
   });
+
+  function loadScript(src) {
+    return new Promise((resolve, reject) => {
+      if (document.querySelector('script[src="' + src + '"]')) { resolve(); return; }
+      const s = document.createElement('script');
+      s.src = src;
+      s.onload = resolve;
+      s.onerror = reject;
+      document.head.appendChild(s);
+    });
+  }
 </script>
+<style>
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .pdf-btn:disabled { opacity: 0.75; cursor: wait; }
+</style>
 </body>
 </html>
