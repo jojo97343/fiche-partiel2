@@ -1737,8 +1737,9 @@
   Fiche de révision UE 444 – Management · CNAM INTEC · Basée sur les corrigés 2023–2025 (sessions normale &amp; rattrapage), le cours RH &amp; GPEC, et le cours Comportements organisationnels
 </div>
 
-<!-- html2pdf library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<!-- html2canvas + jsPDF (loaded separately for reliability) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
 (function(){
@@ -1795,83 +1796,107 @@
   });
 
   /* ============================================================
-     2. PDF DOWNLOAD — html2pdf, full multi-page, no nav/btn
+     2. PDF — html2canvas capture → jsPDF slice en pages A4
   ============================================================ */
   var btn = document.getElementById('pdfBtn');
   if (!btn) return;
 
   btn.addEventListener('click', function() {
-    // Show loading state
     btn.disabled = true;
     btn.innerHTML = '<span class="pdf-spinner"></span> Génération…';
 
-    // Hide UI elements that shouldn't appear in PDF
-    var toHide = document.querySelectorAll('.no-pdf, .sticky-nav, #pdfBtn');
-    toHide.forEach(function(el) { el.style.visibility = 'hidden'; });
-
-    // Force all grids to single column for PDF readability
-    var style = document.createElement('style');
-    style.id = 'pdf-override';
-    style.textContent = [
-      '.grid-2,.grid-3{grid-template-columns:1fr!important;}',
-      '.innov-grid{grid-template-columns:1fr 1fr!important;}',
-      '.tools-grid{grid-template-columns:1fr 1fr 1fr!important;}',
-      '.steps{grid-template-columns:1fr 1fr!important;}',
-      '.remun-box{grid-template-columns:1fr 1fr!important;}',
-      '.sticky-nav{display:none!important;}',
-      '.no-pdf{display:none!important;}',
-      '.section-title{page-break-before:always;margin-top:16px!important;}',
-      '.section-title:first-of-type{page-break-before:avoid!important;}',
-      '.card,.card-full{page-break-inside:avoid;}',
-      'body{background:white!important;}',
-      '.container{padding:8px 10px!important;}'
-    ].join('');
-    document.head.appendChild(style);
-
     var content = document.getElementById('pdfContent');
 
-    var opt = {
-      margin:       [10, 8, 10, 8],
-      filename:     'Fiche_UE444_Management.pdf',
-      image:        { type: 'jpeg', quality: 0.93 },
-      html2canvas:  {
-        scale: 2,
-        useCORS: true,
-        letterRendering: true,
-        scrollY: 0,
-        windowWidth: 900
-      },
-      jsPDF: {
-        unit: 'mm',
-        format: 'a4',
-        orientation: 'portrait',
-        compress: true
-      },
-      pagebreak: { mode: ['css', 'legacy'] }
-    };
+    /* 1. Masquer nav + bouton pendant la capture */
+    nav.style.display = 'none';
+    btn.style.display = 'none';
 
-    html2pdf()
-      .set(opt)
-      .from(content)
-      .save()
-      .then(function() {
-        cleanup();
-      })
-      .catch(function() {
-        cleanup();
-        alert('Erreur lors de la génération. Réessaie.');
+    /* 2. Scroll en haut pour éviter offset */
+    window.scrollTo(0, 0);
+
+    /* 3. Capturer tout le contenu en une seule image */
+    html2canvas(content, {
+      scale: 2,
+      useCORS: true,
+      logging: false,
+      scrollX: 0,
+      scrollY: 0,
+      x: 0,
+      y: 0,
+      width:  content.scrollWidth,
+      height: content.scrollHeight,
+      windowWidth:  content.scrollWidth,
+      windowHeight: content.scrollHeight
+    }).then(function(canvas) {
+
+      /* 4. Dimensions A4 en mm */
+      var PDF_W = 210;
+      var PDF_H = 297;
+      var MARGIN = 10; /* mm */
+      var usableW = PDF_W - 2 * MARGIN;
+      var usableH = PDF_H - 2 * MARGIN;
+
+      /* 5. Calculer le ratio : largeur canvas → largeur PDF utilisable */
+      var canvasW = canvas.width;
+      var canvasH = canvas.height;
+      var ratio   = usableW / canvasW; /* mm par pixel canvas */
+      var totalH  = canvasH * ratio;   /* hauteur totale en mm */
+
+      /* 6. Créer le PDF et découper en pages */
+      var pdf = new window.jspdf.jsPDF({
+        unit:        'mm',
+        format:      'a4',
+        orientation: 'portrait',
+        compress:    true
       });
 
-    function cleanup() {
-      // Remove override style
-      var s = document.getElementById('pdf-override');
-      if (s) s.parentNode.removeChild(s);
-      // Restore hidden elements
-      toHide.forEach(function(el) { el.style.visibility = ''; });
+      var pageCount  = Math.ceil(totalH / usableH);
+      var pxPerPage  = Math.floor(usableH / ratio); /* pixels de canvas par page */
+
+      for (var i = 0; i < pageCount; i++) {
+        if (i > 0) pdf.addPage();
+
+        /* Découper la tranche correspondant à cette page */
+        var srcY   = i * pxPerPage;
+        var srcH   = Math.min(pxPerPage, canvasH - srcY);
+        if (srcH <= 0) break;
+
+        var sliceCanvas = document.createElement('canvas');
+        sliceCanvas.width  = canvasW;
+        sliceCanvas.height = srcH;
+        var ctx = sliceCanvas.getContext('2d');
+        ctx.drawImage(canvas, 0, srcY, canvasW, srcH, 0, 0, canvasW, srcH);
+
+        var imgData = sliceCanvas.toDataURL('image/jpeg', 0.93);
+        var sliceH  = srcH * ratio; /* hauteur de la tranche en mm */
+
+        pdf.addImage(imgData, 'JPEG', MARGIN, MARGIN, usableW, sliceH);
+      }
+
+      pdf.save('Fiche_UE444_Management.pdf');
+
+      /* 7. Restaurer */
+      nav.style.display = '';
+      btn.style.display = '';
       btn.disabled = false;
-      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M12 16V4M12 16l-4-4M12 16l4-4"/><path d="M4 20h16"/></svg> Télécharger PDF';
-    }
+      btn.innerHTML = [
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"',
+        ' stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"',
+        ' style="width:16px;height:16px">',
+        '<path d="M12 16V4M12 16l-4-4M12 16l4-4"/>',
+        '<path d="M4 20h16"/></svg> Télécharger PDF'
+      ].join('');
+
+    }).catch(function(err) {
+      console.error(err);
+      nav.style.display = '';
+      btn.style.display = '';
+      btn.disabled = false;
+      btn.innerHTML = '&#8681; Télécharger PDF';
+      alert('Erreur lors de la génération. Réessaie.');
+    });
   });
+
 })();
 </script>
 
