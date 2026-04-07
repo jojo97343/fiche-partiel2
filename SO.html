@@ -365,6 +365,13 @@ footer {
 
 #pdf-btn:active { transform: scale(0.97); }
 
+#pdf-btn:disabled {
+  background: #b8a060;
+  cursor: wait;
+  transform: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
 #pdf-btn svg {
   width: 16px; height: 16px;
   flex-shrink: 0;
@@ -1054,19 +1061,106 @@ footer {
   <footer>UE 442 – Droit des Sociétés · CNAM-INTEC · Sessions 2023, 2024, 2025</footer>
 </div>
 
+<!-- jsPDF + html2canvas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <!-- Bouton PDF flottant -->
-<button id="pdf-btn" title="Télécharger en PDF">
+<button id="pdf-btn" title="Télécharger la fiche complète en PDF">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M12 15V3m0 12-4-4m4 4 4-4"/>
     <path d="M2 17v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2"/>
   </svg>
-  Télécharger PDF
+  <span id="pdf-label">Télécharger PDF</span>
 </button>
 
 <script>
-  // PDF print
-  document.getElementById('pdf-btn').addEventListener('click', () => window.print());
+  // ── PDF GENERATION (html2canvas + jsPDF) ──
+  document.getElementById('pdf-btn').addEventListener('click', async () => {
+    const btn = document.getElementById('pdf-btn');
+    const label = document.getElementById('pdf-label');
 
+    // UI feedback
+    btn.disabled = true;
+    label.textContent = 'Génération…';
+
+    try {
+      // On cible uniquement .page (pas la nav, pas le bouton)
+      const content = document.querySelector('.page');
+
+      // Masquer temporairement le bouton lui-même
+      btn.style.display = 'none';
+
+      const canvas = await html2canvas(content, {
+        scale: 2,              // haute résolution
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#faf7f2',
+        windowWidth: 900,      // largeur fixe desktop pour rendu propre
+        scrollX: 0,
+        scrollY: 0,
+        width: content.scrollWidth,
+        height: content.scrollHeight,
+        ignoreElements: (el) => el.id === 'pdf-btn' // sécurité
+      });
+
+      btn.style.display = '';
+
+      const { jsPDF } = window.jspdf;
+      const imgData = canvas.toDataURL('image/jpeg', 0.92);
+
+      // Format A4 en mm
+      const pdfW = 210;
+      const pdfH = 297;
+      const margin = 8; // mm
+
+      const usableW = pdfW - margin * 2;
+      const imgPxW = canvas.width;
+      const imgPxH = canvas.height;
+
+      // Ratio px → mm
+      const ratio = usableW / imgPxW;
+      const imgMmH = imgPxH * ratio;
+
+      const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+      let yOffset = 0; // position en px dans l'image source
+      let pageNum = 0;
+
+      const pageHeightPx = (pdfH - margin * 2) / ratio; // hauteur d'une page en px source
+
+      while (yOffset < imgPxH) {
+        if (pageNum > 0) pdf.addPage();
+
+        // Crée un canvas temporaire pour découper la bande de cette page
+        const sliceH = Math.min(pageHeightPx, imgPxH - yOffset);
+        const sliceCanvas = document.createElement('canvas');
+        sliceCanvas.width = imgPxW;
+        sliceCanvas.height = sliceH;
+        const ctx = sliceCanvas.getContext('2d');
+        ctx.drawImage(canvas, 0, yOffset, imgPxW, sliceH, 0, 0, imgPxW, sliceH);
+
+        const sliceData = sliceCanvas.toDataURL('image/jpeg', 0.92);
+        const sliceMmH = sliceH * ratio;
+
+        pdf.addImage(sliceData, 'JPEG', margin, margin, usableW, sliceMmH);
+
+        yOffset += sliceH;
+        pageNum++;
+      }
+
+      pdf.save('UE442_Droit_Societes_Fiche.pdf');
+
+    } catch (err) {
+      console.error(err);
+      alert('Erreur lors de la génération du PDF. Essaie depuis un navigateur de bureau.');
+    }
+
+    btn.disabled = false;
+    label.textContent = 'Télécharger PDF';
+  });
+
+  // ── SCROLL-SPY ──
   // Scroll-spy : active tab follows reading position
   const tabs = document.querySelectorAll('#navTabs .menu-item');
   const sections = Array.from({length: 10}, (_, i) => document.getElementById('s' + (i + 1)));
